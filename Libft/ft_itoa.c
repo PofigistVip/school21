@@ -35,10 +35,9 @@ char		*ft_itoa(int n)
 		*str = '-';
 	while (n >= 10 || n <= -10)
 	{
-		str[size - 1] = (n % 10) * sign + '0';
-		--size;
+		str[--size] = (n % 10) * sign + '0';
 		n /= 10;
 	}
-	str[size - 1] = (n % 10) * sign + '0';
+	str[--size] = (n % 10) * sign + '0';
 	return (str);
 }
