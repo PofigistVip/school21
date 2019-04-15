@@ -19,7 +19,7 @@ t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 	t_list	*current;
 	t_list	*prev;
 
-	if (lst == NULL)
+	if (lst == NULL || f == NULL)
 		return (NULL);
 	start = f(lst);
 	current = start;
