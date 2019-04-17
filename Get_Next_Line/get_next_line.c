@@ -32,6 +32,8 @@ static t_fd_info	*fd_info_new(t_fd_info **start, const int fd)
 	return (new);
 }
 
+#include <stdio.h>
+
 static void			get_line_from_fd(t_fd_info *info, char **line, char* new_line_pos)
 {
 	size_t	len;
@@ -44,15 +46,19 @@ static void			get_line_from_fd(t_fd_info *info, char **line, char* new_line_pos)
 	*line = (char*)malloc(len + 1);
 	(*line)[len] = '\0';
 	ft_memcpy(*line, info->buff, len);
-	
 	if (new_line_pos == NULL)
-		++len;
-	info->length = info->length - len - 2;
-	temp = (char*)malloc(info->length);
-	ft_memcpy(temp, info->buff + len + 2, info->length);
+		--len;
+	info->length = info->length - len - 1;
+	if (info->length != 0)
+	{
+		temp = (char*)malloc(info->length);
+		ft_memcpy(temp, info->buff + len + 1, info->length);
+	}
 	free(info->buff);
 	info->buff = temp;
 }
+
+
 
 static char	*read_to_newl(t_fd_info *info, const int fd)
 {
@@ -62,7 +68,7 @@ static char	*read_to_newl(t_fd_info *info, const int fd)
 
 	while ((readed = read(fd, buff, BUFF_SIZE)) > 0)
 	{
-		//
+		//printf("Readed: %d ", readed);
 		info->buff = ft_realloc(info->buff, info->length, info->length + readed);
 		ft_memcpy(info->buff + info->length, buff, readed);
 		info->length += readed;
@@ -81,7 +87,7 @@ static char	*read_to_newl(t_fd_info *info, const int fd)
 		return (NULL);//ERROR
 }
 
-#include <stdio.h>
+
 
 int		get_next_line(const int fd, char **line)
 {

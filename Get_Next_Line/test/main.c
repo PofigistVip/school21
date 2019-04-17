@@ -19,8 +19,14 @@ int		main(void)
 	result = get_next_line(fd2, &readed_line);
 	printf("%s(%d): %s\n", name2, result, readed_line);
 
-	result = get_next_line(fd3, &readed_line);
-	printf("%s(%d): %s\n", name3, result, readed_line);
+	//result = get_next_line(fd3, &readed_line);
+	//printf("%s(%d): %s\n", name3, result, readed_line);
+
+	result = get_next_line(fd2, &readed_line);
+	printf("%s(%d): %s\n", name2, result, readed_line);
+
+	result = get_next_line(fd2, &readed_line);
+	printf("%s(%d): %s\n", name2, result, readed_line);
 
 	result = get_next_line(fd2, &readed_line);
 	printf("%s(%d): %s\n", name2, result, readed_line);
