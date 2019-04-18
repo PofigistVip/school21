@@ -7,6 +7,12 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_realloc(void *src, size_t old_size, size_t new_size);
 void	*ft_memchr(const void *s, int c, size_t n);
 
+static				void ft_putstr(char *str)
+{
+	while (*str)
+		write(1, str++, 1);
+}
+
 static t_fd_info	*get_fd_info(t_fd_info *start, const int fd)
 {
 	if (start == NULL)
@@ -28,6 +34,7 @@ static t_fd_info	*fd_info_new(t_fd_info **start, const int fd)
 	new->fd = fd;
 	new->next = *start;
 	new->length = 0;
+	new->error = 0;
 	*start = new;
 	return (new);
 }
@@ -68,7 +75,6 @@ static char	*read_to_newl(t_fd_info *info, const int fd)
 
 	while ((readed = read(fd, buff, BUFF_SIZE)) > 0)
 	{
-		//printf("Readed: %d ", readed);
 		info->buff = ft_realloc(info->buff, info->length, info->length + readed);
 		ft_memcpy(info->buff + info->length, buff, readed);
 		info->length += readed;
@@ -76,15 +82,12 @@ static char	*read_to_newl(t_fd_info *info, const int fd)
 		if (new_line_pos != NULL)
 			break ;
 	}
-	if (readed != 0)
+	if (readed > 0)
 		return (new_line_pos);
 	else if (readed	== 0)
-	{
-		//EOF
 		return (NULL);
-	}
-	else
-		return (NULL);//ERROR
+	info->error = 1;
+	return (NULL);//ERROR
 }
 
 
@@ -95,26 +98,32 @@ int		get_next_line(const int fd, char **line)
 	t_fd_info			*info;
 	char				*new_line_pos;
 
-	if (*line != NULL)
+	/*if (*line != NULL)
 	{
 		free(*line);
 		*line = NULL;
-	}
+	}*/
 	info = get_fd_info(start, fd);
 	if (info == NULL){
 		info = fd_info_new(&start, fd);
 	}
-	//printf("%d\n", info->length);
 	new_line_pos = (char*)ft_memchr(info->buff, (int)'\n', info->length);
 	if (new_line_pos == NULL)
 		new_line_pos = read_to_newl(info, fd);
 	if (new_line_pos == NULL && info->length == 0)
 	{
-		*line = "";
+		if ((*line = (char*)malloc(1)) == NULL)
+			return (-1);
+		**line = '\0';
 		return (0); //reading complete
 	}
+	if (info->error == 1)
+	{
+		if ((*line = (char*)malloc(1)) == NULL)
+			return (-1);
+		**line = '\0';
+		return (-1); //reading complete
+	}
 	get_line_from_fd(info, line, new_line_pos);
-	printf("Len: %d ", info->length);
-	//printf("BUFFER: %s, LEN: %d\n", info->buff, info->length);
 	return (1);
 }
