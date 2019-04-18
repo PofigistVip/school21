@@ -6,7 +6,7 @@
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 14:14:27 by larlyne           #+#    #+#             */
-/*   Updated: 2019/04/13 11:25:09 by larlyne          ###   ########.fr       */
+/*   Updated: 2019/04/14 09:33:05 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		ft_atoi(const char *str)
 		numb = numb * 10 + (str[i++] - '0');
 		if (numb < 0 && was_sign == 1)
 			return (-1);
-		else if (numb > 0 && was_sign == -1)
+		else if (numb < 0 && was_sign == -1)
 			return (0);
 	}
 	return ((int)numb * sign);

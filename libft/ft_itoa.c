@@ -6,7 +6,7 @@
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 10:56:03 by larlyne           #+#    #+#             */
-/*   Updated: 2019/04/13 14:04:31 by larlyne          ###   ########.fr       */
+/*   Updated: 2019/04/14 09:31:22 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,17 @@ char		*ft_itoa(int n)
 		size++;
 		num /= 10;
 	}
-	str = (char*)malloc(size + 1);
-	str[size] = '\0';
+	if ((str = (char*)ft_memalloc(size + 1)) == NULL)
+		return (NULL);
 	sign = (n < 0) ? -1 : 1;
 	if (n < 0)
 		*str = '-';
 	while (n >= 10 || n <= -10)
 	{
-		str[--size] = (n % 10) * sign + '0';
+		str[size - 1] = (n % 10) * sign + '0';
+		--size;
 		n /= 10;
 	}
-	str[--size] = (n % 10) * sign + '0';
+	str[size - 1] = (n % 10) * sign + '0';
 	return (str);
 }

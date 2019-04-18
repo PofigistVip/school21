@@ -6,7 +6,7 @@
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 14:36:35 by larlyne           #+#    #+#             */
-/*   Updated: 2019/04/09 09:04:20 by larlyne          ###   ########.fr       */
+/*   Updated: 2019/04/14 10:40:44 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	size_t	len;
 	char	*map;
 
-	if (s == NULL)
+	if (s == NULL || f == NULL)
 		return (NULL);
 	if ((len = ft_strlen(s)) == 0)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/13 13:56:33 by larlyne           #+#    #+#             */
-/*   Updated: 2019/04/13 13:57:28 by larlyne          ###   ########.fr       */
+/*   Updated: 2019/04/13 15:29:10 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	ft_setdefault_cols(int fd)
 {
-	ft_setcolors_fd(7, 0, fd);
+	ft_putstr_fd("\033[0m", fd);
 }
