@@ -1,17 +1,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "libft.h"
 #include "get_next_line.h"
-
-void	*ft_memcpy(void *dst, const void *src, size_t n);
-void	*ft_realloc(void *src, size_t old_size, size_t new_size);
-void	*ft_memchr(const void *s, int c, size_t n);
-
-static				void ft_putstr(char *str)
-{
-	while (*str)
-		write(1, str++, 1);
-}
 
 static t_fd_info	*get_fd_info(t_fd_info *start, const int fd)
 {
@@ -46,6 +37,7 @@ static void			get_line_from_fd(t_fd_info *info, char **line, char* new_line_pos)
 	size_t	len;
 	char	*temp;
 
+	temp = NULL;
 	if (new_line_pos == NULL)
 		len = info->length;
 	else
