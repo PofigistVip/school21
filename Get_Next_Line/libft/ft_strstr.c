@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include "libft.h"
 
 char	*ft_strstr(const char *haystack, const char *needle)
@@ -22,7 +23,7 @@ char	*ft_strstr(const char *haystack, const char *needle)
 	while (haystack[i])
 	{
 		if (needle[j] == '\0')
-			return ((char*)haystack + i - j);
+				return ((char*)haystack + i - j);
 		if (haystack[i] == needle[j])
 			++j;
 		else
@@ -33,6 +34,6 @@ char	*ft_strstr(const char *haystack, const char *needle)
 		++i;
 	}
 	if (needle[j] == '\0')
-		return ((char*)haystack + i - j);
+				return ((char*)haystack + i - j);
 	return (NULL);
 }

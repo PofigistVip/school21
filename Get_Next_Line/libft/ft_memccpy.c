@@ -22,11 +22,9 @@ void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 	csrc = (unsigned char*)src;
 	while (n--)
 	{
-		*cdst = *csrc;
-		if (*cdst == (unsigned char)c)
-			return (cdst + 1);
-		++cdst;
-		++csrc;
+		*cdst = *csrc++;
+		if (*cdst++ == (unsigned char)c)
+			return (cdst);
 	}
 	return (NULL);
 }
