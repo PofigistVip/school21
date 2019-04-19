@@ -19,20 +19,14 @@ char	*ft_strmap(char const *s, char (*f)(char))
 	size_t	len;
 	char	*map;
 
-	if (s == NULL || f == NULL)
+	if (s == NULL || f == NULL || (len = ft_strlen(s)) == 0 || len + 1 == 0)
 		return (NULL);
-	if ((len = ft_strlen(s)) == 0)
-		return (NULL);
-	if ((map = (char*)malloc(len + 1)) == NULL)
+	if ((map = (char*)malloc(len + 1)) == NULL)	
 		return (NULL);
 	map += len;
 	s += len;
 	*map = '\0';
 	while (len--)
-	{
-		--s;
-		--map;
-		*map = f(*s);
-	}
+		*(--map) = f(*(--s));
 	return (map);
 }

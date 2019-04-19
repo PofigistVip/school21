@@ -24,19 +24,15 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
+	if (len1 + len2 + 1 == 0)
+		return (NULL);
 	if ((str = (char*)malloc(len1 + len2 + 1)) == NULL)
 		return (NULL);
 	str = str + len1 + len2;
 	*str = '\0';
 	while (len2)
-	{
-		--str;
-		*str = s2[--len2];
-	}
+		*(--str) = s2[--len2];
 	while (len1)
-	{
-		--str;
-		*str = s1[--len1];
-	}
+		*(--str) = s1[--len1];
 	return (str);
 }

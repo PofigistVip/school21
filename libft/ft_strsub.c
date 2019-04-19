@@ -17,21 +17,14 @@
 char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
 	char	*str;
-	char	*s_ptr;
-	char	*sub_ptr;
 
 	if (s == NULL)
 		return (NULL);
+	if (len + 1 == 0)
+		return (NULL);
 	if ((str = (char*)malloc(len + 1)) == NULL)
 		return (NULL);
-	s_ptr = (char*)s + start;
-	sub_ptr = str;
-	while (len--)
-	{
-		*sub_ptr = *s_ptr;
-		++sub_ptr;
-		++s_ptr;
-	}
-	*sub_ptr = '\0';
+	ft_memcpy((void*)str, (const void*)s + start, len);
+	*(str + len) = '\0';
 	return (str);
 }

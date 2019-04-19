@@ -17,17 +17,12 @@
 char	*ft_strdup(const char *s1)
 {
 	size_t	len;
-	size_t	i;
 	char	*arr;
 
-	len = ft_strlen(s1);
+	if ((len = ft_strlen(s1)) + 1 == 0)
+		return (NULL);
 	if ((arr = (char*)malloc(len + 1)) == NULL)
 		return (NULL);
-	i = 0;
-	while (i <= len)
-	{
-		arr[i] = s1[i];
-		++i;
-	}
+	ft_memcpy((void*)arr, (void*)s1, len + 1);
 	return (arr);
 }
