@@ -14,42 +14,27 @@
 #include <string.h>
 #include "libft.h"
 
-static size_t	ft_space_start_count(char const *s)
+static char		ft_is_trim_space(char c)
 {
-	size_t	at_start;
-
-	at_start = 0;
-	while (*s && (*s == ' ' || *s == '\n' || *s == '\t'))
-	{
-		++at_start;
-		++s;
-	}
-	return (at_start);
+	if (c == ' ' || c == '\n' || c == '\t')
+		return (1);
+	return (0);
 }
 
 char			*ft_strtrim(char const *s)
 {
 	char	*str;
-	size_t	len;
-	size_t	at_start;
-	size_t	at_end;
-	size_t	i;
+	char	*start;
+	char	*end;
 
-	if (s == NULL)
-		return (NULL);
-	len = ft_strlen(s);
-	at_end = 0;
-	at_start = ft_space_start_count(s);
-	i = len - 1;
-	if (at_start != len)
-		while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
-		{
-			--i;
-			++at_end;
-		}
-	if ((str = (char*)malloc(len - at_start - at_end + 1)) == NULL)
-		return (NULL);
-	ft_memcpy(str, s + at_start, len - at_start - at_end);
-	str[len - at_start - at_end] = '\0';
+	start = s;
+	end = s + ft_strlen(s) - 1;
+	while (ft_is_trim_space(*start))
+		++start;
+	while (end >= s && ft_is_trim_space(*end))
+		--end;
+	if (end < start)
+		return (ft_strnew(1));
+	str = ft_strsub(s, start - s, end - start + 1);
 	return (str);
 }
