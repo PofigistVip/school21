@@ -6,7 +6,7 @@
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 14:41:35 by larlyne           #+#    #+#             */
-/*   Updated: 2019/04/09 11:29:41 by larlyne          ###   ########.fr       */
+/*   Updated: 2019/04/20 10:37:05 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ char			*ft_strtrim(char const *s)
 	char	*start;
 	char	*end;
 
+	if (s == NULL)
+		return (NULL);
 	start = s;
 	end = s + ft_strlen(s) - 1;
 	while (ft_is_trim_space(*start))
