@@ -32,7 +32,7 @@ static int		get_next_line_get(t_fd_buffer *info, char *new_line_pos,
 	if (pos == info->length)
 	{
 		free(info->buff);
-		info->buff = "";
+		info->buff = ft_strnew(1);
 		info->length = 0;
 	}
 	else
@@ -50,7 +50,7 @@ static int		get_next_line_get(t_fd_buffer *info, char *new_line_pos,
 static int		get_next_line_read(t_fd_buffer *info, char **line)
 {
 	char	*buff[BUFF_SIZE];
-	int		readed;
+	long	readed;
 	char	*new_line_pos;
 
 	new_line_pos = ft_memchr(info->buff, (int)'\n', info->length);
@@ -94,7 +94,6 @@ int				get_next_line(const int fd, char **line)
 	current->length = 0;
 	current->fd = fd;
 	current->next = start;
-	if (start == NULL)
-		start = current;
+	start = current;
 	return (get_next_line_read(current, line));
 }
