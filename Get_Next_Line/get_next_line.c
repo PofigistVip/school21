@@ -16,56 +16,93 @@
 #include "libft.h"
 #include "get_next_line.h"
 
-static int		ft_new_line(char **s, char **line, int fd, int ret)
-{
-	char	*tmp;
-	int		len;
+#include <stdio.h>
 
-	len = 0;
-	while (s[fd][len] != '\n' && s[fd][len] != '\0')
-		len++;
-	if (s[fd][len] == '\n')
+static int		get_next_line_get(t_fd_buffer *info, char *new_line_pos,
+	char **line, int it)
+{
+	char	*temp;
+	size_t	pos;
+
+	if (new_line_pos == NULL)
+			pos = info->length;
+	else
+		pos = new_line_pos - info->buff;
+	if ((*line = (char*)malloc(pos + 1)) == NULL)
+			return (-1);
+	ft_memcpy(*line, info->buff, pos);
+	
+	*((*line) + pos) = '\0';
+	if (pos == info->length)
 	{
-		*line = ft_strsub(s[fd], 0, len);
-		tmp = ft_strdup(s[fd] + len + 1);
-		free(s[fd]);
-		s[fd] = tmp;
-		if (s[fd][0] == '\0')
-			ft_strdel(&s[fd]);
+		free(info->buff);
+		info->buff = "";
 	}
-	else if (s[fd][len] == '\0')
+	else
 	{
-		if (ret == BUFF_SIZE)
-			return (get_next_line(fd, line));
-		*line = ft_strdup(s[fd]);
-		ft_strdel(&s[fd]);
+		if ((temp = (char*)malloc(info->length - pos - 1)) == NULL)
+			return (-1);
+		ft_memcpy(temp, new_line_pos + 1, info->length - pos - 1);
+		free(info->buff);
+		info->buff = temp;
 	}
 	return (1);
 }
 
-int				get_next_line(const int fd, char **line)
+static int		get_next_line_read(t_fd_buffer *info, char **line, int it)
 {
-	static char	*s[256];
-	char		buf[BUFF_SIZE + 1];
-	char		*tmp;
-	int			ret;
+	char	*buff[BUFF_SIZE];
+	int		readed;
+	char	*new_line_pos;
+
+
+	new_line_pos = ft_memchr(info->buff, (int)'\n', info->length);
+	
+	if (new_line_pos != NULL)
+		return (get_next_line_get(info, new_line_pos, line, it));
+	if (it == 1)
+		return (0);
+	while ((readed = read(info->fd, buff, BUFF_SIZE)) > 0)
+	{
+		if ((info->buff = ft_realloc(info->buff, info->length,
+			info->length + readed)) == NULL)
+			return (-1);
+		
+		ft_memcpy(info->buff + info->length, buff, readed);
+		info->length += readed;
+		new_line_pos = ft_memchr(info->buff, (int)'\n', info->length);
+		if (new_line_pos != NULL)
+			break ;
+	}
+	
+	if (readed < 0)
+		return (-1);
+	if (readed == 0 && info->length == 0)
+		return (0);
+	return (get_next_line_get(info, new_line_pos, line, it));
+}
+
+int				get_next_line(const int fd, char **line, int it)
+{
+	static t_fd_buffer	*start;
+	t_fd_buffer			*current;
 
 	if (fd < 0 || line == NULL)
 		return (-1);
-	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
+	current = start;
+	while (current)
 	{
-		buf[ret] = '\0';
-		if (s[fd] == NULL)
-			s[fd] = ft_strnew(1);
-		tmp = ft_strjoin(s[fd], buf);
-		free(s[fd]);
-		s[fd] = tmp;
-		if (ft_strchr(buf, '\n'))
-			break ;
+		if (current->fd == fd)
+			return (get_next_line_read(current, line, it));
+		current = current->next;
 	}
-	if (ret < 0)
+	current = (t_fd_buffer*)malloc(sizeof(t_fd_buffer));
+	if ((current->buff = ft_strnew(1)) == NULL)
 		return (-1);
-	else if (ret == 0 && (s[fd] == NULL || s[fd][0] == '\0'))
-		return (0);
-	return (ft_new_line(s, line, fd, ret));
+	current->length = 0;
+	current->fd = fd;
+	current->next = start;
+	if (start == NULL)
+		start = current;
+	return (get_next_line_read(current, line, it));
 }

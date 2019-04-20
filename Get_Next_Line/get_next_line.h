@@ -12,8 +12,17 @@
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 256
+# define BUFF_SIZE 20
+# include <string.h>
 
-int		get_next_line(const int fd, char **line);
+typedef struct	s_fd_buffer
+{
+	char				*buff;
+	size_t				length;
+	int					fd;
+	struct s_fd_buffer	*next;
+}				t_fd_buffer;
+
+int		get_next_line(const int fd, char **line, int it);
 
 #endif
