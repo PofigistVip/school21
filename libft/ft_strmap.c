@@ -6,7 +6,7 @@
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 14:23:24 by larlyne           #+#    #+#             */
-/*   Updated: 2019/04/14 10:32:44 by larlyne          ###   ########.fr       */
+/*   Updated: 2019/04/20 10:21:49 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strmap(char const *s, char (*f)(char))
 
 	if (s == NULL || f == NULL || (len = ft_strlen(s)) == 0 || len + 1 == 0)
 		return (NULL);
-	if ((map = (char*)malloc(len + 1)) == NULL)	
+	if ((map = (char*)malloc(len + 1)) == NULL)
 		return (NULL);
 	map += len;
 	s += len;
