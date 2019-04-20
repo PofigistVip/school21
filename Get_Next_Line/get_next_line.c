@@ -1,121 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/20 12:25:34 by larlyne           #+#    #+#             */
+/*   Updated: 2019/04/20 12:25:44 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include "libft.h"
 #include "get_next_line.h"
 
-static t_fd_info	*get_fd_info(t_fd_info *start, const int fd)
+static int		ft_new_line(char **s, char **line, int fd, int ret)
 {
-	if (start == NULL)
-		return (NULL);
-	while (start)
+	char	*tmp;
+	int		len;
+
+	len = 0;
+	while (s[fd][len] != '\n' && s[fd][len] != '\0')
+		len++;
+	if (s[fd][len] == '\n')
 	{
-		if (start->fd == fd)
-			return (start);
-		start = start->next;
+		*line = ft_strsub(s[fd], 0, len);
+		tmp = ft_strdup(s[fd] + len + 1);
+		free(s[fd]);
+		s[fd] = tmp;
+		if (s[fd][0] == '\0')
+			ft_strdel(&s[fd]);
 	}
-	return (NULL);
-}
-
-static t_fd_info	*fd_info_new(t_fd_info **start, const int fd)
-{
-	t_fd_info	*new;
-
-	new = (t_fd_info*)malloc(sizeof(t_fd_info));
-	new->fd = fd;
-	new->next = *start;
-	new->length = 0;
-	new->error = 0;
-	*start = new;
-	return (new);
-}
-
-#include <stdio.h>
-
-static void			get_line_from_fd(t_fd_info *info, char **line, char* new_line_pos)
-{
-	size_t	len;
-	char	*temp;
-
-	temp = NULL;
-	if (new_line_pos == NULL)
-		len = info->length;
-	else
-		len = new_line_pos - info->buff;
-	*line = (char*)malloc(len + 1);
-	(*line)[len] = '\0';
-	ft_memcpy(*line, info->buff, len);
-	if (new_line_pos == NULL)
-		--len;
-	info->length = info->length - len - 1;
-	if (info->length != 0)
+	else if (s[fd][len] == '\0')
 	{
-		temp = (char*)malloc(info->length);
-		ft_memcpy(temp, info->buff + len + 1, info->length);
+		if (ret == BUFF_SIZE)
+			return (get_next_line(fd, line));
+		*line = ft_strdup(s[fd]);
+		ft_strdel(&s[fd]);
 	}
-	free(info->buff);
-	info->buff = temp;
+	return (1);
 }
 
-
-
-static char	*read_to_newl(t_fd_info *info, const int fd)
+int				get_next_line(const int fd, char **line)
 {
-	char	buff[BUFF_SIZE];
-	int		readed;
-	char	*new_line_pos;
+	static char	*s[256];
+	char		buf[BUFF_SIZE + 1];
+	char		*tmp;
+	int			ret;
 
-	while ((readed = read(fd, buff, BUFF_SIZE)) > 0)
+	if (fd < 0 || line == NULL)
+		return (-1);
+	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
-		info->buff = ft_realloc(info->buff, info->length, info->length + readed);
-		ft_memcpy(info->buff + info->length, buff, readed);
-		info->length += readed;
-		new_line_pos = (char*)ft_memchr(info->buff, (int)'\n', info->length);
-		if (new_line_pos != NULL)
+		buf[ret] = '\0';
+		if (s[fd] == NULL)
+			s[fd] = ft_strnew(1);
+		tmp = ft_strjoin(s[fd], buf);
+		free(s[fd]);
+		s[fd] = tmp;
+		if (ft_strchr(buf, '\n'))
 			break ;
 	}
-	if (readed > 0)
-		return (new_line_pos);
-	else if (readed	== 0)
-		return (NULL);
-	info->error = 1;
-	return (NULL);//ERROR
-}
-
-
-
-int		get_next_line(const int fd, char **line)
-{
-	static t_fd_info	*start;
-	t_fd_info			*info;
-	char				*new_line_pos;
-
-	/*if (*line != NULL)
-	{
-		free(*line);
-		*line = NULL;
-	}*/
-	info = get_fd_info(start, fd);
-	if (info == NULL){
-		info = fd_info_new(&start, fd);
-	}
-	new_line_pos = (char*)ft_memchr(info->buff, (int)'\n', info->length);
-	if (new_line_pos == NULL)
-		new_line_pos = read_to_newl(info, fd);
-	if (new_line_pos == NULL && info->length == 0)
-	{
-		if ((*line = (char*)malloc(1)) == NULL)
-			return (-1);
-		**line = '\0';
-		return (0); //reading complete
-	}
-	if (info->error == 1)
-	{
-		if ((*line = (char*)malloc(1)) == NULL)
-			return (-1);
-		**line = '\0';
-		return (-1); //reading complete
-	}
-	get_line_from_fd(info, line, new_line_pos);
-	return (1);
+	if (ret < 0)
+		return (-1);
+	else if (ret == 0 && (s[fd] == NULL || s[fd][0] == '\0'))
+		return (0);
+	return (ft_new_line(s, line, fd, ret));
 }

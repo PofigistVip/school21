@@ -1,3 +1,0 @@
-I'm text2.txt
-Hello!
-How are you?

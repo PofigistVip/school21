@@ -6,7 +6,7 @@
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 14:56:28 by larlyne           #+#    #+#             */
-/*   Updated: 2019/04/09 13:10:03 by larlyne          ###   ########.fr       */
+/*   Updated: 2019/04/20 10:23:09 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char			**ft_strsplit(char const *s, char c)
 		if (current_len != 0)
 		{
 			if ((word_arr[j++] = ft_put_word(s, current_len)) == NULL)
-				return (ft_free_char_arr(word_arr, j-1));
+				return (ft_free_char_arr(word_arr, j - 1));
 			s += current_len;
 		}
 		else

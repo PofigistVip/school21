@@ -1,4 +1,0 @@
-I'm text1.txt
-I have an empty line next
-
-Previous line was empty?
