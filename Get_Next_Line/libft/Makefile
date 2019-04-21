@@ -6,12 +6,12 @@
 #    By: larlyne <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/07 13:38:08 by larlyne           #+#    #+#              #
-#    Updated: 2019/04/14 10:26:05 by larlyne          ###   ########.fr        #
+#    Updated: 2019/04/21 10:45:10 by larlyne          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=libft.a
-CFLAGS=-Wall -Wextra -Werror -std=c99
+CFLAGS=-Wall -Wextra -Werror
 SRCS=ft_memset.c \
 	 ft_bzero.c \
 	 ft_memcpy.c \
