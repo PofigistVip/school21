@@ -6,13 +6,13 @@
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 12:25:57 by larlyne           #+#    #+#             */
-/*   Updated: 2019/04/20 12:26:04 by larlyne          ###   ########.fr       */
+/*   Updated: 2019/04/21 10:28:21 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 512
+# define BUFF_SIZE 1024
 # include <string.h>
 
 typedef struct	s_fd_buffer
