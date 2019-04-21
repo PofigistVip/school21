@@ -6,7 +6,7 @@
 #    By: larlyne <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/07 13:38:08 by larlyne           #+#    #+#              #
-#    Updated: 2019/04/21 10:45:10 by larlyne          ###   ########.fr        #
+#    Updated: 2019/04/21 11:09:52 by larlyne          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,7 @@ OBJS=$(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME):
-	@gcc -I . -c $(SRCS)
+	@gcc -I includes/ -c $(SRCS)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 
