@@ -105,4 +105,34 @@ long			ft_pos_power(int nb, unsigned int power);
 void			*ft_realloc(void *src, size_t old_size, size_t new_size);
 void			ft_putnchar_fd(char *str, size_t n, int fd);
 void			ft_putnchar(char *str, size_t n);
+
+/*
+ *	larlyne's list
+ */
+
+typedef struct	s_llist	t_llist;
+
+struct			s_llist
+{
+	size_t	content_size;
+	size_t	count;
+	t_llist	*start;
+}
+
+typedef struct s_llist_elem t_llist_elem;
+
+struct			s_llist_elem
+{
+	void			*content;
+	t_llist_elem	*prev;
+	t_llist_elem	*next;
+}
+
+t_llist			*llist_create(size_t content_size);
+void			llist_add(t_llist *llist, void *content);
+void			*llist_get(t_llist *llist, size_t index);
+void			llist_remove(t_llist *llist, size_t index);
+void			llist_clear(t_llist *llist);
+void			llist_destroy(t_llist **llist);
+
 #endif
