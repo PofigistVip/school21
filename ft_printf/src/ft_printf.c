@@ -1,5 +1,6 @@
 
 #include <stdarg.h>
+#include "libft.h"
 #include "ft_printf.h"
 
 int is_conversion_specifier(char c)
@@ -15,15 +16,20 @@ int		ft_printf(const char *format, ...)
 {
 	int		i;
 	int		n;
+	int		count;
 
 	i = 0;
 	n = 0;
+	count = 0;
 	while (format[i])
 	{
 		if (format[i] == '%')
 		{
 			if (n != 0)
+			{
 				ft_putnchar(format + i - n - 1, n);
+				count += n;
+			}
 			n = 0;
 			while (!is_conversion_specifier(format[++i]))
 			{
@@ -34,4 +40,5 @@ int		ft_printf(const char *format, ...)
 			++n;
 		++i;
 	}
+	return (count);
 }

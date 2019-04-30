@@ -13,7 +13,21 @@
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+# include <string.h>
 
-int		ft_printf(const char *format, ...);
+typedef struct	s_pelement
+{
+	char	type;
+	void	*content;
+}				t_pelemet;
+
+typedef struct	s_pe_rawstring
+{
+	char	*start;
+	size_t	n;
+}				t_pe_rawstring;
+
+
+int				ft_printf(const char *format, ...);
 
 #endif
