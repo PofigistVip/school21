@@ -17,6 +17,8 @@ t_llist		*ft_llist_create(size_t content_size)
 {
 	t_list	*list;
 
+	if (content_size == 0)
+		return (NULL);
 	if ((list = (t_list*)malloc(sizeof(t_list))) == NULL)
 		return (NULL);
 	list->content_size = content_size;
