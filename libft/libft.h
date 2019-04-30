@@ -131,10 +131,10 @@ struct			s_llist_elem
 
 t_llist			*ft_llist_create(size_t content_size);
 t_llist_elem	*ft_llist_elem_new(void *content, size_t content_size);
-void			ft_llist_add(t_llist *llist, void *content);
+int				ft_llist_add(t_llist *llist, void *content);
 void			*ft_llist_get(t_llist *llist, size_t index);
 void			ft_llist_remove(t_llist *llist, size_t index);
 void			ft_llist_clear(t_llist *llist);
-void			ft_llist_destroy(t_llist **llist);
+void			ft_llist_destroy(t_llist **llist, (*cont_destroy)(void*));
 
 #endif
