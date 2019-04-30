@@ -114,9 +114,10 @@ typedef struct	s_llist	t_llist;
 
 struct			s_llist
 {
-	size_t	content_size;
-	size_t	count;
-	t_llist	*start;
+	size_t			content_size;
+	size_t			count;
+	t_llist_elem	*start;
+	t_llist_elem	*end;
 }
 
 typedef struct s_llist_elem t_llist_elem;
@@ -128,11 +129,11 @@ struct			s_llist_elem
 	t_llist_elem	*next;
 }
 
-t_llist			*llist_create(size_t content_size);
-void			llist_add(t_llist *llist, void *content);
-void			*llist_get(t_llist *llist, size_t index);
-void			llist_remove(t_llist *llist, size_t index);
-void			llist_clear(t_llist *llist);
-void			llist_destroy(t_llist **llist);
+t_llist			*ft_llist_create(size_t content_size);
+void			ft_llist_add(t_llist *llist, void *content);
+void			*ft_llist_get(t_llist *llist, size_t index);
+void			ft_llist_remove(t_llist *llist, size_t index);
+void			ft_llist_clear(t_llist *llist);
+void			ft_llist_destroy(t_llist **llist);
 
 #endif
