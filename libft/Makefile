@@ -78,7 +78,14 @@ SRCS=ft_memset.c \
 	 ft_setbackground_fd.c \
 	 ft_setdefault_cols.c \
 	 ft_pos_power.c \
-	 ft_realloc.c
+	 ft_realloc.c \
+	 ft_llist_create.c \
+	 ft_llist_elem_new.c \
+	 ft_llist_add.c \
+	 ft_llist_get.c \
+	 ft_llist_remove.c \
+	 ft_llist_clear.c \
+	 ft_llist_destroy.c
 
 OBJS=$(SRCS:.c=.o)
 
