@@ -1,9 +1,9 @@
 
-
+#include <stdlib.h>
 #include <string.h>
 #include "libft.h"
 
-void	ft_llist_remove(t_llist *llist, size_t index, (*cont_destroy)(void*))
+void	ft_llist_remove(t_llist *llist, size_t index, void (*cont_destroy)(void*))
 {
 	t_llist_elem	*elem;
 
@@ -19,7 +19,7 @@ void	ft_llist_remove(t_llist *llist, size_t index, (*cont_destroy)(void*))
 		llist->start = elem->next;
 		elem->next->prev = NULL;
 	}
-	if (index == count)
+	if (index == llist->count)
 	{
 		llist->end = elem->prev;
 		elem->prev->next = NULL;

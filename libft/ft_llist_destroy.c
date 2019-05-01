@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include <stdio.h>
 #include "libft.h"
 
-void	ft_llist_destroy(t_llist **llist), (*cont_destroy)(void*))
+void	ft_llist_destroy(t_llist **llist, void (*cont_destroy)(void*))
 {
 	t_llist_elem	*elem;
 	t_llist_elem	*temp;

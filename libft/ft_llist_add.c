@@ -24,7 +24,7 @@ int		ft_llist_add(t_llist *llist, void *content)
 	if (llist->start == NULL)
 	{
 		llist->start = elem;
-		llist->end = start;
+		llist->end = elem;
 	}
 	else
 	{

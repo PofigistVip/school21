@@ -112,29 +112,29 @@ void			ft_putnchar(char *str, size_t n);
 
 typedef struct	s_llist	t_llist;
 
+typedef struct s_llist_elem t_llist_elem;
+
 struct			s_llist
 {
 	size_t			content_size;
 	size_t			count;
 	t_llist_elem	*start;
 	t_llist_elem	*end;
-}
-
-typedef struct s_llist_elem t_llist_elem;
+};
 
 struct			s_llist_elem
 {
 	void			*content;
 	t_llist_elem	*prev;
 	t_llist_elem	*next;
-}
+};
 
 t_llist			*ft_llist_create(size_t content_size);
 t_llist_elem	*ft_llist_elem_new(void *content, size_t content_size);
 int				ft_llist_add(t_llist *llist, void *content);
 void			*ft_llist_get(t_llist *llist, size_t index);
-void			ft_llist_remove(t_llist *llist, size_t index, (*cont_destroy)(void*));
-void			ft_llist_clear(t_llist *llist, (*cont_destroy)(void*));
-void			ft_llist_destroy(t_llist **llist, (*cont_destroy)(void*));
+void			ft_llist_remove(t_llist *llist, size_t index, void (*cont_destroy)(void*));
+void			ft_llist_clear(t_llist *llist, void (*cont_destroy)(void*));
+void			ft_llist_destroy(t_llist **llist, void (*cont_destroy)(void*));
 
 #endif

@@ -10,20 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include <string.h>
 #include "libft.h"
 
 t_llist		*ft_llist_create(size_t content_size)
 {
-	t_list	*list;
+	t_llist	*llist;
 
 	if (content_size == 0)
 		return (NULL);
-	if ((list = (t_list*)malloc(sizeof(t_list))) == NULL)
+	if ((llist = (t_llist*)malloc(sizeof(t_llist))) == NULL)
 		return (NULL);
-	list->content_size = content_size;
-	list->count = 0;
-	list->start = NULL;
-	list->end = NULL;
-	return (list);
+	llist->content_size = content_size;
+	llist->count = 0;
+	llist->start = NULL;
+	llist->end = NULL;
+	return (llist);
 }
