@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_llist_create.c                                  :+:      :+:    :+:   */
+/*   ft_lstr_add_s.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 11:39:11 by larlyne           #+#    #+#             */
-/*   Updated: 2019/04/30 11:39:13 by larlyne          ###   ########.fr       */
+/*   Created: 2019/05/02 11:45:25 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/02 11:45:29 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <string.h>
 #include "libft.h"
 
-t_llist		*ft_llist_create(size_t content_size)
+int		ft_lstr_add_s(t_lstr *lstr, char *str)
 {
-	t_llist	*llist;
+	size_t	len;
 
-	if (content_size == 0)
-		return (NULL);
-	if ((llist = (t_llist*)malloc(sizeof(t_llist))) == NULL)
-		return (NULL);
-	llist->content_size = content_size;
-	llist->count = 0;
-	llist->start = NULL;
-	llist->end = NULL;
-	return (llist);
+	if (lstr == NULL)
+		return (0);
+	len = ft_strlen(str);
+	if (lstr->capacity - 1 < lstr->length + len)
+		if (ft_lstr_resize(lstr->length + len) == 0)
+			return (0);
+	ft_memcpy(lstr->str + lstr->length, str, len);
+	lstr->length += len;
+	lstr->str[lstr->length] = '\0';
+	return (1);
 }

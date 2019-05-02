@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_llist_create.c                                  :+:      :+:    :+:   */
+/*   ft_lstr_new.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 11:39:11 by larlyne           #+#    #+#             */
-/*   Updated: 2019/04/30 11:39:13 by larlyne          ###   ########.fr       */
+/*   Created: 2019/05/02 12:02:55 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/02 12:03:00 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 #include "libft.h"
 
-t_llist		*ft_llist_create(size_t content_size)
+t_lstr	*ft_lstr_new(char c, size_t n)
 {
-	t_llist	*llist;
+	t_lstr	*lstr;
 
-	if (content_size == 0)
+	if ((lstr = (t_lstr*)malloc(sizeof(t_lstr))) == NULL)
 		return (NULL);
-	if ((llist = (t_llist*)malloc(sizeof(t_llist))) == NULL)
+	if ((lstr->str = ft_strnew(n)) == NULL)
+	{
+		free(lstr);
 		return (NULL);
-	llist->content_size = content_size;
-	llist->count = 0;
-	llist->start = NULL;
-	llist->end = NULL;
-	return (llist);
+	}
+	ft_memset(lstr->str, c, n);
+	lstr->length = n;
+	lstr->capacity = n + 1;
+	return (lstr);
 }
