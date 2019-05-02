@@ -107,8 +107,8 @@ void			ft_putnchar_fd(char *str, size_t n, int fd);
 void			ft_putnchar(char *str, size_t n);
 
 /*
- *	larlyne's string
- */
+** larlyne's string
+*/
 
 typedef struct	s_lstr
 {
@@ -117,22 +117,27 @@ typedef struct	s_lstr
 	int		capacity;
 }				t_lstr;
 
-t_lstr			*ft_lstr_empty();
+t_lstr			*ft_lstr_empty(void);
 t_lstr			*ft_lstr_new(char c, size_t n);
 t_lstr			*ft_lstr_from_raw(char *str);
-void			ft_lstr_add_c(t_lstr *lstr, char c);
-void			ft_lstr_add_s(t_lstr *lstr, char *str);
+int				ft_lstr_resize(t_lstr *lstr, int new_length);
+int				ft_lstr_add_c(t_lstr *lstr, char c);
+int				ft_lstr_add_s(t_lstr *lstr, char *str);
 int				ft_lstr_indexof_c(t_lstr *lstr, char c);
-int				ft_lstr_indexof_s(t_lstr *lstr, char *str);
-void			*ft_lstr_destroy(t_lstr **lstr);
+/*
+**				ft_lstr_indexof_s(t_lstr *lstr, char *str);
+*/
+void			ft_lstr_destroy(t_lstr **lstr);
+void			ft_lstr_put_fd(t_lstr *lstr, int fd);
+void			ft_lstr_put(t_lstr *lstr);
 
 /*
- *	larlyne's list
- */
+** larlyne's list
+*/
 
-typedef struct s_llist	t_llist;
+typedef struct s_llist			t_llist;
 
-typedef struct s_llist_elem t_llist_elem;
+typedef struct s_llist_elem		t_llist_elem;
 
 struct			s_llist
 {
@@ -153,7 +158,8 @@ t_llist			*ft_llist_create(size_t content_size);
 t_llist_elem	*ft_llist_elem_new(void *content, size_t content_size);
 int				ft_llist_add(t_llist *llist, void *content);
 void			*ft_llist_get(t_llist *llist, size_t index);
-void			ft_llist_remove(t_llist *llist, size_t index, void (*cont_destroy)(void*));
+void			ft_llist_remove(t_llist *llist, size_t index,
+					void (*cont_destroy)(void*));
 void			ft_llist_clear(t_llist *llist, void (*cont_destroy)(void*));
 void			ft_llist_destroy(t_llist **llist, void (*cont_destroy)(void*));
 

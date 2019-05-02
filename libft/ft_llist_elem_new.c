@@ -22,7 +22,7 @@ t_llist_elem	*ft_llist_elem_new(void *content, size_t content_size)
 		return (NULL);
 	if ((elem->content = malloc(content_size)) == NULL)
 	{
-		free (elem);
+		free(elem);
 		return (NULL);
 	}
 	ft_memcpy(elem->content, content, content_size);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_llist_create.c                                  :+:      :+:    :+:   */
+/*   ft_lstr_resize.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 11:39:11 by larlyne           #+#    #+#             */
-/*   Updated: 2019/04/30 11:39:13 by larlyne          ###   ########.fr       */
+/*   Created: 2019/05/02 11:38:45 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/02 11:38:47 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 #include <string.h>
 #include "libft.h"
 
-t_llist		*ft_llist_create(size_t content_size)
+int		ft_lstr_resize(t_lstr *lstr, int new_length)
 {
-	t_llist	*llist;
+	char	*str;
 
-	if (content_size == 0)
-		return (NULL);
-	if ((llist = (t_llist*)malloc(sizeof(t_llist))) == NULL)
-		return (NULL);
-	llist->content_size = content_size;
-	llist->count = 0;
-	llist->start = NULL;
-	llist->end = NULL;
-	return (llist);
+	if (lstr == NULL || new_length + 1 <= 0)
+		return (0);
+	str = ft_realloc(lstr->str, lstr->length, new_length + 1);
+	if (str == NULL)
+		return (0);
+	lstr->capacity = new_length + 1;
+	lstr->str = str;
+	return (1);
 }

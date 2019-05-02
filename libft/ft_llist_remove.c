@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_llist_remove.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/02 12:05:29 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/02 12:05:33 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdlib.h>
 #include <string.h>
 #include "libft.h"
 
-void	ft_llist_remove(t_llist *llist, size_t index, void (*cont_destroy)(void*))
+void	ft_llist_remove(t_llist *llist, size_t index,
+			void (*cont_destroy)(void*))
 {
 	t_llist_elem	*elem;
 
@@ -24,7 +36,7 @@ void	ft_llist_remove(t_llist *llist, size_t index, void (*cont_destroy)(void*))
 		llist->end = elem->prev;
 		elem->prev->next = NULL;
 	}
-	else if (index > 0) // && index != count
+	else if (index > 0)
 	{
 		elem->prev->next = elem->next;
 		elem->next->prev = elem->prev;
