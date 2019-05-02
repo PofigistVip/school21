@@ -72,8 +72,11 @@ t_llist		*parse_format(const char *format)
 			el->conv_type = *format;
 			//ft_llist_add(llist, el);
 		}
+		else
+			++n;
+		
 		++format;
-		++n;
+		
 	}
 	if (n != 0)
 	{
