@@ -23,5 +23,6 @@ libft:
 
 stest:
 	@gcc -o $(STESTNAME) simple_test.c $(SRC) -I $(INC) -I $(LIBFT) -L $(LIBFT) -lft
+	@make -C $(LIBFT) fclean
 
 .PHONY: libft stest all
