@@ -107,10 +107,30 @@ void			ft_putnchar_fd(char *str, size_t n, int fd);
 void			ft_putnchar(char *str, size_t n);
 
 /*
+ *	larlyne's string
+ */
+
+typedef struct	s_lstr
+{
+	char	*str;
+	int		length;
+	int		capacity;
+}				t_lstr;
+
+t_lstr			*ft_lstr_empty();
+t_lstr			*ft_lstr_new(char c, size_t n);
+t_lstr			*ft_lstr_from_raw(char *str);
+void			ft_lstr_add_c(t_lstr *lstr, char c);
+void			ft_lstr_add_s(t_lstr *lstr, char *str);
+int				ft_lstr_indexof_c(t_lstr *lstr, char c);
+int				ft_lstr_indexof_s(t_lstr *lstr, char *str);
+void			*ft_lstr_destroy(t_lstr **lstr);
+
+/*
  *	larlyne's list
  */
 
-typedef struct	s_llist	t_llist;
+typedef struct s_llist	t_llist;
 
 typedef struct s_llist_elem t_llist_elem;
 
