@@ -11,10 +11,17 @@
 # **************************************************************************** #
 
 STESTNAME=stest
-INC=includes
+INC=../includes
+LIBFT=../lib/libft
+SRC=../src/ft_printf.c \
+	../src/parser.c
+
+all: libft stest
 
 libft:
-	@make -C libft
+	@make -C $(LIBFT) re
 
 stest:
-	@gcc -o $(STESTNAME) simple_test.c -I $(INC) -I libft -L libft -lft
+	@gcc -o $(STESTNAME) simple_test.c $(SRC) -I $(INC) -I $(LIBFT) -L $(LIBFT) -lft
+
+.PHONY: libft stest all

@@ -15,7 +15,7 @@
 
 int		main(int argc, char **argv)
 {
-	char	*format = "Hello, %s\n";
+	char	*format = "Hello\n";
 	char	*str1 = "Larlyne";
 
 	printf("=-=-=-=-=\n");
