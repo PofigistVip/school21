@@ -14,19 +14,17 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 # include <string.h>
+# include "libft.h"
 
-typedef struct	s_pelement
+typedef struct	s_print_elem
 {
-	char	type;
-	void	*content;
-}				t_pelemet;
+	char	conv_type;
+	char	*str;
+	size_t	str_len;
 
-typedef struct	s_pe_rawstring
-{
-	char	*start;
-	size_t	n;
-}				t_pe_rawstring;
+}				t_print_elem;
 
+t_llist			*parse_format(const char *format);
 
 int				ft_printf(const char *format, ...);
 
