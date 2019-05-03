@@ -15,16 +15,16 @@
 
 int		main(int argc, char **argv)
 {
-	char	*format = "Hmm... %c\n";
+	char	*format = "Hmm... %s\n";
 	char	*str1 = "Larlyne";
 	int		int1 = 1090;
 
 	printf("=-=-=-=-=\n");
-	printf(format, int1);
+	printf(format, str1);
 	printf("=-=-=-=-=\n");
 	if (argc == 1)
 	{
-		ft_printf(format, int1);
+		ft_printf(format, str1);
 		printf("=-=-=-=-=\n");
 	}
 	return (0);

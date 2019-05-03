@@ -78,8 +78,11 @@ void	push_args(t_llist *llist, va_list *ap)
 		while (i < llist->count)
 		{
 			el = (t_print_elem*)ft_llist_get(llist, i);
-			if (el->conv_type == 'c')
-				el->ptr = va_arg(*ap, unsigned);
+			if (el->conv_type == 'c' || el->conv_type == 'd'
+				|| el->conv_type == 'i')
+				el->val_i = va_arg(*ap, int);
+			else if (el->conv_type == 's')
+				el->ptr = (void*)va_arg(*ap, char*);
 			++i;
 		}
 		//if (!was_pos)
@@ -87,13 +90,39 @@ void	push_args(t_llist *llist, va_list *ap)
 	//}
 }
 
+void	ft_tostring(t_llist *llist)
+{
+	t_print_elem	*el;
+	int				i;
+
+	i = 0;
+	while (i < llist->count)
+	{
+		el = (t_print_elem*)ft_llist_get(llist, i);
+		if (el->conv_type == 'c')
+		{
+			el->str = ft_strnew(0);
+			*(el->str) = (unsigned char)el->val_i;
+			el->str_len = 1;
+		}
+		else if (el->conv_type == 'd' || el->conv_type == 'i')
+		{
+			el->str = ft_itoa(el->val_i);
+			el->str_len = ft_strlen(el->str);
+		}
+		else if (el->conv_type == 's')
+		{
+			el->str_len = ft_strlen((const char*)el->ptr);
+			el->str = ft_strnew(el->str_len - 1);
+			ft_memcpy(el->str, el->ptr, el->str_len);
+		}
+		++i;
+	}
+}
+
 void	printf_print(t_print_elem *el)
 {
-	if (el->conv_type == 'c')
-		ft_putchar(*((char*)el->ptr));
-	else
-		ft_putnchar(el->str, el->str_len);
-	
+	ft_putnchar(el->str, el->str_len);
 }
 
 int		ft_printf_output(t_llist *llist)
@@ -123,7 +152,7 @@ int		ft_printf(const char *format, ...)
 	llist = parse_format(format);
 	va_start(ap, format);
 	push_args(llist, &ap);
-	//ft_tostring(llist);
+	ft_tostring(llist);
 	va_end(ap);
 	return (ft_printf_output(llist));
 }

@@ -49,6 +49,7 @@ typedef struct	s_print_elem
 	size_t			str_len;
 
 	void			*ptr;
+	int				val_i;
 }				t_print_elem;
 
 t_llist			*parse_format(const char *format);
