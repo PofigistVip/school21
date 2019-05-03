@@ -60,15 +60,49 @@ void	printf_debug_print(t_print_elem *el)
 	
 	
 }
+
+void	push_args(t_llist *llist, va_list *ap)
+{
+	int		curr_pos;
+	int		i;
+	char	was_pos;
+	t_print_elem	*el;
+
+	curr_pos = 1;
+	while (1)
+	{
+		i = 0;
+		was_pos = 0;
+		while (i < llist->count)
+		{
+			el = (t_print_elem*)ft_llist_get(llist, i);
+			if (el->pos == curr_pos || el->precision_ref == curr_pos
+				|| el->width_ref == curr_pos)
+				was_pos = 1;
+			if (el->width_ref == curr_pos || el->precision_ref == curr_pos)
+			{
+				// ;
+			}
+			++i;
+		}
+		if (!was_pos)
+			break ;
+	}
+}
+
 int		ft_printf(const char *format, ...)
 {
 	t_llist			*llist;
 	t_print_elem	*el;
 	int				i;
 	int				count;
+	va_list			ap;
 
 	llist = parse_format(format);
-
+	va_start(ap, format);
+	//push_args(llist, &ap);
+	//ft_tostring(llist);
+	va_end(ap);
 	i = 0;
 	count = 0;
 	while (i < llist->count)

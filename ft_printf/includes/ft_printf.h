@@ -40,7 +40,6 @@ typedef struct	s_print_elem
 
 	unsigned char	flags;
 
-
 	int				width;
 	int				width_ref;
 	int				precision;
@@ -49,6 +48,7 @@ typedef struct	s_print_elem
 	char			*str;
 	size_t			str_len;
 
+	void			*ptr;
 }				t_print_elem;
 
 t_llist			*parse_format(const char *format);

@@ -185,7 +185,7 @@ t_llist		*parse_format(const char *format)
 				++format;
 			}
 			if (!*format)
-				return (NULL);//незакончен форматный вывод
+				return (llist);//незакончен форматный вывод, free mem
 			el->conv_type = *format;
 			ft_llist_add(llist, el);
 		}
