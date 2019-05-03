@@ -3,6 +3,63 @@
 #include "libft.h"
 #include "ft_printf.h"
 
+int		has_flag(t_print_elem *el, char flag)
+{
+	return (el->flags & flag);
+}
+
+void	printf_debug_print(t_print_elem *el)
+{
+	if (el->conv_type == 0)
+		ft_putnchar(el->str, el->str_len);
+	else
+	{
+		ft_putchar('{');
+		if (has_flag(el, 1))
+			ft_putchar('#');
+		if (has_flag(el, 2))
+			ft_putchar('0');
+		if (has_flag(el, 4))
+			ft_putchar('-');
+		if (has_flag(el, 8))
+			ft_putchar(' ');
+		if (has_flag(el, 16))
+			ft_putchar('+');
+		if (has_flag(el, 32))
+			ft_putchar('\'');
+		if (has_flag(el, 64))
+			ft_putchar('I');
+		if (el->flags != 0)
+			ft_putchar(':');
+		if (el->conv_type == 's')
+			ft_putnchar("str", 3);
+		else if (el->conv_type == 'd' || el->conv_type == 'i')
+			ft_putnchar("int", 3);
+		ft_putchar('(');
+		ft_putnbr(el->pos);
+		ft_putchar(el->length_mod);
+		ft_putchar(')');
+		ft_putchar(':');
+		if (el->width_ref != 0)
+		{
+			ft_putchar('r');
+			ft_putnbr(el->width_ref);
+		}
+		else
+			ft_putnbr(el->width);
+		ft_putchar('.');
+		if (el->precision_ref != 0)
+		{
+			ft_putchar('r');
+			ft_putnbr(el->precision_ref);
+		}
+		else
+			ft_putnbr(el->precision);
+		ft_putchar('}');
+	}
+	
+	
+}
 int		ft_printf(const char *format, ...)
 {
 	t_llist			*llist;
@@ -18,18 +75,7 @@ int		ft_printf(const char *format, ...)
 	{
 		el = (t_print_elem*)ft_llist_get(llist, i);
 		count += el->str_len;
-		if (el->conv_type == 0)
-			ft_putnchar(el->str, el->str_len);
-		else if (el->conv_type == 's')
-			ft_putnchar("{str}", 5);
-		else if (el->conv_type == 'd' || el->conv_type == 'i')
-			ft_putnchar("{int}", 5);
-		else if (el->conv_type == '%')
-			ft_putchar('%');
-		if (el->width == 5 || el->precision == 5)
-			ft_putchar('n');
-		if (el->width_ref == 1 || el->precision_ref == 1)
-			ft_putchar('r');
+		printf_debug_print(el);
 		++i;
 	}
 	return (count);

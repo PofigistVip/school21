@@ -24,6 +24,36 @@ int 			is_conversion_specifier(char c)
 		|| c == 'C' || c == 'S' || c == '%');
 }
 
+int				is_reference(const char *str)
+{
+	while (*str && ft_isdigit(*str))
+		++str;
+	return (*str == '$');
+}
+
+char	is_length_mod(const char *str)
+{
+	if (*str == 'h' && *(str + 1) == 'h')
+		return ('H');
+	if (*str == 'l' && *(str + 1) == 'l')
+		return ('M');
+	if (*str == 'h')
+		return ('h');
+	if (*str == 'l')
+		return ('l');
+	if (*str == 'L')
+		return ('L');
+	if (*str == 'q')
+		return ('q');
+	if (*str == 'j')
+		return ('j');
+	if (*str == 'z')
+		return ('z');
+	if (*str == 't')
+		return ('t');
+	return (0);
+}
+
 unsigned char	is_flag(char c)
 {
 	if (c == '#')
@@ -43,17 +73,18 @@ unsigned char	is_flag(char c)
 	return (0);
 }
 
-void	get_num_or_ref(const char **format, int *num, int *ref)
+int				get_num(const char **format)
 {
+	int		num;
+
+	num = 0;
 	while(ft_isdigit(**format))
-		++(*format);
-	if (**format == '$')
-		*ref = 1;
-	else
 	{
-		*num = 5;
-		--(*format);
+		num = num * 10 + ((**format) - '0');
+		++(*format);
 	}
+	--(*format);
+	return (num);
 }
 
 t_print_elem	*new_print_elem(void)
@@ -83,7 +114,9 @@ t_llist		*parse_format(const char *format)
 	t_print_elem	*el;
 	size_t			n;
 	char			wait_width;	
-	int				current_pos;	
+	int				current_pos;
+	char			flag;
+	char			len_mod;
 
 	llist = ft_llist_create(sizeof(t_print_elem));
 	n = 0;
@@ -105,23 +138,51 @@ t_llist		*parse_format(const char *format)
 			el = new_print_elem();
 			wait_width = 1;
 			++format;
-			if (ft_isdigit(*format))
-				get_ref(&format, &el->pos);
+			if (is_reference(format))
+			{
+				el->pos = get_num(&format);
+				current_pos = el->pos + 1;
+				format += 2;
+			}
 			else
 				el->pos = current_pos++;
-			while (*(++format) && !is_conversion_specifier(*format))
+			while (*format && !is_conversion_specifier(*format))
 			{
-				if (ft_isdigit(*format))
+				len_mod = is_length_mod(format);
+				flag = is_flag(*format);
+				if (len_mod)
 				{
-					if (wait_width)
-						get_num_or_ref(&format, &el->width, &el->width_ref);
-					//else
-					//	get_num_or_ref(&format, &el->precision, &el->precision_ref);
-				}	
-				if (*format == '.')
-					wait_width = 0;
-				else
-					el->flags |= is_flag(*format);
+					el->length_mod = len_mod;
+					if (len_mod == 'H' || len_mod == 'M')
+						++format;
+				}
+				else if (flag)
+					el->flags |= flag;
+				else if (*format == '*')
+				{
+					++format;
+					if (is_reference(format))
+						el->width_ref = get_num(&format);
+					else
+						el->width_ref = current_pos++;
+					
+				}
+				else if (ft_isdigit(*format))
+					el->width = get_num(&format);
+				else if (*format == '.')
+				{
+					++format;
+					if (*format == '*')
+					{
+						++format;
+						if (is_reference(format))
+							el->precision_ref = get_num(&format);
+						else
+							el->precision_ref = current_pos++;
+					}
+					el->precision = get_num(&format);
+				}
+				++format;
 			}
 			if (!*format)
 				return (NULL);//незакончен форматный вывод

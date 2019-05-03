@@ -17,6 +17,10 @@
 # include "libft.h"
 
 /*
+** conv_type: type specifier
+** length_mod: length specifier
+**		hh = H
+**		ll = M
 ** flags:
 ** '#' - 1,
 ** '0' - 2,
@@ -31,7 +35,8 @@
 
 typedef struct	s_print_elem
 {
-	char	conv_type;
+	char			conv_type;
+	char			length_mod;
 
 	unsigned char	flags;
 
@@ -41,8 +46,8 @@ typedef struct	s_print_elem
 	int				precision;
 	int				precision_ref;
 	int				pos;
-	char	*str;
-	size_t	str_len;
+	char			*str;
+	size_t			str_len;
 
 }				t_print_elem;
 
