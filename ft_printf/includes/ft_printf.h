@@ -25,6 +25,8 @@
 ** '+' - 16
 ** "'" - 32,
 ** 'I' - 64
+** 
+** pos - позиция аргумента
 */
 
 typedef struct	s_print_elem
@@ -35,7 +37,10 @@ typedef struct	s_print_elem
 
 
 	int				width;
+	int				width_ref;
 	int				precision;
+	int				precision_ref;
+	int				pos;
 	char	*str;
 	size_t	str_len;
 

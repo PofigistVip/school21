@@ -43,6 +43,19 @@ unsigned char	is_flag(char c)
 	return (0);
 }
 
+void	get_num_or_ref(const char **format, int *num, int *ref)
+{
+	while(ft_isdigit(**format))
+		++(*format);
+	if (**format == '$')
+		*ref = 1;
+	else
+	{
+		*num = 5;
+		--(*format);
+	}
+}
+
 t_print_elem	*new_print_elem(void)
 {
 	t_print_elem	*elem;
@@ -51,6 +64,11 @@ t_print_elem	*new_print_elem(void)
 	elem->conv_type = 0;
 	elem->str_len = 0;
 	elem->flags = 0;
+	elem->width = 0;
+	elem->width_ref = 0;
+	elem->precision = 0;
+	elem->precision_ref = 0;
+	elem->pos = 0;
 	return (elem);
 }
 
@@ -64,10 +82,12 @@ t_llist		*parse_format(const char *format)
 	t_llist			*llist;
 	t_print_elem	*el;
 	size_t			n;
-	char			wait_width;		
+	char			wait_width;	
+	int				current_pos;	
 
 	llist = ft_llist_create(sizeof(t_print_elem));
 	n = 0;
+	current_pos = 1;
 	while (*format)
 	{
 		if (*format == '%')
@@ -84,10 +104,20 @@ t_llist		*parse_format(const char *format)
 			}
 			el = new_print_elem();
 			wait_width = 1;
+			++format;
+			if (ft_isdigit(*format))
+				get_ref(&format, &el->pos);
+			else
+				el->pos = current_pos++;
 			while (*(++format) && !is_conversion_specifier(*format))
 			{
 				if (ft_isdigit(*format))
-					return (NULL); //Обработка чисел
+				{
+					if (wait_width)
+						get_num_or_ref(&format, &el->width, &el->width_ref);
+					//else
+					//	get_num_or_ref(&format, &el->precision, &el->precision_ref);
+				}	
 				if (*format == '.')
 					wait_width = 0;
 				else
