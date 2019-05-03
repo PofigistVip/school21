@@ -15,7 +15,12 @@ int		ft_printf(const char *format, ...)
 	while (i < llist->count)
 	{
 		el = (t_print_elem*)ft_llist_get(llist, i);
-		ft_putnchar(el->str, el->str_len);
+		if (el->conv_type == 0)
+			ft_putnchar(el->str, el->str_len);
+		else if (el->conv_type == 's')
+			ft_putnchar("{str}", 5);
+		else if (el->conv_type == 'd' || el->conv_type == 'i')
+			ft_putnchar("{int}", 5);
 		++i;
 	}
 	return (0);

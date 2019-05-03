@@ -16,9 +16,26 @@
 # include <string.h>
 # include "libft.h"
 
+/*
+** flags:
+** '#' - 1,
+** '0' - 2,
+** '-' - 4,
+** ' ' - 8,
+** '+' - 16
+** "'" - 32,
+** 'I' - 64
+*/
+
 typedef struct	s_print_elem
 {
 	char	conv_type;
+
+	unsigned char	flags;
+
+
+	int				width;
+	int				precision;
 	char	*str;
 	size_t	str_len;
 
