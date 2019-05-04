@@ -147,16 +147,9 @@ void	ft_tostring_str(t_print_elem *el, t_print_arg *arg)
 	ft_lstr_destroy(el->str);
 	el->str = ft_lstr_new(' ', width);
 	if (has_flag(el, 4))
-	{
-		ft_memcpy(el->str, arg->ptr, len);
-		ft_memset(el->str + len, ' ', width - len);
-	}
+		ft_lstr_place_sn(el->str, arg->ptr, len, 0);
 	else
-	{
-		ft_memset(el->str, ' ', width - len);
-		ft_memcpy(el->str + (width - len), arg->ptr, len);
-	}
-	el->str_len = width;
+		ft_lstr_place_sn(el->str, arg->ptr, len, el->str->length - len + 1);
 }
 
 void	ft_tostring_int(t_print_elem *el, t_print_arg *arg)
@@ -195,14 +188,14 @@ void	ft_tostring(t_llist *llist, t_llist *args)
 			el->width = get_arg(args, el->width_ref - 1)->val_i;
 		if (el->conv_type == '%')
 		{
-			ft_lstr_destroy(el->str);
+			ft_lstr_destroy(&(el->str));
 			if (el->width > 1)
 			{
 				el->str = ft_lstr_new(' ', el->width);
 				if (has_flag(el, 4))
-					el->str[0] = '%';
+					el->str->str[0] = '%';
 				else
-					el->str[el->str->length - 1] = '%';
+					el->str->str[el->str->length - 1] = '%';
 			}	
 			else
 				el->str = ft_lstr_new('%', 1);

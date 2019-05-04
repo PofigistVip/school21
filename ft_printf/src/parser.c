@@ -127,7 +127,7 @@ t_llist		*parse_format(const char *format)
 			if (n != 0)
 			{
 				el = new_print_elem();
-				ft_lstr_insert_sn(el->str, (char*)format - n, 0, n);
+				ft_lstr_insert_sn(el->str, (char*)format - n, n, 0);
 				ft_llist_add(llist, el);
 				n = 0;
 			}
@@ -192,7 +192,7 @@ t_llist		*parse_format(const char *format)
 	if (n != 0)
 	{
 		el = new_print_elem();
-		ft_lstr_insert_sn(el->str, (char*)format - n, 0, n);
+		ft_lstr_insert_sn(el->str, (char*)format - n, n, 0);
 		ft_llist_add(llist, el);
 	}
 	return (llist);
