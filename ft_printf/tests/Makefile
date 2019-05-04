@@ -18,6 +18,6 @@ SRC=../src/ft_printf.c \
 
 all:
 	@make -C .. re
-	@gcc -o $(STESTNAME) -I ../includes -I ../lib/libft simple_test.c -L .. -lprintf
+	@gcc -o $(STESTNAME) -I ../includes -I ../lib/libft simple_test.c -L .. -lftprintf
 
 .PHONY: libft stest all
