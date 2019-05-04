@@ -19,18 +19,18 @@ int		main(int argc, char **argv)
 	//%20.3-sA\n
 	//%20-sA\n
 	//проверить флаги после чисел на MacOS!
-	char	*format = "'%-20.3s'\n";
+	char	*format = "'%+010d'\n";
 	char	*str1 = "Larlyne";
 	char	char1 = 42;
 	int		int1 = 20;
 	int		int2 = 3;
 
 	printf("=-=-=-=-=\n");
-	printf(format, str1);
+	printf(format, int1);
 	printf("=-=-=-=-=\n");
 	if (argc == 1)
 	{
-		ft_printf(format, str1);
+		ft_printf(format, int1);
 		printf("=-=-=-=-=\n");
 	}
 	return (0);

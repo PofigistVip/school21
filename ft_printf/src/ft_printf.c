@@ -155,6 +155,7 @@ void	ft_tostring_str(t_print_elem *el, t_print_arg *arg)
 void	ft_tostring_int(t_print_elem *el, t_print_arg *arg)
 {
 	long int	val;
+	char		*num;
 
 	val = arg->val_i;
 	if (el->length_mod == 'H')
@@ -165,6 +166,31 @@ void	ft_tostring_int(t_print_elem *el, t_print_arg *arg)
 		val = (long int)val;
 	//else if (el->length_mod == 'q' || el->length_mod == 'M')
 	//	val = (long long int
+	num = ft_itoa(val);
+	ft_lstr_destroy(&(el->str));
+	el->str = ft_lstr_new_raw(num);
+	if (val >= 0)
+	{
+		if (has_flag(el, 16))
+			ft_lstr_insert_c(el->str, '+', 1, 0);
+		else if (has_flag(el, 8))
+			ft_lstr_insert_c(el->str, ' ', 1, 0);
+	}
+	if (el->width > el->str->length)
+	{
+		if (has_flag(el, 4))
+			ft_lstr_insert_c(el->str, ' ', el->width - el->str->length,
+				el->str->length);
+		else
+		{
+			if (has_flag(el, 2))
+				ft_lstr_insert_c(el->str, '0', el->width - el->str->length,
+					has_flag(el, 16) || has_flag(el, 8) ? 1 : 0);
+			else
+				ft_lstr_insert_c(el->str, ' ', el->width - el->str->length, 0);
+			
+		}
+	}
 }
 
 void	ft_tostring(t_llist *llist, t_llist *args)
@@ -202,7 +228,7 @@ void	ft_tostring(t_llist *llist, t_llist *args)
 		if (el->conv_type == 's')
 			ft_tostring_str(el, arg);
 		else if (el->conv_type == 'c')
-			ft_lstr_insert_c(el->str, (unsigned char)arg->val_i, 0);
+			ft_lstr_insert_c(el->str, (unsigned char)arg->val_i, 1, 0);
 		else if (el->conv_type == 'd' || el->conv_type == 'i')
 			ft_tostring_int(el, arg);
 	}
