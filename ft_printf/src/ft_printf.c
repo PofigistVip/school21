@@ -77,7 +77,7 @@ t_llist	*push_args(t_llist *llist, va_list *ap)
 {
 	t_llist	*args;
 	int		curr_pos;
-	int		i;
+	size_t	i;
 	char	was_pos;
 	t_print_elem	*el;
 	t_print_arg		*arg;
@@ -128,17 +128,15 @@ t_llist	*push_args(t_llist *llist, va_list *ap)
 
 t_print_arg	*get_arg(t_llist *args, int pos)
 {
-	t_print_arg	*arg;
-
-	if (args->count - 1 < pos || pos < 0)
+	if ((int)args->count - 1 < pos || pos < 0)
 		return (arg_new());
 	return ((t_print_arg*)ft_llist_get(args, pos));
 }
 
 void	ft_tostring_str(t_print_elem *el, t_print_arg *arg)
 {
-	size_t	len;
-	size_t	width;
+	int		len;
+	int		width;
 
 	len = ft_strlen((const char*)arg->ptr);
 	if (el->precision != -1 && len > el->precision)
@@ -175,8 +173,8 @@ size_t	ft_print_itoa_len(t_print_elem *el, long int val)
 char	*ft_printf_itoa(t_print_elem *el, t_print_arg *arg)
 {
 	long int	val;
-	size_t		len;
-	size_t		width;
+	int			len;
+	int			width;
 	char		*filler;
 
 	val = arg->val_i;
@@ -191,11 +189,13 @@ char	*ft_printf_itoa(t_print_elem *el, t_print_arg *arg)
 	//пока что не все типы
 
 	len = ft_print_itoa_len(el, val);
-	if (width > len)
+	width = len;
+	if (el->width > len)
 		width = el->width;
 	el->str = (char*)malloc(width);
 	filler = (has_flag(el, 4)) ? el->str + len - 1: el->str + width - 1;
 	*filler = (val % 10) + '0';
+	return (0);
 }
 
 void	ft_tostring_int(t_print_elem *el, t_print_arg *arg)
@@ -207,7 +207,7 @@ void	ft_tostring(t_llist *llist, t_llist *args)
 {
 	t_print_elem	*el;
 	t_print_arg		*arg;
-	int				i;
+	size_t			i;
 
 	i = -1;
 	while (++i < llist->count)
@@ -242,7 +242,7 @@ void	printf_print(t_print_elem *el)
 int		ft_printf_output(t_llist *llist)
 {
 	t_print_elem	*el;
-	int				i;
+	size_t			i;
 	int				count;
 
 	i = 0;
