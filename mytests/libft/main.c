@@ -40,46 +40,56 @@ int		ft_lstr_tests(void)
 	CHECK(lstr, "www");
 
 	ft_putstr("\n Raw 'abcd': ");
-	lstr = ft_lstr_new_raw("abcd");
+	lstr = ft_lstr_new_copy("abcd");
 	CHECK(lstr, "abcd");
 
 	ft_putstr("\n===INSERTING===");
 	ft_putstr("\n ==CHAR==\n");
-	ft_putstr(" Insert to 0 'a' in empty: ");
+	ft_putstr("  Insert to 0 'a' in empty: ");
 	lstr = ft_lstr_new_empty();
 	ft_lstr_insert_c(lstr, 'a', 0);
 	CHECK(lstr, "a");
 
-	ft_putstr("\n Insert to 0 'a' in 'bcd': ");
-	lstr = ft_lstr_new_raw("bcd");
+	ft_putstr("\n  Insert to 0 'a' in 'bcd': ");
+	lstr = ft_lstr_new_copy("bcd");
 	ft_lstr_insert_c(lstr, 'a', 0);
 	CHECK(lstr, "abcd");
 
-	ft_putstr("\n Insert to 2 'c' in 'abd': ");
-	lstr = ft_lstr_new_raw("abd");
+	ft_putstr("\n  Insert to 2 'c' in 'abd': ");
+	lstr = ft_lstr_new_copy("abd");
 	ft_lstr_insert_c(lstr, 'c', 2);
 	CHECK(lstr, "abcd");
 
-	ft_putstr("\n Insert to 3 'd' in 'abc': ");
-	lstr = ft_lstr_new_raw("abc");
+	ft_putstr("\n  Insert to 3 'd' in 'abc': ");
+	lstr = ft_lstr_new_copy("abc");
 	ft_lstr_insert_c(lstr, 'd', 3);
 	CHECK(lstr, "abcd");
 
 	ft_putstr("\n ==STRING==\n");
-	ft_putstr(" Insert 'abcd' in empty: ");
+	ft_putstr("  Insert 'abcd' in empty: ");
 	lstr = ft_lstr_new_empty();
 	ft_lstr_insert_s(lstr, "abcd", 0);
 	CHECK(lstr, "abcd");
 
-	ft_putstr("\n Insert to 0 'ab' in 'cd': ");
-	lstr = ft_lstr_new_raw("cd");
+	ft_putstr("\n  Insert to 0 'ab' in 'cd': ");
+	lstr = ft_lstr_new_copy("cd");
 	ft_lstr_insert_s(lstr, "ab", 0);
 	CHECK(lstr, "abcd");
 
-	ft_putstr("\n Insert to 2 'cd' in 'ab': ");
-	lstr = ft_lstr_new_raw("ab");
+	ft_putstr("\n  Insert to 2 'cd' in 'ab': ");
+	lstr = ft_lstr_new_copy("ab");
 	ft_lstr_insert_s(lstr, "cd", 2);
 	CHECK(lstr, "abcd");
+
+	ft_putstr("\n===MEMORY===");
+	ft_putstr("\n Capacity minimization (5->3): ");
+	char	*str = ft_strnew(6);
+	ft_memmove(str, "abcd", 5);
+	lstr = ft_lstr_new_raw(str);
+	lstr->str[2] = '\0';
+	lstr->length = (int)ft_strlen(str);
+	ft_lstr_minimize(lstr);
+	CHECK(lstr, "ab");
 
 	ft_putchar('\n');
 }
