@@ -110,6 +110,19 @@ void			ft_putnchar(char *str, size_t n);
 ** larlyne's string
 */
 
+/*
+** ft_lstr_empty - вернет пустую созданную строку
+** ft_lstr_new - вернет строку из %c символов %n длины
+** ft_lstr_from_raw - вернет строку основанную на %str
+** ft_lstr_resize - внутренняя, изменяет объем выделенной памяти под строку
+** ft_lstr_insert_c - добавляет символ %c в позицию %index
+** ft_lstr_insert_s - добавляет строку %str в позицию %index
+** ft_lstr_insert_sn - добавляет %len символов строки %str в позицию %len
+** ft_lstr_destroy - уничтожает строку
+** ft_lstr_put_fd - выводит строку в поток %fd
+** ft_lstr_put - выводит строку в стандартный поток вывода
+*/
+
 typedef struct	s_lstr
 {
 	char	*str;
@@ -117,19 +130,23 @@ typedef struct	s_lstr
 	int		capacity;
 }				t_lstr;
 
-t_lstr			*ft_lstr_empty(void);
-t_lstr			*ft_lstr_new(char c, size_t n);
-t_lstr			*ft_lstr_from_raw(char *str);
-int				ft_lstr_resize(t_lstr *lstr, int new_length);
-int				ft_lstr_add_c(t_lstr *lstr, char c);
-int				ft_lstr_add_s(t_lstr *lstr, char *str);
-int				ft_lstr_indexof_c(t_lstr *lstr, char c);
-/*
-**				ft_lstr_indexof_s(t_lstr *lstr, char *str);
-*/
-void			ft_lstr_destroy(t_lstr **lstr);
+t_lstr			*ft_lstr_new_empty(void);
+t_lstr			*ft_lstr_new(char c, int n);
+t_lstr			*ft_lstr_new_raw(char *str);
+t_lstr			*ft_lstr_new_copy(char *str);
+
+void			ft_lstr_insert_c(t_lstr *lstr, char c, int index);
+void			ft_lstr_insert_s(t_lstr *lstr, char *str, int index);
+
 void			ft_lstr_put_fd(t_lstr *lstr, int fd);
 void			ft_lstr_put(t_lstr *lstr);
+
+void			ft_lstr_destroy(t_lstr **lstr);
+int				ft_lstr_resize(t_lstr *lstr, int new_length);
+void			ft_lstr_minimize(t_lstr *lstr);
+
+
+
 
 /*
 ** larlyne's list

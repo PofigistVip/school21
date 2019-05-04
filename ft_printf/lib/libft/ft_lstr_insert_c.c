@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstr_indexof_c.c                                :+:      :+:    :+:   */
+/*   ft_lstr_insert_c.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/02 11:51:47 by larlyne           #+#    #+#             */
-/*   Updated: 2019/05/02 11:51:49 by larlyne          ###   ########.fr       */
+/*   Created: 2019/05/04 12:53:44 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/04 12:54:11 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include "libft.h"
 
-int		ft_lstr_indexof_c(t_lstr *lstr, char c)
+void	ft_lstr_insert_c(t_lstr *lstr, char c, int index)
 {
-	int		i;
-	char	*ptr;
-
-	if (lstr == NULL)
-		return (-2);
-	i = 0;
-	ptr = lstr->str;
-	while (i < lstr->length)
-	{
-		if (*ptr == c)
-			return (i);
-		++ptr;
-		++i;
-	}
-	return (-1);
+	if (lstr == NULL || index < 0 || index > lstr->length)
+		return ;
+	if (lstr->capacity < lstr->length + 2)
+		if (!ft_lstr_resize(lstr, lstr->length + 1))
+			return ;
+	if (index != lstr->length)
+		ft_memmove(lstr->str + index + 1, lstr->str + index,
+			lstr->length - index);
+	lstr->str[index] = c;
+	++lstr->length;
 }

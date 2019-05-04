@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
-t_lstr	*ft_lstr_new(char c, size_t n)
+t_lstr	*ft_lstr_new(char c, int n)
 {
 	t_lstr	*lstr;
 

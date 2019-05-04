@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstr_add_s.c                                    :+:      :+:    :+:   */
+/*   ft_lstr_from_raw.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/02 11:45:25 by larlyne           #+#    #+#             */
-/*   Updated: 2019/05/02 11:45:29 by larlyne          ###   ########.fr       */
+/*   Created: 2019/05/02 11:20:38 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/02 11:20:40 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
+#include <stdlib.h>
 #include "libft.h"
 
-int		ft_lstr_add_s(t_lstr *lstr, char *str)
+t_lstr	*ft_lstr_new_copy(char *str)
 {
-	size_t	len;
+	t_lstr	*lstr;
+	int		len;
 
-	if (lstr == NULL)
-		return (0);
-	len = ft_strlen(str);
-	if (lstr->capacity - 1 < lstr->length + len)
-		if (ft_lstr_resize(lstr->length + len) == 0)
-			return (0);
-	ft_memcpy(lstr->str + lstr->length, str, len);
-	lstr->length += len;
-	lstr->str[lstr->length] = '\0';
-	return (1);
+	len = (int)ft_strlen(str);
+	if (len == 0)
+		return (ft_lstr_new_empty());
+	if ((lstr = (t_lstr*)malloc(sizeof(t_lstr))) == NULL)
+		return (NULL);
+	if ((lstr->str = (ft_strnew(len))) == NULL)
+		return (NULL);
+	ft_memcpy(lstr->str, str, len);
+	lstr->length = len;
+	lstr->capacity = len + 1;
+	return (lstr);
 }
