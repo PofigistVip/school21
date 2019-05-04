@@ -114,6 +114,8 @@ void			ft_putnchar(char *str, size_t n);
 ** ft_lstr_new_copy - копировать %str в новый lstr
 ** ft_lstr_insert_c - добавляет символ %c в позицию %index
 ** ft_lstr_insert_s - добавляет строку %str в позицию %index
+** ft_lstr_insert_sn - добавляет %n символов строки %str
+** в позицию %index, но не больше чем в строке %str
 ** ft_lstr_put_fd - выводит строку в поток %fd
 ** ft_lstr_put - выводит строку в стандартный поток вывода
 ** ft_lstr_destroy - уничтожает строку
@@ -135,6 +137,7 @@ t_lstr			*ft_lstr_new_copy(char *str);
 
 void			ft_lstr_insert_c(t_lstr *lstr, char c, int index);
 void			ft_lstr_insert_s(t_lstr *lstr, char *str, int index);
+void			ft_lstr_insert_sn(t_lstr *lstr, char *str, int index, int len);
 
 void			ft_lstr_put_fd(t_lstr *lstr, int fd);
 void			ft_lstr_put(t_lstr *lstr);

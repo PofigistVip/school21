@@ -96,6 +96,7 @@ SRCS=ft_memset.c \
 	 ft_lstr_new_copy.c \
 	 ft_lstr_insert_c.c \
 	 ft_lstr_insert_s.c \
+	 ft_lstr_insert_sn.c \
 	 ft_lstr_put_fd.c \
 	 ft_lstr_put.c \
 	 ft_lstr_destroy.c \
