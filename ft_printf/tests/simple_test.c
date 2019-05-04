@@ -15,12 +15,13 @@
 
 int		main(int argc, char **argv)
 {
-	char	*format = "Hmm... %s\n";
+	char	*format = "%20.3sA\n";
 	char	*str1 = "Larlyne";
 	int		int1 = 1090;
+	int		int2 = 25019;
 
 	printf("=-=-=-=-=\n");
-	printf(format, str1);
+	printf(format, str1, str1);
 	printf("=-=-=-=-=\n");
 	if (argc == 1)
 	{

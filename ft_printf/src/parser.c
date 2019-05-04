@@ -95,9 +95,9 @@ t_print_elem	*new_print_elem(void)
 	elem->conv_type = 0;
 	elem->str_len = 0;
 	elem->flags = 0;
-	elem->width = 0;
+	elem->width = -1;
 	elem->width_ref = 0;
-	elem->precision = 0;
+	elem->precision = -1;
 	elem->precision_ref = 0;
 	elem->pos = 0;
 	return (elem);

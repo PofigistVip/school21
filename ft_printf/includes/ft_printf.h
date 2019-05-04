@@ -50,7 +50,20 @@ typedef struct	s_print_elem
 
 	void			*ptr;
 	int				val_i;
+	unsigned int	val_ui;
+	double			val_d;
+	
 }				t_print_elem;
+
+typedef struct	s_print_arg
+{
+	int				pos;
+
+	void			*ptr;
+	int				val_i;
+	double			val_d;
+}				t_print_arg;
+
 
 t_llist			*parse_format(const char *format);
 
