@@ -215,20 +215,29 @@ void	ft_tostring(t_llist *llist, t_llist *args)
 		el = (t_print_elem*)ft_llist_get(llist, i);
 		if (el->conv_type == 0)
 			continue ;
-		if (el->conv_type == '%')
-		{
-			el->str_len = 1;
-			el->str = ft_strnew(0);
-			*(el->str) = '%';
-			continue ;
-		}
 		if (el->precision_ref != 0)
 			el->precision = get_arg(args, el->precision_ref - 1)->val_i;
 		if (el->width_ref != 0)
 			el->width = get_arg(args, el->width_ref - 1)->val_i;
+		if (el->conv_type == '%')
+		{
+			if (el->width < 1)
+				el->width = 1;
+			el->str_len = el->width;
+			el->str = (char*)malloc(el->width);
+			el->str[el->width - 1] = '%';
+			ft_memset(el->str, ' ', el->width - 1);
+			continue ;
+		}
 		arg = get_arg(args, el->pos - 1);
 		if (el->conv_type == 's')
 			ft_tostring_str(el, arg);
+		else if (el->conv_type == 'c')
+		{
+			el->str = (char*)malloc(1);
+			*(el->str) = (unsigned char)arg->val_i;
+			el->str_len = 1;
+		}
 		else if (el->conv_type == 'd' || el->conv_type == 'i')
 			ft_tostring_int(el, arg);
 	}
