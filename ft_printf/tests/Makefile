@@ -16,13 +16,8 @@ LIBFT=../lib/libft
 SRC=../src/ft_printf.c \
 	../src/parser.c
 
-all: libft stest
-
-libft:
-	@make -C $(LIBFT) re
-
-stest:
-	@gcc -o $(STESTNAME) simple_test.c $(SRC) -I $(INC) -I $(LIBFT) -L $(LIBFT) -lft
-	@make -C $(LIBFT) fclean
+all:
+	@make -C .. re
+	@gcc -o $(STESTNAME) -I ../includes -I ../lib/libft simple_test.c -L .. -lprintf
 
 .PHONY: libft stest all
