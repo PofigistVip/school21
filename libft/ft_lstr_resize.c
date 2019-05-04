@@ -20,7 +20,7 @@ int		ft_lstr_resize(t_lstr *lstr, int new_length)
 
 	if (lstr == NULL || new_length + 1 <= 0)
 		return (0);
-	str = ft_realloc(lstr->str, lstr->length, new_length + 1);
+	str = ft_realloc(lstr->str, lstr->length + 1, new_length + 1);
 	if (str == NULL)
 		return (0);
 	lstr->capacity = new_length + 1;

@@ -81,6 +81,7 @@ SRCS=ft_memset.c \
 	 ft_realloc.c \
 	 ft_putnchar.c \
 	 ft_putnchar_fd.c \
+\
 	 ft_llist_create.c \
 	 ft_llist_elem_new.c \
 	 ft_llist_add.c \
@@ -88,17 +89,18 @@ SRCS=ft_memset.c \
 	 ft_llist_remove.c \
 	 ft_llist_clear.c \
 	 ft_llist_destroy.c \
-	 ft_lstr_destroy.c \
-	 ft_lstr_new.c \
+\
 	 ft_lstr_new_empty.c \
+	 ft_lstr_new.c \
 	 ft_lstr_new_raw.c \
 	 ft_lstr_new_copy.c \
-	 ft_lstr_indexof_c.c \
-	 ft_lstr_put.c \
-	 ft_lstr_put_fd.c \
-	 ft_lstr_resize.c \
 	 ft_lstr_insert_c.c \
-	 ft_lstr_insert_s.c
+	 ft_lstr_insert_s.c \
+	 ft_lstr_put_fd.c \
+	 ft_lstr_put.c \
+	 ft_lstr_destroy.c \
+	 ft_lstr_resize.c \
+	 ft_lstr_minimize.c
 
 OBJS=$(SRCS:.c=.o)
 

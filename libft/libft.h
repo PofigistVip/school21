@@ -134,21 +134,19 @@ t_lstr			*ft_lstr_new_empty(void);
 t_lstr			*ft_lstr_new(char c, int n);
 t_lstr			*ft_lstr_new_raw(char *str);
 t_lstr			*ft_lstr_new_copy(char *str);
+
 void			ft_lstr_insert_c(t_lstr *lstr, char c, int index);
 void			ft_lstr_insert_s(t_lstr *lstr, char *str, int index);
-/*
-** ВСЕ ЧТО ВЫШЕ ПРОШЛО ПРОВЕРКУ lstr
-*/
-int				ft_lstr_resize(t_lstr *lstr, int new_length);
-int				ft_lstr_cut(t_lstr *lstr, int start, int len);
-int				ft_lstr_indexof_c(t_lstr *lstr, char c);
-/*
-**				ft_lstr_indexof_s(t_lstr *lstr, char *str);
-*/
 
-void			ft_lstr_destroy(t_lstr **lstr);
 void			ft_lstr_put_fd(t_lstr *lstr, int fd);
 void			ft_lstr_put(t_lstr *lstr);
+
+void			ft_lstr_destroy(t_lstr **lstr);
+int				ft_lstr_resize(t_lstr *lstr, int new_length);
+void			ft_lstr_minimize(t_lstr *lstr);
+
+
+
 
 /*
 ** larlyne's list
