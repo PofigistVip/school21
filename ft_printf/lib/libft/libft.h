@@ -112,7 +112,7 @@ void			ft_putnchar(char *str, size_t n);
 ** ft_lstr_new - вернет строку из %c символов %n длины
 ** ft_lstr_from_raw - создать lstr с указывающий на %str
 ** ft_lstr_new_copy - копировать %str в новый lstr
-** ft_lstr_insert_c - добавляет символ %c в позицию %index
+** ft_lstr_insert_c - добавляет символ %c %count раз в позицию %index
 ** ft_lstr_insert_s - добавляет строку %str в позицию %index
 ** ft_lstr_insert_sn - добавляет %n символов строки %str
 ** ft_lstr_place_c - заменяет %count символов начиная с %index
@@ -141,7 +141,7 @@ t_lstr			*ft_lstr_new(char c, int n);
 t_lstr			*ft_lstr_new_raw(char *str);
 t_lstr			*ft_lstr_new_copy(char *str);
 
-void			ft_lstr_insert_c(t_lstr *lstr, char c, int index);
+void			ft_lstr_insert_c(t_lstr *lstr, char c, int count, int index);
 void			ft_lstr_insert_s(t_lstr *lstr, char *str, int index);
 void			ft_lstr_insert_sn(t_lstr *lstr, char *str, int len, int index);
 
