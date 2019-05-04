@@ -17,9 +17,9 @@
 t_lstr	*ft_lstr_new_raw(char *str)
 {
 	t_lstr	*lstr;
-	size_t	len;
+	int		len;
 
-	len = ft_strlen(str);
+	len = (int)ft_strlen(str);
 	if (len == 0)
 		return (ft_lstr_new_empty());
 	if ((lstr = (t_lstr*)malloc(sizeof(t_lstr))) == NULL)
@@ -27,5 +27,7 @@ t_lstr	*ft_lstr_new_raw(char *str)
 	if ((lstr->str = (ft_strnew(len))) == NULL)
 		return (NULL);
 	ft_memcpy(lstr->str, str, len);
+	lstr->length = len;
+	lstr->capacity = len + 1;
 	return (lstr);
 }

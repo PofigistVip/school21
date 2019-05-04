@@ -110,13 +110,6 @@ void			ft_putnchar(char *str, size_t n);
 ** larlyne's string
 */
 
-typedef struct	s_lstr
-{
-	char	*str;
-	int		length;
-	int		capacity;
-}				t_lstr;
-
 /*
 ** ft_lstr_empty - вернет пустую созданную строку
 ** ft_lstr_new - вернет строку из %c символов %n длины
@@ -130,13 +123,20 @@ typedef struct	s_lstr
 ** ft_lstr_put - выводит строку в стандартный поток вывода
 */
 
+typedef struct	s_lstr
+{
+	char	*str;
+	int		length;
+	int		capacity;
+}				t_lstr;
+
 t_lstr			*ft_lstr_new_empty(void);
 t_lstr			*ft_lstr_new(char c, int n);
 t_lstr			*ft_lstr_new_raw(char *str);
+/*
+** ВСЕ ЧТО ВЫШЕ ПРОШЛО ПРОВЕРКУ lstr
+*/
 int				ft_lstr_resize(t_lstr *lstr, int new_length);
-int				ft_lstr_add_c(t_lstr *lstr, char c);
-int				ft_lstr_add_s(t_lstr *lstr, char *str);
-int				ft_lstr_add_sn(t_lstr *lstr, char *str, int len);
 int				ft_lstr_cut(t_lstr *lstr, int start, int len);
 int				ft_lstr_indexof_c(t_lstr *lstr, char c);
 /*
