@@ -119,6 +119,8 @@ void			ft_putnchar(char *str, size_t n);
 **  на символ %c, если длины строки недостаточно, она будет продлена
 ** ft_lstr_place_s - помещает строку %str в позицию %index
 **  поверх существующих символов
+** ft_lstr_place_sn - помещает %len символов строки %s в позицию %index
+**  поверх существующих символов
 ** в позицию %index, но не больше чем в строке %str
 ** ft_lstr_put_fd - выводит строку в поток %fd
 ** ft_lstr_put - выводит строку в стандартный поток вывода
@@ -145,6 +147,7 @@ void			ft_lstr_insert_sn(t_lstr *lstr, char *str, int len, int index);
 
 void			ft_lstr_place_c(t_lstr *lstr, char c, int count, int index);
 void			ft_lstr_place_s(t_lstr *lstr, char *str, int index);
+void			ft_lstr_place_sn(t_lstr *lstr, char *str, int len, int index);
 
 void			ft_lstr_put_fd(t_lstr *lstr, int fd);
 void			ft_lstr_put(t_lstr *lstr);
