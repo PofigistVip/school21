@@ -81,6 +81,11 @@ int		ft_lstr_tests(void)
 	ft_lstr_insert_s(lstr, "cd", 2);
 	CHECK(lstr, "abcd");
 
+	ft_putstr("\n  2 symb from 'cdcd' to 'ab*': ");
+	lstr = ft_lstr_new_copy("ab");
+	ft_lstr_insert_sn(lstr, "cdcd", 2, 2);
+	CHECK(lstr, "abcd");
+
 	ft_putstr("\n===MEMORY===");
 	ft_putstr("\n Capacity minimization (5->3): ");
 	char	*str = ft_strnew(6);
