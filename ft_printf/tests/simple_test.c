@@ -19,7 +19,7 @@ int		main(int argc, char **argv)
 	//%20.3-sA\n
 	//%20-sA\n
 	//проверить флаги после чисел на MacOS!
-	char	*format = "'%s'\n";
+	char	*format = "'%-20.3s'\n";
 	char	*str1 = "Larlyne";
 	char	char1 = 42;
 	int		int1 = 20;

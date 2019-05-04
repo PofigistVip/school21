@@ -147,7 +147,7 @@ void	ft_tostring_str(t_print_elem *el, t_print_arg *arg)
 	ft_lstr_destroy(&(el->str));
 	el->str = ft_lstr_new(' ', width);
 	if (has_flag(el, 4))
-		ft_lstr_place_s(el->str, arg->ptr, 0);
+		ft_lstr_place_sn(el->str, arg->ptr, len, 0);
 	else
 		ft_lstr_place_sn(el->str, arg->ptr, len, width - len);
 }
