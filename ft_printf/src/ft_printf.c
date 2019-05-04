@@ -85,11 +85,13 @@ t_llist	*push_args(t_llist *llist, va_list *ap)
 	curr_pos = 1;
 	while (1)
 	{
-		i = 0;
+		i = -1;
 		was_pos = 0;
-		while (i < llist->count)
+		while (++i < llist->count)
 		{
 			el = (t_print_elem*)ft_llist_get(llist, i);
+			if (el->conv_type == 0)
+				continue ;
 			if (el->pos == curr_pos || el->precision_ref == curr_pos
 				|| el->width_ref == curr_pos)
 			{
@@ -115,7 +117,6 @@ t_llist	*push_args(t_llist *llist, va_list *ap)
 				ft_llist_add(args, arg);
 				break ;
 			}
-			++i;
 		}
 		if (!was_pos)
 			break ;
@@ -164,26 +165,26 @@ void	ft_tostring(t_llist *llist, t_llist *args)
 	t_print_arg		*arg;
 	int				i;
 
-	i = 0;
-	while (i < llist->count)
+	i = -1;
+	while (++i < llist->count)
 	{
 		el = (t_print_elem*)ft_llist_get(llist, i);
+		if (el->conv_type == 0)
+			continue ;
 		if (el->conv_type == '%')
 		{
 			el->str_len = 1;
 			el->str = ft_strnew(0);
 			*(el->str) = '%';
-			++i;
-			continue;
+			continue ;
 		}
 		if (el->precision_ref != 0)
-			el->precision = get_arg(args, el->precision_ref - 1);
+			el->precision = get_arg(args, el->precision_ref - 1)->val_i;
 		if (el->width_ref != 0)
-			el->width = get_arg(args, el->width_ref - 1);
+			el->width = get_arg(args, el->width_ref - 1)->val_i;
 		arg = get_arg(args, el->pos - 1);
 		if (el->conv_type == 's')
 			ft_tostrint_str(el, arg);
-		++i;
 	}
 }
 
