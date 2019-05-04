@@ -20,11 +20,11 @@ void	ft_lstr_insert_s(t_lstr *lstr, char *str, int index)
 		return ;
 	len = (int)ft_strlen(str);
 	if (lstr->capacity < lstr->length + 1 + len)
-		if (!ft_lstr_resize(lstr, lstr->length + len)
+		if (!ft_lstr_resize(lstr, lstr->length + len))
 			return ;
 	if (index != lstr->length)
 		ft_memmove(lstr->str + index + len, lstr->str + index,
-			lstr->length - pos);
+			lstr->length - index);
 	ft_memcpy(lstr->str + index, str, len);
 	lstr->length += len;
 }

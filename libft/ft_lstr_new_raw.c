@@ -11,16 +11,17 @@
 /* ************************************************************************** */
 
 #include <string.h>
+#include <stdlib.h>
 #include "libft.h"
 
-t_lstr	*ft_lstr_from_raw(char *str)
+t_lstr	*ft_lstr_new_raw(char *str)
 {
 	t_lstr	*lstr;
 	size_t	len;
 
 	len = ft_strlen(str);
 	if (len == 0)
-		return (ft_lstr_empty());
+		return (ft_lstr_new_empty());
 	if ((lstr = (t_lstr*)malloc(sizeof(t_lstr))) == NULL)
 		return (NULL);
 	if ((lstr->str = (ft_strnew(len))) == NULL)

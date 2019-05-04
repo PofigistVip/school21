@@ -14,13 +14,13 @@
 #include <stdlib.h>
 #include "libft.h"
 
-t_lstr		*ft_lstr_empty(void)
+t_lstr		*ft_lstr_new_empty(void)
 {
 	t_lstr	*lstr;
 
 	if ((lstr = (t_lstr*)malloc(sizeof(t_lstr))) == NULL)
 		return (NULL);
-	if ((lstr->str = ft_strnew(0)) == NULL)
+	if ((lstr->str = (char*)ft_memalloc(1)) == NULL)
 	{
 		free(lstr);
 		return (NULL);

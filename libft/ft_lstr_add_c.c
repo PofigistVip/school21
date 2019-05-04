@@ -19,7 +19,7 @@ int		ft_lstr_add_c(t_lstr *lstr, char c)
 	if (lstr == NULL)
 		return (0);
 	if (lstr->capacity - 2 < lstr->length)
-		if (ft_lstr_resize(lstr->length + 1) == 0)
+		if (ft_lstr_resize(lstr, lstr->length + 1) == 0)
 			return (0);
 	lstr->str[lstr->length++] = c;
 	lstr->str[lstr->length] = '\0';

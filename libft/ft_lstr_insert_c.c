@@ -22,7 +22,7 @@ void	ft_lstr_insert_c(t_lstr *lstr, char c, int index)
 			return ;
 	if (index != lstr->length)
 		ft_memmove(lstr->str + index + 1, lstr->str + index,
-			lstr->length - pos);
-	lstr->str[pos] = c;
+			lstr->length - index);
+	lstr->str[index] = c;
 	++lstr->length;
 }

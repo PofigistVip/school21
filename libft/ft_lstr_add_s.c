@@ -21,7 +21,7 @@ int		ft_lstr_add_s(t_lstr *lstr, char *str)
 		return (0);
 	len = ft_strlen(str);
 	if (lstr->capacity - 1 < lstr->length + len)
-		if (ft_lstr_resize(lstr->length + len) == 0)
+		if (ft_lstr_resize(lstr, lstr->length + len) == 0)
 			return (0);
 	ft_memcpy(lstr->str + lstr->length, str, len);
 	lstr->length += len;
