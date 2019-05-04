@@ -47,23 +47,33 @@ int		ft_lstr_tests(void)
 	ft_putstr("\n ==CHAR==\n");
 	ft_putstr("  Insert to 0 'a' in empty: ");
 	lstr = ft_lstr_new_empty();
-	ft_lstr_insert_c(lstr, 'a', 0);
+	ft_lstr_insert_c(lstr, 'a', 1, 0);
 	CHECK(lstr, "a");
 
 	ft_putstr("\n  Insert to 0 'a' in 'bcd': ");
 	lstr = ft_lstr_new_copy("bcd");
-	ft_lstr_insert_c(lstr, 'a', 0);
+	ft_lstr_insert_c(lstr, 'a', 1, 0);
 	CHECK(lstr, "abcd");
 
 	ft_putstr("\n  Insert to 2 'c' in 'abd': ");
 	lstr = ft_lstr_new_copy("abd");
-	ft_lstr_insert_c(lstr, 'c', 2);
+	ft_lstr_insert_c(lstr, 'c', 1, 2);
 	CHECK(lstr, "abcd");
 
 	ft_putstr("\n  Insert to 3 'd' in 'abc': ");
 	lstr = ft_lstr_new_copy("abc");
-	ft_lstr_insert_c(lstr, 'd', 3);
+	ft_lstr_insert_c(lstr, 'd', 1, 3);
 	CHECK(lstr, "abcd");
+
+	ft_putstr("\n  Insert 2'b' in 'aa*': ");
+	lstr = ft_lstr_new_copy("aa");
+	ft_lstr_insert_c(lstr, 'b', 2, 2);
+	CHECK(lstr, "aabb");
+
+	ft_putstr("\n  Insert 2'b' in '*aa': ");
+	lstr = ft_lstr_new_copy("aa");
+	ft_lstr_insert_c(lstr, 'b', 2, 0);
+	CHECK(lstr, "bbaa");
 
 	ft_putstr("\n ==STRING==\n");
 	ft_putstr("  Insert 'abcd' in empty: ");
