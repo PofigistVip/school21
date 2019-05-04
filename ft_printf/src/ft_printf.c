@@ -158,19 +158,7 @@ void	ft_tostring_str(t_print_elem *el, t_print_arg *arg)
 	el->str_len = width;
 }
 
-size_t	ft_print_itoa_len(t_print_elem *el, long int val)
-{
-	size_t	len;
-
-	len = 1;
-	if (val < 0 || has_flag(el, 8) || has_flag(el, 16))
-		++len;
-	while ((val /= 10))
-		++len;
-	return (len);
-}
-
-char	*ft_printf_itoa(t_print_elem *el, t_print_arg *arg)
+void	ft_tostring_int(t_print_elem *el, t_print_arg *arg)
 {
 	long int	val;
 	int			len;
@@ -185,22 +173,7 @@ char	*ft_printf_itoa(t_print_elem *el, t_print_arg *arg)
 	else if (el->length_mod == 'l')
 		val = (long int)val;
 	//else if (el->length_mod == 'q' || el->length_mod == 'M')
-	//	val = (long long int)val;
-	//пока что не все типы
-
-	len = ft_print_itoa_len(el, val);
-	width = len;
-	if (el->width > len)
-		width = el->width;
-	el->str = (char*)malloc(width);
-	filler = (has_flag(el, 4)) ? el->str + len - 1: el->str + width - 1;
-	*filler = (val % 10) + '0';
-	return (0);
-}
-
-void	ft_tostring_int(t_print_elem *el, t_print_arg *arg)
-{
-	ft_printf_itoa(el, arg);
+	//	val = (long long int
 }
 
 void	ft_tostring(t_llist *llist, t_llist *args)
@@ -262,7 +235,7 @@ int		ft_printf_output(t_llist *llist)
 		printf_print(el);
 		//printf_debug_print(el);
 		++i;
-		count += el->str_len;
+		count += el->str->length;
 	}
 	return (count);
 }

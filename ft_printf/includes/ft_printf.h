@@ -45,8 +45,7 @@ typedef struct	s_print_elem
 	int				precision;
 	int				precision_ref;
 	int				pos;
-	char			*str;
-	size_t			str_len;
+	t_lstr			*str;
 
 	void			*ptr;
 	int				val_i;
