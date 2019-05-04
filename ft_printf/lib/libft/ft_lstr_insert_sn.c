@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	ft_lstr_insert_sn(t_lstr *lstr, char *str, int index, int len)
+void	ft_lstr_insert_sn(t_lstr *lstr, char *str, int len, int index)
 {
 	int	str_len;
 
