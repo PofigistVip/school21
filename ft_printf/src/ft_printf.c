@@ -12,7 +12,7 @@ int		has_flag(t_print_elem *el, char flag)
 void	printf_debug_print(t_print_elem *el)
 {
 	if (el->conv_type == 0)
-		ft_putnchar(el->str, el->str_len);
+		ft_lstr_put(el->str);
 	else
 	{
 		ft_putchar('{');
@@ -144,20 +144,17 @@ void	ft_tostring_str(t_print_elem *el, t_print_arg *arg)
 	width = len;
 	if (el->width != -1 && el->width > width)
 		width = el->width;
-	ft_lstr_destroy(el->str);
+	ft_lstr_destroy(&(el->str));
 	el->str = ft_lstr_new(' ', width);
 	if (has_flag(el, 4))
-		ft_lstr_place_sn(el->str, arg->ptr, len, 0);
+		ft_lstr_place_s(el->str, arg->ptr, 0);
 	else
-		ft_lstr_place_sn(el->str, arg->ptr, len, el->str->length - len + 1);
+		ft_lstr_place_sn(el->str, arg->ptr, len, width - len);
 }
 
 void	ft_tostring_int(t_print_elem *el, t_print_arg *arg)
 {
 	long int	val;
-	int			len;
-	int			width;
-	char		*filler;
 
 	val = arg->val_i;
 	if (el->length_mod == 'H')
