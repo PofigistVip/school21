@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
-t_lstr	*ft_lstr_new_raw(char *str)
+t_lstr	*ft_lstr_new_copy(char *str)
 {
 	t_lstr	*lstr;
 	int		len;
@@ -24,7 +24,9 @@ t_lstr	*ft_lstr_new_raw(char *str)
 		return (ft_lstr_new_empty());
 	if ((lstr = (t_lstr*)malloc(sizeof(t_lstr))) == NULL)
 		return (NULL);
-	lstr->str = str;
+	if ((lstr->str = (ft_strnew(len))) == NULL)
+		return (NULL);
+	ft_memcpy(lstr->str, str, len);
 	lstr->length = len;
 	lstr->capacity = len + 1;
 	return (lstr);
