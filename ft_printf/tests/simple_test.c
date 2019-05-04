@@ -18,7 +18,8 @@ int		main(int argc, char **argv)
 	//bugs:
 	//%20.3-sA\n
 	//%20-sA\n
-	char	*format = "%3.20sA\n";
+	//проверить флаги после чисел на MacOS!
+	char	*format = "%s '% 020d %d\n";
 	char	*str1 = "Larlyne";
 	int		int1 = 20;
 	int		int2 = 3;

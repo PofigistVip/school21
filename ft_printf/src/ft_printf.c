@@ -1,5 +1,6 @@
 
 #include <stdarg.h>
+#include <stdlib.h>
 #include "libft.h"
 #include "ft_printf.h"
 
@@ -134,7 +135,7 @@ t_print_arg	*get_arg(t_llist *args, int pos)
 	return ((t_print_arg*)ft_llist_get(args, pos));
 }
 
-void	ft_tostrint_str(t_print_elem *el, t_print_arg *arg)
+void	ft_tostring_str(t_print_elem *el, t_print_arg *arg)
 {
 	size_t	len;
 	size_t	width;
@@ -157,6 +158,49 @@ void	ft_tostrint_str(t_print_elem *el, t_print_arg *arg)
 		ft_memcpy(el->str + (width - len), arg->ptr, len);
 	}
 	el->str_len = width;
+}
+
+size_t	ft_print_itoa_len(t_print_elem *el, long int val)
+{
+	size_t	len;
+
+	len = 1;
+	if (val < 0 || has_flag(el, 8) || has_flag(el, 16))
+		++len;
+	while ((val /= 10))
+		++len;
+	return (len);
+}
+
+char	*ft_printf_itoa(t_print_elem *el, t_print_arg *arg)
+{
+	long int	val;
+	size_t		len;
+	size_t		width;
+	char		*filler;
+
+	val = arg->val_i;
+	if (el->length_mod == 'H')
+		val = (signed char)val;
+	else if (el->length_mod == 'h')
+		val = (short int)val;
+	else if (el->length_mod == 'l')
+		val = (long int)val;
+	//else if (el->length_mod == 'q' || el->length_mod == 'M')
+	//	val = (long long int)val;
+	//пока что не все типы
+
+	len = ft_print_itoa_len(el, val);
+	if (width > len)
+		width = el->width;
+	el->str = (char*)malloc(width);
+	filler = (has_flag(el, 4)) ? el->str + len - 1: el->str + width - 1;
+	*filler = (val % 10) + '0';
+}
+
+void	ft_tostring_int(t_print_elem *el, t_print_arg *arg)
+{
+	ft_printf_itoa(el, arg);
 }
 
 void	ft_tostring(t_llist *llist, t_llist *args)
@@ -184,7 +228,9 @@ void	ft_tostring(t_llist *llist, t_llist *args)
 			el->width = get_arg(args, el->width_ref - 1)->val_i;
 		arg = get_arg(args, el->pos - 1);
 		if (el->conv_type == 's')
-			ft_tostrint_str(el, arg);
+			ft_tostring_str(el, arg);
+		else if (el->conv_type == 'd' || el->conv_type == 'i')
+			ft_tostring_int(el, arg);
 	}
 }
 
