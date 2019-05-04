@@ -92,7 +92,7 @@ t_print_elem	*new_print_elem(void)
 	t_print_elem	*elem;
 
 	elem = (t_print_elem*)malloc(sizeof(t_print_elem));
-	elem->str = ft_lstr_empty();
+	elem->str = ft_lstr_new_empty();
 	elem->conv_type = 0;
 	elem->flags = 0;
 	elem->width = -1;
@@ -113,7 +113,6 @@ t_llist		*parse_format(const char *format)
 	t_llist			*llist;
 	t_print_elem	*el;
 	size_t			n;
-	char			wait_width;	
 	int				current_pos;
 	char			flag;
 	char			len_mod;
@@ -128,12 +127,11 @@ t_llist		*parse_format(const char *format)
 			if (n != 0)
 			{
 				el = new_print_elem();
-				ft_lstr_add_sn(el->str, format - n, n);
+				ft_lstr_insert_sn(el->str, (char*)format - n, 0, n);
 				ft_llist_add(llist, el);
 				n = 0;
 			}
 			el = new_print_elem();
-			wait_width = 1;
 			++format;
 			if (is_reference(format))
 			{
@@ -194,7 +192,7 @@ t_llist		*parse_format(const char *format)
 	if (n != 0)
 	{
 		el = new_print_elem();
-		ft_lstr_add_sn(el->str, format - n, n);
+		ft_lstr_insert_sn(el->str, (char*)format - n, 0, n);
 		ft_llist_add(llist, el);
 	}
 	return (llist);
