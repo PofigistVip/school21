@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_llitoa.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,20 +14,17 @@
 #include <stdlib.h>
 #include "libft.h"
 
-char		*ft_itoa(int n)
+char		*ft_llitoa(long long int n)
 {
 	char	sign;
 	char	size;
-	int		num;
+	long long int		num;
 	char	*str;
 
 	num = n;
-	size = (num < 0) ? 2 : 1;
-	while (num >= 10 || num <= -10)
-	{
-		size++;
-		num /= 10;
-	}
+	size = (n < 0) ? 2 : 1;
+	while (num /= 10)
+		++size;
 	if ((str = (char*)ft_memalloc(size + 1)) == NULL)
 		return (NULL);
 	sign = (n < 0) ? -1 : 1;
@@ -35,8 +32,7 @@ char		*ft_itoa(int n)
 		*str = '-';
 	while (n >= 10 || n <= -10)
 	{
-		str[size - 1] = (n % 10) * sign + '0';
-		--size;
+		str[size--] = (n % 10) * sign + '0';
 		n /= 10;
 	}
 	str[size - 1] = (n % 10) * sign + '0';
