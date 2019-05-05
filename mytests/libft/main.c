@@ -178,6 +178,11 @@ void	ft_lstr_tests(void)
 	lstr = ft_lstr_new_copy("aa");
 	ft_lstr_insert_c(lstr, 'b', 2, 0);
 	CHECK(lstr, "bbaa");
+	
+	ft_putstr("\n  Insert 2'b' in 'a*a': ");
+	lstr = ft_lstr_new_copy("aa");
+	ft_lstr_insert_c(lstr, 'b', 2, 1);
+	CHECK(lstr, "abba");
 
 	ft_putstr("\n ==STRING==\n");
 	ft_putstr("  Insert 'abcd' in empty: ");
