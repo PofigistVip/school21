@@ -46,21 +46,17 @@ typedef struct	s_print_elem
 	int				precision_ref;
 	int				pos;
 	t_lstr			*str;
-
-	void			*ptr;
-	int				val_i;
-	unsigned int	val_ui;
-	double			val_d;
 	
 }				t_print_elem;
 
 typedef struct	s_print_arg
 {
-	int				pos;
+	int						pos;
 
-	void			*ptr;
-	int				val_i;
-	double			val_d;
+	void					*ptr;
+	long long int			val_i;
+	unsigned long long int	val_ui;
+	double					val_d;
 }				t_print_arg;
 
 

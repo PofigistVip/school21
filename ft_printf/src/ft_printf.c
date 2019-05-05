@@ -1,6 +1,7 @@
 
 #include <stdarg.h>
 #include <stdlib.h>
+#include <inttypes.h>
 #include "libft.h"
 #include "ft_printf.h"
 
@@ -73,6 +74,33 @@ t_print_arg	*arg_new(void)
 	return (arg);
 }
 
+
+void	push_arg(t_print_elem *el, t_print_arg *arg, va_list *ap)
+{
+	if (el->conv_type == 'c')
+		arg->val_i = va_arg(*ap, int);
+	else if(el->conv_type == 's')
+		arg->ptr  = va_arg(*ap, char*);
+	else if (el->conv_type == 'd' || el->conv_type == 'i')
+	{
+		if (el->length_mod == 'H')
+			arg->val_i = va_arg(*ap, int);
+		else if (el->length_mod == 'h')
+			arg->val_i = va_arg(*ap, int);
+		else if (el->length_mod == 'l')
+			arg->val_i = va_arg(*ap, long int);
+		else if (el->length_mod == 'M')
+			arg->val_i = va_arg(*ap, long long int);
+		else if (el->length_mod == 'j')
+			arg->val_i = va_arg(*ap, intmax_t);
+		else if (el->length_mod == 'z')
+			arg->val_i = va_arg(*ap, ssize_t);
+		else
+			arg->val_i = va_arg(*ap, int);
+		
+	}
+}
+
 t_llist	*push_args(t_llist *llist, va_list *ap)
 {
 	t_llist	*args;
@@ -102,7 +130,7 @@ t_llist	*push_args(t_llist *llist, va_list *ap)
 					arg->val_i = va_arg(*ap, int);
 				else if (el->conv_type == 'c' || el->conv_type == 'd'
 				|| el->conv_type == 'i')
-					arg->val_i = va_arg(*ap, int);
+					arg->val_i = va_arg(*ap, long long int);
 				else if (el->conv_type == 'o' || el->conv_type == 'u'
 					|| el->conv_type == 'x' || el->conv_type == 'X')
 					arg->val_i = va_arg(*ap, int);
@@ -164,6 +192,8 @@ void	ft_tostring_int(t_print_elem *el, t_print_arg *arg)
 		val = (short int)val;
 	else if (el->length_mod == 'l')
 		val = (long int)val;
+	else if (el->length_mod == 'M')
+		val = (long long int)val;
 	//else if (el->length_mod == 'q' || el->length_mod == 'M')
 	//	val = (long long int
 	num = ft_itoa(val);
@@ -228,7 +258,13 @@ void	ft_tostring(t_llist *llist, t_llist *args)
 		if (el->conv_type == 's')
 			ft_tostring_str(el, arg);
 		else if (el->conv_type == 'c')
-			ft_lstr_insert_c(el->str, (unsigned char)arg->val_i, 1, 0);
+		{
+			ft_lstr_destroy(&(el->str));
+			el->str = ft_lstr_new(' ', (el->width > 0) ? el->width : 1);
+			ft_lstr_place_c(el->str, (unsigned char)arg->val_i, 1,
+				has_flag(el, 4) ? 0 : el->str->length - 1);
+		}
+			
 		else if (el->conv_type == 'd' || el->conv_type == 'i')
 			ft_tostring_int(el, arg);
 	}
