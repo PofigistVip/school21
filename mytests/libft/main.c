@@ -1,5 +1,6 @@
 
 #include <stdlib.h>
+#include <limits.h>
 #include "libft.h"
 
 
@@ -126,6 +127,19 @@ void	ft_utility_tests(void)
 	ft_putstr("\n  125 dec to hex:\t ");
 	num = ft_uitoa_base(125, 16);
 	CHECK_STR(num, "7d");
+
+	ft_putstr("\n===FT_LLITOA===\n");
+	ft_putstr(" ZERO:\t\t\t ");
+	num = ft_llitoa(0);
+	CHECK_STR(num, "0");
+
+	ft_putstr("\n LLONG_MIN:\t\t ");
+	num = ft_llitoa(-9223372036854775808);
+	CHECK_STR(num, "-9223372036854775808");
+
+	ft_putstr("\n LLONG_MAX:\t\t ");
+	num = ft_llitoa(9223372036854775807);
+	CHECK_STR(num, "9223372036854775807");
 
 	ft_putchar('\n');
 }
