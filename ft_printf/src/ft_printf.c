@@ -92,18 +92,32 @@ void	ft_tostring_str(t_print_elem *el, t_print_arg *arg)
 void	ft_tostring_int(t_print_elem *el, t_print_arg *arg)
 {
 	long long int	val;
-	char		*num;
+	char			*num;
 
 	val = arg->val_i;
-	num = ft_llitoa(val);
+	
 	ft_lstr_destroy(&(el->str));
-	el->str = ft_lstr_new_raw(num);
+	if (val == 0 && el->precision == 0)
+		el->str = ft_lstr_new_empty();
+	else
+	{
+		num = ft_llitoa(val);
+		el->str = ft_lstr_new_raw(num);
+	}
 	if (val >= 0)
 	{
 		if (has_flag(el, 16))
 			ft_lstr_insert_c(el->str, '+', 1, 0);
 		else if (has_flag(el, 8))
 			ft_lstr_insert_c(el->str, ' ', 1, 0);
+	}
+	if (el->precision > el->str->length)
+	{
+		if (val < 0 || has_flag(el, 16) || has_flag(el, 8))
+			ft_lstr_insert_c(el->str, '0', el->precision - el->str->length + 1, 1);
+		else
+			ft_lstr_insert_c(el->str, '0', el->precision - el->str->length, 0);
+		
 	}
 	if (el->width > el->str->length)
 	{

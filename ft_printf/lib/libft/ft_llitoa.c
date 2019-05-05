@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_llitoa.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,11 +14,11 @@
 #include <stdlib.h>
 #include "libft.h"
 
-char		*ft_itoa(int n)
+char		*ft_llitoa(long long int n)
 {
 	char	sign;
 	char	size;
-	int		num;
+	long long int	num;
 	char	*str;
 
 	num = n;
