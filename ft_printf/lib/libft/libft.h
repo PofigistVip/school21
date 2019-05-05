@@ -105,6 +105,7 @@ long			ft_pos_power(int nb, unsigned int power);
 void			*ft_realloc(void *src, size_t old_size, size_t new_size);
 void			ft_putnchar_fd(char *str, size_t n, int fd);
 void			ft_putnchar(char *str, size_t n);
+char			*ft_uitoa_base(unsigned long long int nbr, int base);
 
 /*
 ** Larlyne's String

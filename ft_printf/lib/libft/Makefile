@@ -81,6 +81,7 @@ SRCS=ft_memset.c \
 	 ft_realloc.c \
 	 ft_putnchar.c \
 	 ft_putnchar_fd.c \
+	 ft_uitoa_base.c \
 \
 	 ft_llist_create.c \
 	 ft_llist_elem_new.c \
