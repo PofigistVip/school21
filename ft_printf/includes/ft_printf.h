@@ -62,9 +62,15 @@ typedef struct	s_print_arg
 
 
 t_llist			*parse_format(const char *format);
+int		has_flag(t_print_elem *el, char flag);
+
 
 t_llist	*push_args(t_llist *llist, va_list *ap);
 t_print_arg	*get_arg(t_llist *args, int pos);
+
+void	ft_get_di_prefix(t_print_elem *el, char *nbr, t_lstr **prefix, t_lstr **num);
+void	ft_get_uoxX_prefix(t_print_elem *el, char *nbr, t_lstr **prefix, t_lstr **num);
+void	ft_get_diuoxX(t_print_elem *el, t_lstr *prefix, t_lstr *num);
 
 int				ft_printf(const char *format, ...);
 

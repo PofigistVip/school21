@@ -93,47 +93,21 @@ void	ft_tostring_int(t_print_elem *el, t_print_arg *arg)
 {
 	long long int	val;
 	char			*num;
+	t_lstr			*prefix;
+	t_lstr			*number;
 
 	val = arg->val_i;
-	
-	ft_lstr_destroy(&(el->str));
 	if (val == 0 && el->precision == 0)
-		el->str = ft_lstr_new_empty();
+	{
+		prefix = ft_lstr_new_empty();
+		number = ft_lstr_new_empty();
+	}
 	else
 	{
 		num = ft_llitoa(val);
-		el->str = ft_lstr_new_raw(num);
+		ft_get_di_prefix(el, num, &prefix, &number);
 	}
-	if (val >= 0)
-	{
-		if (has_flag(el, 16))
-			ft_lstr_insert_c(el->str, '+', 1, 0);
-		else if (has_flag(el, 8))
-			ft_lstr_insert_c(el->str, ' ', 1, 0);
-	}
-	if (el->precision > el->str->length)
-	{
-		if (val < 0 || has_flag(el, 16) || has_flag(el, 8))
-			ft_lstr_insert_c(el->str, '0', el->precision - el->str->length + 1, 1);
-		else
-			ft_lstr_insert_c(el->str, '0', el->precision - el->str->length, 0);
-		
-	}
-	if (el->width > el->str->length)
-	{
-		if (has_flag(el, 4))
-			ft_lstr_insert_c(el->str, ' ', el->width - el->str->length,
-				el->str->length);
-		else
-		{
-			if (has_flag(el, 2))
-				ft_lstr_insert_c(el->str, '0', el->width - el->str->length,
-					has_flag(el, 16) || has_flag(el, 8) ? 1 : 0);
-			else
-				ft_lstr_insert_c(el->str, ' ', el->width - el->str->length, 0);
-			
-		}
-	}
+	ft_get_diuoxX(el, prefix, number);
 }
 
 void	ft_toupperX(char *c)
@@ -146,6 +120,8 @@ void	ft_tostring_ubase(t_print_elem *el, t_print_arg *arg)
 	unsigned long long int	val;
 	char		*num;
 	int base;
+	t_lstr			*prefix;
+	t_lstr			*number;
 
 	base = 10;
 	if (el->conv_type == 'o')
@@ -153,36 +129,17 @@ void	ft_tostring_ubase(t_print_elem *el, t_print_arg *arg)
 	else if (el->conv_type == 'x' || el->conv_type == 'X')
 		base = 16;
 	val = arg->val_ui;
-	num = ft_uitoa_base(val, base);
-	ft_lstr_destroy(&(el->str));
-	el->str = ft_lstr_new_raw(num);
-	if (has_flag(el, 1) && val != 0)
+	if (val == 0 && el->precision == 0)
 	{
-		if (el->conv_type == 'x' || el->conv_type == 'X')
-			ft_lstr_insert_s(el->str, "0x", 0);
-		else if (el->conv_type == 'o')
-			ft_lstr_insert_s(el->str, "0", 0);
+		prefix = ft_lstr_new_empty();
+		number = ft_lstr_new_empty();
 	}
-	if (el->width > el->str->length)
+	else
 	{
-		if (has_flag(el, 4))
-			ft_lstr_insert_c(el->str, ' ', el->width - el->str->length,
-				el->str->length);
-		else
-		{
-			if (!has_flag(el, 2))
-				ft_lstr_insert_c(el->str, ' ', el->width - el->str->length, 0);
-			else
-			{
-				if (!has_flag(el, 1) || el->conv_type == 'u')
-					ft_lstr_insert_c(el->str, '0', el->width - el->str->length, 0);
-				else if (el->conv_type == 'o')
-					ft_lstr_insert_c(el->str, '0', el->width - el->str->length, 0);
-				else
-					ft_lstr_insert_c(el->str, '0', el->width - el->str->length, 2);
-			}
-		}
+		num = ft_uitoa_base(val, base);
+		ft_get_uoxX_prefix(el, num, &prefix, &number);
 	}
+	ft_get_diuoxX(el, prefix, number);
 	if (el->conv_type == 'X')
 		ft_striter(el->str->str, &ft_toupperX);
 }
