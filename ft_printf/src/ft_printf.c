@@ -189,7 +189,8 @@ void	ft_tostring(t_llist *llist, t_llist *args)
 		else if (el->conv_type == 'd' || el->conv_type == 'i')
 			ft_tostring_int(el, arg);
 		else if (el->conv_type == 'o' || el->conv_type == 'u' ||
-				el->conv_type == 'x' || el->conv_type == 'X')
+				el->conv_type == 'x' || el->conv_type == 'X' ||
+				el->conv_type == 'U')
 			ft_tostring_ubase(el, arg);
 	}
 }

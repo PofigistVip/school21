@@ -21,7 +21,7 @@ int 			is_conversion_specifier(char c)
 		|| c == 'x' || c == 'X' || c == 'e' || c == 'E'
 		|| c == 'f' || c == 'F' || c == 'g' || c == 'G'
 		|| c == 'a' || c == 'A' || c == 'c' || c == 's'
-		|| c == 'C' || c == 'S' || c == '%');
+		|| c == 'C' || c == 'S' || c == '%' || c == 'U');
 }
 
 int				is_reference(const char *str)
