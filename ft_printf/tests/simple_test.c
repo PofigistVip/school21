@@ -17,7 +17,7 @@ int		main(int argc, char **argv)
 {
 	//bugs:
 	//проверить флаги после чисел на MacOS!
-	char	*format = "%s";
+	char	*format = "%.2s";
 	char	*str1 = NULL;
 	char	char1 = 65;
 	long long int	int1 = 256;

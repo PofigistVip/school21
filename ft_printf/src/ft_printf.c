@@ -175,10 +175,7 @@ void	ft_tostring_str(t_print_elem *el, t_print_arg *arg)
 	int		width;
 
 	if (arg->ptr == NULL)
-	{
-		ft_lstr_insert_s(el->str, "(null)", 0);
-		return ;
-	}
+		arg->ptr = "(null)";
 	len = ft_strlen((const char*)arg->ptr);
 	if (el->precision != -1 && len > el->precision)
 		len = el->precision;
@@ -246,7 +243,7 @@ void	ft_tostring_ubase(t_print_elem *el, t_print_arg *arg)
 	num = ft_uitoa_base(val, base);
 	ft_lstr_destroy(&(el->str));
 	el->str = ft_lstr_new_raw(num);
-	if (has_flag(el, 1))
+	if (has_flag(el, 1) && val != 0)
 	{
 		if (el->conv_type == 'x' || el->conv_type == 'X')
 			ft_lstr_insert_s(el->str, "0x", 0);
