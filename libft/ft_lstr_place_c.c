@@ -8,7 +8,7 @@ void	ft_lstr_place_c(t_lstr *lstr, char c, int count, int index)
 		return ;
 	if (index + count >= lstr->capacity)
 	{
-		if (ft_lstr_resize(lstr, index + count)  == NULL)
+		if (ft_lstr_resize(lstr, index + count)  == 0)
 			return ;
 		lstr->length = index + count;
 	}

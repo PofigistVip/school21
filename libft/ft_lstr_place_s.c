@@ -13,7 +13,7 @@ void	ft_lstr_place_s(t_lstr *lstr, char *str, int index)
 		return ;
 	if (index + len >= lstr->capacity)
 	{
-		if (ft_lstr_resize(lstr, lstr->length - index + len)  == NULL)
+		if (ft_lstr_resize(lstr, lstr->length - index + len)  == 0)
 			return ;
 		lstr->length = index + len;
 	}
