@@ -96,6 +96,33 @@ int		ft_lstr_tests(void)
 	ft_lstr_insert_sn(lstr, "cdcd", 2, 2);
 	CHECK(lstr, "abcd");
 
+	ft_putstr("\n===PLACE===");
+	ft_putstr("\n ==CHAR==");
+	ft_putstr("\n  Place 2'a' to 0 in 'bbbb': ");
+	lstr = ft_lstr_new_copy("bbbb");
+	ft_lstr_place_c(lstr, 'a', 2, 0);
+	CHECK(lstr, "aabb");
+
+	ft_putstr("\n  Place 2'a' to 2 in 'bbbb': ");
+	lstr = ft_lstr_new_copy("bbbb");
+	ft_lstr_place_c(lstr, 'a', 2, 2);
+	CHECK(lstr, "bbaa");
+
+	ft_putstr("\n  Full 'a' all 'abcd':\t ");
+	lstr = ft_lstr_new_copy("abcd");
+	ft_lstr_place_c(lstr, 'a', lstr->length, 0);
+	CHECK(lstr, "aaaa");
+
+	ft_putstr("\n  Place 4'a' to 0 in 'bc': ");
+	lstr = ft_lstr_new_copy("bc");
+	ft_lstr_place_c(lstr, 'a', 4, 0);
+	CHECK(lstr, "aaaa");
+
+	ft_putstr("\n  Place 4'c' in empty:\t ");
+	lstr = ft_lstr_new_empty();
+	ft_lstr_place_c(lstr, 'c', 4, 0);
+	CHECK(lstr, "cccc");
+
 	ft_putstr("\n===MEMORY===");
 	ft_putstr("\n Capacity minimization (5->3): ");
 	char	*str = ft_strnew(6);
