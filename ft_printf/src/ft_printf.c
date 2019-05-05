@@ -167,7 +167,6 @@ void	ft_tostring_ubase(t_print_elem *el, t_print_arg *arg)
 				else
 					ft_lstr_insert_c(el->str, '0', el->width - el->str->length, 2);
 			}
-			
 		}
 	}
 	if (el->conv_type == 'X')
