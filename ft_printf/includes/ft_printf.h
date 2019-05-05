@@ -14,6 +14,7 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 # include <string.h>
+# include <stdarg.h>
 # include "libft.h"
 
 /*
@@ -61,6 +62,9 @@ typedef struct	s_print_arg
 
 
 t_llist			*parse_format(const char *format);
+
+t_llist	*push_args(t_llist *llist, va_list *ap);
+t_print_arg	*get_arg(t_llist *args, int pos);
 
 int				ft_printf(const char *format, ...);
 
