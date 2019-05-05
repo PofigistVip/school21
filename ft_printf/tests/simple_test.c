@@ -17,10 +17,10 @@ int		main(int argc, char **argv)
 {
 	//bugs:
 	//проверить флаги после чисел на MacOS!
-	char	*format = "'%lld' '%d'\n";
+	char	*format = "'%#20.2x' '%d'\n";
 	char	*str1 = "Larlyne";
 	char	char1 = 65;
-	long long int	int1 = 9223372036854775801;
+	long long int	int1 = 256;
 	int		int2 = 3;
 
 	printf("=-=-=-=-=\n");
