@@ -17,19 +17,19 @@ int		main(int argc, char **argv)
 {
 	//bugs:
 	//проверить флаги после чисел на MacOS!
-	char	*format = "'%#20.2x' '%d'\n";
-	char	*str1 = "Larlyne";
+	char	*format = "%s";
+	char	*str1 = "this is a string";
 	char	char1 = 65;
 	long long int	int1 = 256;
 	int		int2 = 3;
 
 	printf("=-=-=-=-=\n");
-	printf(format, int1, int2);
-	printf("=-=-=-=-=\n");
+	printf(format, str1);
+	printf("\n=-=-=-=-=\n");
 	if (argc == 1)
 	{
-		ft_printf(format, int1, int2);
-		printf("=-=-=-=-=\n");
+		ft_printf(format, str1);
+		printf("\n=-=-=-=-=\n");
 	}
 	return (0);
 }

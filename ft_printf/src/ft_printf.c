@@ -34,7 +34,10 @@ void	printf_debug_print(t_print_elem *el)
 		if (el->flags != 0)
 			ft_putchar(':');
 		if (el->conv_type == 's')
+		{
 			ft_putnchar("str", 3);
+			ft_putnbr(el->str->length);
+		}
 		else if (el->conv_type == 'd' || el->conv_type == 'i')
 			ft_putnchar("int", 3);
 		else if (el->conv_type == 'c')
@@ -228,6 +231,11 @@ void	ft_tostring_int(t_print_elem *el, t_print_arg *arg)
 	}
 }
 
+void	ft_toupperX(char *c)
+{
+	*c = ft_toupper(*c);
+}
+
 void	ft_tostring_ubase(t_print_elem *el, t_print_arg *arg)
 {
 	unsigned long long int	val;
@@ -271,6 +279,8 @@ void	ft_tostring_ubase(t_print_elem *el, t_print_arg *arg)
 			
 		}
 	}
+	if (el->conv_type == 'X')
+		ft_striter(el->str->str, &ft_toupperX);
 }
 
 void	ft_tostring(t_llist *llist, t_llist *args)

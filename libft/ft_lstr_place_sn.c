@@ -14,11 +14,11 @@ void	ft_lstr_place_sn(t_lstr *lstr, char *str, int len, int index)
 		return ;
 	if (str_len < len)
 		len = str_len;
-	if (lstr->length - index + len + 1 > lstr->capacity)
+	if (index + len >= lstr->capacity)
 	{
 		if (ft_lstr_resize(lstr, lstr->length - index + len)  == NULL)
 			return ;
-		lstr->length = lstr->length - index + len;
+		lstr->length = index + len;
 	}
 	ft_memmove(lstr->str + index, str, len);
 }
