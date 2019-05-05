@@ -237,6 +237,12 @@ void	ft_lstr_tests(void)
 	ft_lstr_place_c(lstr, 'c', 4, 0);
 	CHECK(lstr, "cccc");
 
+	ft_putstr("\n ==STRING_N==\n");
+	ft_putstr("\n  Place 4 of 'abcdef' in empty:\t ");
+	lstr = ft_lstr_new_empty();
+	ft_lstr_place_sn(lstr, "abcdef", 4, 0);
+	CHECK(lstr, "abcd");
+
 	ft_putstr("\n===MEMORY===");
 	ft_putstr("\n Capacity minimization (5->3): ");
 	char	*str = ft_strnew(6);
