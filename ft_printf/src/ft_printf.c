@@ -95,7 +95,7 @@ void	ft_tostring_int(t_print_elem *el, t_print_arg *arg)
 	char		*num;
 
 	val = arg->val_i;
-	num = ft_itoa(val);
+	num = ft_llitoa(val);
 	ft_lstr_destroy(&(el->str));
 	el->str = ft_lstr_new_raw(num);
 	if (val >= 0)

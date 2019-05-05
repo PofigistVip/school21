@@ -13,8 +13,6 @@
 STESTNAME=stest
 INC=../includes
 LIBFT=../lib/libft
-SRC=../src/ft_printf.c \
-	../src/parser.c
 
 all:
 	@make -C .. re

@@ -6,7 +6,7 @@
 #    By: larlyne <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/07 13:38:08 by larlyne           #+#    #+#              #
-#    Updated: 2019/04/21 10:43:57 by larlyne          ###   ########.fr        #
+#    Updated: 2019/05/05 14:42:34 by larlyne          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,7 @@ SRCS=ft_memset.c \
 	 ft_putnchar.c \
 	 ft_putnchar_fd.c \
 	 ft_uitoa_base.c \
+	 ft_llitoa.c \
 \
 	 ft_llist_create.c \
 	 ft_llist_elem_new.c \

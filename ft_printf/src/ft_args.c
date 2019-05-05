@@ -31,6 +31,8 @@ void	push_arg(t_print_elem *el, t_print_arg *arg, va_list *ap)
 		arg->val_i = va_arg(*ap, int);
 	else if (el->conv_type == 's')
 		arg->ptr  = va_arg(*ap, char*);
+	else if (el->conv_type == 'n')
+		arg->ptr = va_arg(*ap, void*);
 	else if (el->conv_type == 'd' || el->conv_type == 'i')
 	{
 		if (el->length_mod == 'H')
