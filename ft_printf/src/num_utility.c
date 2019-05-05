@@ -52,8 +52,7 @@ void	ft_get_diuoxX(t_print_elem *el, t_lstr *prefix, t_lstr *num)
 			ft_lstr_insert_c(el->str, '0', el->width - prefix->length - num->length,
 				el->str->length);
 		else
-			ft_lstr_insert_c(el->str, ' ', el->width - prefix->length - num->length,
-				el->str->length);
+			ft_lstr_insert_c(el->str, ' ', el->width - prefix->length - num->length, 0);
 		ft_lstr_insert_s(el->str, num->str, el->str->length);
 	}
 	//ft_lstr_destroy(&prefix);
