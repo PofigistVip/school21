@@ -174,6 +174,11 @@ void	ft_tostring_str(t_print_elem *el, t_print_arg *arg)
 	int		len;
 	int		width;
 
+	if (arg->ptr == NULL)
+	{
+		ft_lstr_insert_s(el->str, "(null)", 0);
+		return ;
+	}
 	len = ft_strlen((const char*)arg->ptr);
 	if (el->precision != -1 && len > el->precision)
 		len = el->precision;
@@ -190,20 +195,10 @@ void	ft_tostring_str(t_print_elem *el, t_print_arg *arg)
 
 void	ft_tostring_int(t_print_elem *el, t_print_arg *arg)
 {
-	long int	val;
+	long long int	val;
 	char		*num;
 
 	val = arg->val_i;
-	if (el->length_mod == 'H')
-		val = (signed char)val;
-	else if (el->length_mod == 'h')
-		val = (short int)val;
-	else if (el->length_mod == 'l')
-		val = (long int)val;
-	else if (el->length_mod == 'M')
-		val = (long long int)val;
-	//else if (el->length_mod == 'q' || el->length_mod == 'M')
-	//	val = (long long int
 	num = ft_itoa(val);
 	ft_lstr_destroy(&(el->str));
 	el->str = ft_lstr_new_raw(num);
