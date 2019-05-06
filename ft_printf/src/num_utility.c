@@ -28,7 +28,7 @@ void	ft_get_uoxX_prefix(t_print_elem *el, char *nbr, t_lstr **prefix, t_lstr **n
 	{
 		if (el->conv_type == 'o')
 			ft_lstr_insert_c(*prefix, '0', 1, 0);
-		else if (el->conv_type == 'x' || el->conv_type == 'X')
+		else if ((el->conv_type == 'x' || el->conv_type == 'X') && *nbr != '0')
 			ft_lstr_insert_s(*prefix, "0x", 0);
 	}
 	if ((*num)->length < el->precision)
@@ -48,7 +48,7 @@ void	ft_get_diuoxX(t_print_elem *el, t_lstr *prefix, t_lstr *num)
 	}
 	else
 	{
-		if (has_flag(el, 2))
+		if (has_flag(el, 2) && el->precision == -1)
 			ft_lstr_insert_c(el->str, '0', el->width - prefix->length - num->length,
 				el->str->length);
 		else
