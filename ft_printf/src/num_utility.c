@@ -26,7 +26,7 @@ void	ft_get_uoxX_prefix(t_print_elem *el, char *nbr, t_lstr **prefix, t_lstr **n
 	*num = ft_lstr_new_copy(nbr);
 	if (has_flag(el, 1))
 	{
-		if (el->conv_type == 'o')
+		if (el->conv_type == 'o' || el->conv_type == 'O')
 			ft_lstr_insert_c(*prefix, '0', 1, 0);
 		else if ((el->conv_type == 'x' || el->conv_type == 'X') && *nbr != '0')
 			ft_lstr_insert_s(*prefix, "0x", 0);

@@ -124,7 +124,7 @@ void	ft_tostring_ubase(t_print_elem *el, t_print_arg *arg)
 	t_lstr			*number;
 
 	base = 10;
-	if (el->conv_type == 'o')
+	if (el->conv_type == 'o' || el->conv_type == 'O')
 		base = 8;
 	else if (el->conv_type == 'x' || el->conv_type == 'X')
 		base = 16;
@@ -179,6 +179,12 @@ void	ft_tostring(t_llist *llist, t_llist *args)
 			continue ;
 		}
 		arg = get_arg(args, el->pos - 1);
+		if (el->conv_type == 'p')
+		{
+			arg->val_ui = *((unsigned int*)arg->ptr);
+			el->conv_type = 'x';
+			el->flags |= 1;
+		}
 		if (el->conv_type == 's')
 			ft_tostring_str(el, arg);
 		else if (el->conv_type == 'c')
@@ -188,12 +194,11 @@ void	ft_tostring(t_llist *llist, t_llist *args)
 			ft_lstr_place_c(el->str, (unsigned char)arg->val_i, 1,
 				has_flag(el, 4) ? 0 : el->str->length - 1);
 		}
-			
-		else if (el->conv_type == 'd' || el->conv_type == 'i')
+		else if (el->conv_type == 'd' || el->conv_type == 'i' || el->conv_type == 'D')
 			ft_tostring_int(el, arg);
 		else if (el->conv_type == 'o' || el->conv_type == 'u' ||
 				el->conv_type == 'x' || el->conv_type == 'X' ||
-				el->conv_type == 'U')
+				el->conv_type == 'U' || el->conv_type == 'O')
 			ft_tostring_ubase(el, arg);
 	}
 }
