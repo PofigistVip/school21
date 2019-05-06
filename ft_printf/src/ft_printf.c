@@ -132,7 +132,10 @@ void	ft_tostring_ubase(t_print_elem *el, t_print_arg *arg)
 	if (val == 0 && el->precision == 0)
 	{
 		prefix = ft_lstr_new_empty();
-		number = ft_lstr_new_empty();
+		if (el->conv_type == 'o' && has_flag(el, 1))
+			number = ft_lstr_new('0', 1);
+		else
+			number = ft_lstr_new_empty();
 	}
 	else
 	{
