@@ -38,9 +38,9 @@ void	push_arg(t_print_elem *el, t_print_arg *arg, va_list *ap)
 	else if (el->conv_type == 'd' || el->conv_type == 'i')
 	{
 		if (el->length_mod == 'H')
-			arg->val_i = va_arg(*ap, int);
+			arg->val_i = (signed char)va_arg(*ap, int);
 		else if (el->length_mod == 'h')
-			arg->val_i = va_arg(*ap, int);
+			arg->val_i = (short int)va_arg(*ap, int);
 		else if (el->length_mod == 'l')
 			arg->val_i = va_arg(*ap, long int);
 		else if (el->length_mod == 'M')
