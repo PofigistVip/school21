@@ -117,6 +117,7 @@ t_llist		*parse_format(const char *format)
 	int				current_pos;
 	char			flag;
 	char			len_mod;
+	char			next_pos;
 
 	llist = ft_llist_create(sizeof(t_print_elem));
 	n = 0;
@@ -134,6 +135,7 @@ t_llist		*parse_format(const char *format)
 			}
 			el = new_print_elem();
 			++format;
+			next_pos = 0;
 			if (is_reference(format))
 			{
 				el->pos = get_num(&format);
@@ -141,7 +143,7 @@ t_llist		*parse_format(const char *format)
 				format += 2;
 			}
 			else
-				el->pos = current_pos++;
+				next_pos = 1;//el->pos = current_pos++;
 			while (*format && !is_conversion_specifier(*format))
 			{
 				len_mod = is_length_mod(format);
@@ -158,10 +160,14 @@ t_llist		*parse_format(const char *format)
 				{
 					++format;
 					if (is_reference(format))
+					{
 						el->width_ref = get_num(&format);
+					}
 					else
+					{
 						el->width_ref = current_pos++;
-					
+						--format;
+					}
 				}
 				else if (ft_isdigit(*format))
 					el->width = get_num(&format);
@@ -182,6 +188,8 @@ t_llist		*parse_format(const char *format)
 			}
 			if (!*format)
 				return (llist);//незакончен форматный вывод, free mem
+			if (next_pos == 1)
+				el->pos = current_pos++;
 			el->conv_type = *format;
 			ft_llist_add(llist, el);
 		}
