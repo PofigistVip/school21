@@ -18,18 +18,18 @@ int		main(int argc, char **argv)
 {
 	//bugs:
 	//проверить флаги после чисел на MacOS!
-	char	*format = "%hhu";
+	char	*format = "%p";
 	char	*str1 = NULL;
 	char	char1 = 65;
 	int		int1 = 42;
 	int		int2 = 3;
 
 	printf("=-=-=-=-=\n");
-	printf(format, UCHAR_MAX + 42, int1);
+	printf(format, &int1, int1);
 	printf("\n=-=-=-=-=\n");
 	if (argc == 1)
 	{
-		ft_printf(format, UCHAR_MAX + 42, int1);
+		ft_printf(format, &int1, int1);
 		printf("\n=-=-=-=-=\n");
 	}
 	return (0);

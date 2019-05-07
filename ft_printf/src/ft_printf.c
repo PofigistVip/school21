@@ -64,8 +64,6 @@ void	printf_debug_print(t_print_elem *el)
 			ft_putnbr(el->precision);
 		ft_putchar('}');
 	}
-	
-	
 }
 
 void	ft_tostring_str(t_print_elem *el, t_print_arg *arg)
@@ -181,7 +179,7 @@ void	ft_tostring(t_llist *llist, t_llist *args)
 		arg = get_arg(args, el->pos - 1);
 		if (el->conv_type == 'p')
 		{
-			arg->val_ui = *((unsigned int*)arg->ptr);
+			arg->val_ui = (size_t)arg->ptr;
 			el->conv_type = 'x';
 			el->flags |= 1;
 		}
