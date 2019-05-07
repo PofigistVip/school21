@@ -198,6 +198,10 @@ void	ft_tostring(t_llist *llist, t_llist *args)
 				el->conv_type == 'x' || el->conv_type == 'X' ||
 				el->conv_type == 'U' || el->conv_type == 'O')
 			ft_tostring_ubase(el, arg);
+		else if (el->conv_type == 'C')
+		{
+			
+		}
 	}
 }
 
