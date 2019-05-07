@@ -200,7 +200,7 @@ void	ft_tostring(t_llist *llist, t_llist *args)
 			ft_tostring_ubase(el, arg);
 		else if (el->conv_type == 'C')
 		{
-			
+			ft_putwchar(el, arg->val_i);
 		}
 	}
 }

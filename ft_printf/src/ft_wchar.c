@@ -38,7 +38,7 @@ int		ft_activebits(int num)
 	return (last - first + 1);
 }
 
-void	ft_putwchar(wchar_t wc)
+void	ft_putwchar(t_print_elem *el, wchar_t wc)
 {
 	int	nbits;
 	unsigned int v;
@@ -47,32 +47,32 @@ void	ft_putwchar(wchar_t wc)
 	v = wc;
 	nbits = ft_activebits(wc);
 	if (nbits <= 7)
-		write(1, &wc, 1);
+		ft_lstr_insert_c(el->str, wc, 1, 0);
 	else if (nbits <= 11)
 	{
 		octet = ((unsigned int)49280 >> 8) | (((v >> 6) << 27) >> 27);
-		write(1, &octet, 1);
+		ft_lstr_insert_c(el->str, octet, 1, 0);
 		octet = (((unsigned int)49280 << 24) >> 24) | ((v << 26) >> 26);
-		write(1, &octet, 1);	
+		ft_lstr_insert_c(el->str, octet, 1, 1);	
 	}
 	else if (nbits <= 16)
 	{
 		octet = ((unsigned int)14712960 >> 16) | (((v >> 12) << 28) >> 28);
-		write(1, &octet, 1);
+		ft_lstr_insert_c(el->str, octet, 1, 0);
 		octet = (((unsigned int)14712960 << 16) >> 24) | (((v >> 6) << 26) >> 26);
-		write(1, &octet, 1);
+		ft_lstr_insert_c(el->str, octet, 1, 1);
 		octet = (((unsigned int)14712960 << 24) >> 24) | ((v << 26) >> 26);
-		write(1, &octet, 1);
+		ft_lstr_insert_c(el->str, octet, 1, 2);
 	}
 	else
 	{
 		octet = ((unsigned int)4034953344 >> 24) | (((v >> 18)  << 29) >> 29);
-		write(1, &octet, 1);
+		ft_lstr_insert_c(el->str, octet, 1, 0);
 		octet = (((unsigned int)4034953344 << 8) >> 24) | (((v >> 12)  << 26) >> 26);
-		write(1, &octet, 1);
+		ft_lstr_insert_c(el->str, octet, 1, 1);
 		octet = (((unsigned int)4034953344 << 16) >> 24) | (((v >> 6)  << 26) >> 26);
-		write(1, &octet, 1);
+		ft_lstr_insert_c(el->str, octet, 1, 2);
 		octet = (((unsigned int)4034953344 << 24) >> 24) | ((v  << 26) >> 26);
-		write(1, &octet, 1);
+		ft_lstr_insert_c(el->str, octet, 1, 3);
 	}
 }

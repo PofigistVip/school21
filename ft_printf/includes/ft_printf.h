@@ -72,7 +72,7 @@ t_print_arg	*get_arg(t_llist *args, int pos);
 void	ft_get_di_prefix(t_print_elem *el, char *nbr, t_lstr **prefix, t_lstr **num);
 void	ft_get_uoxX_prefix(t_print_elem *el, char *nbr, t_lstr **prefix, t_lstr **num);
 void	ft_get_diuoxX(t_print_elem *el, t_lstr *prefix, t_lstr *num);
-void	ft_putwchar(wchar_t wc);
+void	ft_putwchar(t_print_elem *el, wchar_t wc);
 
 int				ft_printf(const char *format, ...);
 
