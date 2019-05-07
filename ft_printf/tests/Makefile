@@ -17,5 +17,14 @@ LIBFT=../lib/libft
 all:
 	@make -C .. re
 	@gcc -o $(STESTNAME) -I ../includes -I ../lib/libft simple_test.c -L .. -lftprintf
+	@./$(STESTNAME)
+speed:
+	@make -C .. re
+	@gcc -o $(STESTNAME) -I ../includes -I ../lib/libft speed_test.c -L .. -lftprintf
+	@echo "time of printf:"
+	@./$(STESTNAME)
+	@echo "time of ft_printf:"
+	@./$(STESTNAME) -f
 
-.PHONY: libft stest all
+
+.PHONY:  all
