@@ -48,5 +48,6 @@ t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos);
 void			ft_push_args(t_printf_elem *els, t_printf_arg *args);
 
 int				ft_display(int fd, t_printf_elem *els);
+int				ft_display_raw(int fd, t_printf_elem *el);
 int				ft_display_c(int fd, t_printf_elem *el);
 #endif
