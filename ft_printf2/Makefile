@@ -8,7 +8,7 @@ all: $(NAME)
 $(NAME):
 	@make -C $(LIBFT)
 	@mv $(LIBFT)/libft.a $(NAME)
-	@gcc -c $(SRCS)
+	@gcc -c $(SRCS) -I includes -I $(LIBFT)
 	@ar rc $(NAME) $(OBJS)
 	@make -C $(LIBFT) clean
 
