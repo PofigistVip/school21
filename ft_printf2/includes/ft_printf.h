@@ -29,7 +29,7 @@ typedef struct	s_printf_arg
 int				ft_printf(const char *format, ...);
 int				ft_fprintf(int fd, const char *format, ...);
 
-t_printf_elem	*ft_parse(const char *fmt);
+t_printf_elem	*ft_parse(const char *fmt, int *pos);
 char	ft_parse_len_mod(char **fmt);
 char	ft_parse_flag(char **fmt);
 int		ft_parse_get_number(char **str);

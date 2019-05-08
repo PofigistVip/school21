@@ -22,11 +22,12 @@ int		ft_printf(const char *format, ...)
 	t_printf_elem	*elems;
 	va_list			ap;
 	t_printf_arg	*args;
-	
-	elems = ft_parse(format);
+	int				pos;
+
+	elems = ft_parse(format, &pos);
 	va_start(ap, format);
-	args = ft_get_args(t_printf_elem *elems);
-	ft_push_args(elems, args);
+	args = ft_get_args(t_printf_elem *elems, &ap, pos);
 	va_end(ap);
+	ft_push_args(elems, args);
 	return (ft_output(1, elems));
 }

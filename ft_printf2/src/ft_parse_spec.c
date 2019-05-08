@@ -1,5 +1,12 @@
 #include "ft_printf.h"
 
+int			ft_parse_num_or_pos(int number, int *pos)
+{
+	if (number >= 0)
+		return (number);
+	return (*(pos)++);
+}
+
 void			ft_parse_str_elem(t_printf_elem *el, char **fmt, char *ptr)
 {
 	int		len;
@@ -43,21 +50,14 @@ void			ft_parse_spec_inner(t_printf_elem *el, char **fmt, int *pos)
 		{
 			el->length_mod = support;
 		}
-		else if (support = ft_parse_flag(&ptr);)
+		else if (support = ft_parse_flag(&ptr))
 		{
 			el->flags |= support;
 		}
 		else if (*ptr == '*')
 		{
 			number = ft_parse_get_pos(&ptr);
-			if (number >= 0)
-			{
-				el->width_pos = number;
-			}
-			else
-			{
-				el->width_pos = *(pos)++;
-			}
+			el->width_pos = ft_parse_num_or_pos(number, pos);
 		}
 		else if (*ptr == '.')
 		{
@@ -65,14 +65,7 @@ void			ft_parse_spec_inner(t_printf_elem *el, char **fmt, int *pos)
 			{
 				++ptr;
 				number = ft_parse_get_pos(&ptr);
-				if (number >= 0)
-				{
-					el->precision_pos = number;
-				}
-				else
-				{
-					el->precision_pos = *(pos)++;
-				}
+				el->precision_pos = ft_parse_num_or_pos(number, pos);
 			}
 			else
 			{
@@ -116,7 +109,7 @@ t_printf_elem	*ft_parse_spec(char **fmt, int *pos)
 	}
 	else //формат не закончен в конце fmt
 	{
-		ft_parse_str_elem(el, fmt, ptr)
+		ft_parse_str_elem(el, fmt, ptr);
 	}
 	return (el);
 }
