@@ -3,18 +3,6 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-void			ft_get_arg(char conv, char length, va_list *ap,
-					t_printf_arg* arg)
-{
-	if (conv == 'c')
-	{
-		if (length == 'l')
-			arg->val_wc = va_arg(*ap, wchar_t);
-		else
-			arg->val_i = va_arg(*ap, int);
-	}
-}
-
 t_printf_arg	*ft_arg_new(void)
 {
 	t_printf_arg	*arg;
@@ -38,6 +26,18 @@ void			ft_arg_add(t_printf_arg **args, t_printf_arg *arg)
 	else
 	{
 		*args = arg;
+	}
+}
+
+void			ft_get_arg(char conv, char length, va_list *ap,
+					t_printf_arg* arg)
+{
+	if (conv == 'c')
+	{
+		if (length == 'l')
+			arg->val_wc = va_arg(*ap, wchar_t);
+		else
+			arg->val_i = va_arg(*ap, int);
 	}
 }
 

@@ -11,10 +11,10 @@ int		ft_fprintf(int fd, const char *format, ...)
 		return (0);
 	elems = ft_parse(format);
 	va_start(ap, format);
-	args = ft_get_args(t_printf_elem *elems);
+	args = ft_get_args(t_printf_elem *elems, &ap, pos);
 	ft_push_args(elems, args);
 	va_end(ap);
-	return (ft_output(fd, elems));
+	return (ft_display(fd, elems));
 }
 
 int		ft_printf(const char *format, ...)
@@ -29,5 +29,5 @@ int		ft_printf(const char *format, ...)
 	args = ft_get_args(t_printf_elem *elems, &ap, pos);
 	va_end(ap);
 	ft_push_args(elems, args);
-	return (ft_output(1, elems));
+	return (ft_display(1, elems));
 }
