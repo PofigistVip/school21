@@ -1,6 +1,7 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 # include <wchar.h>
+# include <stdarg.h>
 # define FT_PRINTF_SHARP (1)
 # define FT_PRINTF_ZERO (1 << 1)
 # define FT_PRINTF_MINUS (1 << 2)
