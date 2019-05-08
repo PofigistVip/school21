@@ -1,17 +1,23 @@
 #include <stdio.h>
+#include <string.h>
 #include "libft.h"
 #include "ft_printf.h"
 
-#define FMT "%5c", char1
+#define FMT "This is a simple test."
 
 int		main(void)
 {
+	int		len;
 	char	char1 = 'a';
+	setbuf(stdout, NULL);
 	ft_putstr("STD\tPRINTF: '");
-	printf(FMT);
-	fflush(stdout);
-	ft_putstr("'\nMY\tPRINTF: '");
-	ft_printf(FMT);
-	ft_putstr("'\n");
+	len = printf(FMT);
+	ft_putstr("'(");
+	ft_putnbr(len);
+	ft_putstr(")\nMY\tPRINTF: '");
+	len = ft_printf(FMT);
+	ft_putstr("'(");
+	ft_putnbr(len);
+	ft_putstr(")\n");
 	return (0);
 }
