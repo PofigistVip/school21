@@ -2,7 +2,8 @@
 
 int		ft_parse_is_conv_spec(char c)
 {
-	return (c == 'c');
+	return (c == '%' ||
+			c == 'c');
 }
 
 char	ft_parse_len_mod(char **fmt)

@@ -4,6 +4,8 @@ int		ft_display_elem(int fd, t_printf_elem *el)
 {
 	if (el->conv_type == 0)
 		return (ft_display_raw(fd, el));
+	if (el->conv_type == '%')
+		return (ft_display_perc(fd, el));
 	if (el->conv_type == 'c')
 		return (ft_display_c(fd, el));
 	return (0);
