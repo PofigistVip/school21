@@ -10,11 +10,11 @@ int		main(void)
 	int		len;
 	char	char1 = 'a';
 	setbuf(stdout, NULL);
-	ft_putstr("STD\tPRINTF: '");
+	ft_putstr("\nSTD\tPRINTF: '");
 	len = printf(FMT);
 	ft_putstr("'(");
 	ft_putnbr(len);
-	ft_putstr(")\nMY\tPRINTF: '");
+	ft_putstr(")\n\nMY\tPRINTF: '");
 	len = ft_printf(FMT);
 	ft_putstr("'(");
 	ft_putnbr(len);
