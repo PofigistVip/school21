@@ -35,7 +35,6 @@ t_printf_elem	*ft_parse_rawstr(char **fmt)
 	size_t			len;
 	char			*raw;
 
-	
 	ptr = *fmt;
 	while (*ptr && *ptr != '%')
 		++ptr;
@@ -63,9 +62,7 @@ t_printf_elem	*ft_parse(char *fmt, int *pos)
 			curr = ft_parse_spec(&fmt, pos);
 		else
 			curr = ft_parse_rawstr(&fmt);
-		
 		ft_printf_elem_add(&els, curr);
-		
 	}
 	return (els);
 }

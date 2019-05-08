@@ -49,6 +49,7 @@ t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos)
 	t_printf_arg	*args;
 	t_printf_arg	*arg;
 
+	args = 0;
 	pos = 1;
 	while (pos < end_pos)
 	{

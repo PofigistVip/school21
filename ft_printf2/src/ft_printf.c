@@ -19,8 +19,6 @@ int		ft_fprintf(int fd, const char *format, ...)
 	return (ft_display(fd, elems));
 }
 
-#define LDEBUG 0
-
 int		ft_printf(const char *format, ...)
 {
 	t_printf_elem	*elems;
@@ -33,8 +31,7 @@ int		ft_printf(const char *format, ...)
 	
 	args = ft_get_args(elems, &ap, pos);
 	va_end(ap);
-	
+
 	ft_push_args(elems, args);
-	
 	return (ft_display(1, elems));
 }

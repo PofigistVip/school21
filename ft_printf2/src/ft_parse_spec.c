@@ -48,11 +48,11 @@ void			ft_parse_spec_inner(t_printf_elem *el, char **fmt, int *pos)
 	ptr = *fmt;
 	while (*ptr && !ft_parse_is_conv_spec(*ptr))
 	{
-		if (support == ft_parse_len_mod(&ptr))
+		if ((support = ft_parse_len_mod(&ptr)) != 0)
 		{
 			el->length_mod = support;
 		}
-		else if (support == ft_parse_flag(&ptr))
+		else if ((support = ft_parse_flag(&ptr)) != 0)
 		{
 			el->flags |= support;
 		}
