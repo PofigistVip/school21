@@ -3,7 +3,8 @@
 int		ft_display_elem(int fd, t_printf_elem *el)
 {
 	if (el->conv_type == 'c')
-		return (ft_display_c(fd, el);
+		return (ft_display_c(fd, el));
+	return (0);
 }
 
 int		ft_display(int fd, t_printf_elem *els)

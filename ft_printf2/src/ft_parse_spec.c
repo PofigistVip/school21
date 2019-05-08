@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include "libft.h"
 #include "ft_printf.h"
 
 int			ft_parse_num_or_pos(int number, int *pos)
@@ -46,11 +48,11 @@ void			ft_parse_spec_inner(t_printf_elem *el, char **fmt, int *pos)
 	ptr = *fmt;
 	while (*ptr && !ft_parse_is_conv_spec(*ptr))
 	{
-		if (support = ft_parse_len_mod(&ptr))
+		if (support == ft_parse_len_mod(&ptr))
 		{
 			el->length_mod = support;
 		}
-		else if (support = ft_parse_flag(&ptr))
+		else if (support == ft_parse_flag(&ptr))
 		{
 			el->flags |= support;
 		}

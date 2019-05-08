@@ -1,5 +1,6 @@
 #include <stdarg.h>
 #include <wchar.h>
+#include <stdlib.h>
 #include "libft.h"
 #include "ft_printf.h"
 
@@ -62,7 +63,7 @@ t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos)
 			}
 			else if (el->pos == pos)
 			{
-				ft_get_arg(el->conv_type, el->length_mod, arg);
+				ft_get_arg(el->conv_type, el->length_mod, ap, arg);
 				break ;
 			}
 			el = el->next;
@@ -70,4 +71,5 @@ t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos)
 		ft_arg_add(&args, arg);
 		++pos;
 	}
+	return (args);
 }

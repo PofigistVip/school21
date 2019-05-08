@@ -49,7 +49,7 @@ t_printf_elem	*ft_parse_rawstr(char **fmt)
 	return (el);
 }
 
-t_printf_elem	*ft_parse(const char *fmt, int *pos)
+t_printf_elem	*ft_parse(char *fmt, int *pos)
 {
 	t_printf_elem	*els;
 	t_printf_elem	*curr;

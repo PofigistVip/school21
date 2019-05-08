@@ -1,5 +1,7 @@
 #include "ft_printf.h"
 
+
+
 char	ft_parse_len_mod(char **fmt)
 {
 	char	c1;
@@ -24,7 +26,7 @@ char	ft_parse_len_mod(char **fmt)
 		c1 == 'j' ||
 		c1 == 'z' ||
 		c1 == 't')
-		return (c);
+		return (c1);
 	return (0);
 }
 
