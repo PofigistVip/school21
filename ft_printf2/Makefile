@@ -3,7 +3,7 @@ SRCS=src/*.c
 OBJS=*.o
 LIBFT=../libft
 
-all: $(NAME)
+all: fclean $(NAME)
 
 $(NAME):
 	@make -C $(LIBFT)
