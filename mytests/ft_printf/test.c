@@ -3,12 +3,15 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-#define FMT "This is a simple test."
+#define FMT "%u", 42
 
 int		main(void)
 {
 	int		len;
 	char	char1 = 'a';
+	char	*str1 = "Larlyne";
+	int		int1 = 1;
+
 	setbuf(stdout, NULL);
 	ft_putstr("\nSTD\tPRINTF: '");
 	len = printf(FMT);
