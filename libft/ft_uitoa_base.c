@@ -4,14 +4,17 @@
 #include <string.h>
 #include "libft.h"
 
-char	*ft_uitoa_base(unsigned long long int nbr, int base)
+char	*ft_uitoa_base(unsigned long long int nbr, int base, char upper)
 {
 	unsigned long long int	n;
 	int						len;
 	char					*str;
 	char					*base_str;
 
-	base_str = "0123456789abcdef";
+	if (upper)
+		base_str = "0123456789ABCDEF";
+	else
+		base_str = "0123456789abcdef";
 	len  = 1;
 	n = nbr;
 	while ((n /= base) != 0)

@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstr_put_fd.c                                   :+:      :+:    :+:   */
+/*   ft_putnchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/02 11:15:30 by larlyne           #+#    #+#             */
-/*   Updated: 2019/05/02 11:15:32 by larlyne          ###   ########.fr       */
+/*   Created: 2019/04/30 10:14:32 by larlyne           #+#    #+#             */
+/*   Updated: 2019/04/30 10:14:38 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include "libft.h"
 
-void	ft_lstr_put_fd(t_lstr *lstr, int fd)
+int		ft_putstrn(char *str, int n)
 {
-	if (lstr != NULL && fd >= 0)
-		ft_putstrn_fd(fd, lstr->str, lstr->length);
+	return (ft_putstrn_fd(1, str, n));
 }

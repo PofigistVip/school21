@@ -103,10 +103,11 @@ void			ft_setbackground_fd(int backg, int fd);
 void			ft_setdefault_cols(int fd);
 long			ft_pos_power(int nb, unsigned int power);
 void			*ft_realloc(void *src, size_t old_size, size_t new_size);
-void			ft_putnchar_fd(char *str, size_t n, int fd);
-void			ft_putnchar(char *str, size_t n);
-char			*ft_uitoa_base(unsigned long long int nbr, int base);
+int				ft_putstrn_fd(int fd, char *str, int n);
+int				ft_putstrn(char *str, int n);
+char			*ft_uitoa_base(unsigned long long int nbr, int base, char upper);
 char			*ft_llitoa(long long int n);
+int				ft_putcharn_fd(int fd, char c, int n);
 
 /*
 ** Larlyne's String
