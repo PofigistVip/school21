@@ -41,3 +41,50 @@ int		ft_display_U(int fd, t_printf_elem *el)
 	return (2);
 }
 #endif
+
+int		ft_display_zero_ptr(int fd, t_printf_elem *el)
+{
+	int		max;
+
+	max = 5;
+	if (el->width > max)
+		max = el->width;
+	if (el->flags & FT_PRINTF_MINUS)
+	{
+		write(fd, "(nil)", 5);
+		ft_putcharn_fd(fd, ' ', max - 5);
+	}
+	else
+	{
+		ft_putcharn_fd(fd, ' ', max - 5);
+		write(fd, "(nil)", 5);
+	}
+	return (max);
+}
+
+int		ft_display_p(int fd, t_printf_elem *el)
+{
+	unsigned long long int	val;
+	t_lstr					*num;
+	
+	val = el->arg->val_ui;
+	if (val == 0)
+		return (ft_display_zero_ptr(fd, el));
+	num = ft_lstr_new_raw(ft_uitoa_base(val, 16, 0));
+	if (el->precision > num->length)
+		ft_lstr_insert_c(num, '0', el->precision - num->length, 0);
+	ft_lstr_insert_s(num, "0x", 0);
+	if (el->flags & FT_PRINTF_MINUS)
+		ft_lstr_insert_c(num, ' ', el->width - num->length, num->length);
+	else
+	{
+		if (el->flags & FT_PRINTF_ZERO)
+			ft_lstr_insert_c(num, '0', el->width - num->length, 2);
+		else
+			ft_lstr_insert_c(num, ' ', el->width - num->length, 0);
+	}
+	ft_lstr_put_fd(num, fd);
+	val = (unsigned long long int)num->length;
+	ft_lstr_destroy(&num);
+	return (val);
+}
