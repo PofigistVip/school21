@@ -10,7 +10,8 @@ int		ft_parse_is_conv_spec(char c)
 			c == 'o' ||
 			c == 'd' ||
 			c == 'i' ||
-			c == 'u');
+			c == 'u' ||
+			c == 'U');
 }
 
 char	ft_parse_len_mod(char **fmt)

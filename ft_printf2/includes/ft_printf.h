@@ -60,4 +60,5 @@ int				ft_display_c(int fd, t_printf_elem *el);
 int				ft_display_o(int fd, t_printf_elem *el);
 int				ft_display_di(int fd, t_printf_elem *el);
 int				ft_display_u(int fd, t_printf_elem *el);
+int				ft_display_U(int fd, t_printf_elem *el);
 #endif
