@@ -16,7 +16,7 @@ int		ft_fprintf(int fd, const char *format, ...)
 	args = ft_get_args(elems, &ap, pos);
 	ft_push_args(elems, args);
 	va_end(ap);
-	return (ft_display(fd, elems));
+	return (ft_display(fd, elems, args));
 }
 
 int		ft_printf(const char *format, ...)
@@ -33,5 +33,5 @@ int		ft_printf(const char *format, ...)
 	va_end(ap);
 
 	ft_push_args(elems, args);
-	return (ft_display(1, elems));
+	return (ft_display(1, elems, args));
 }

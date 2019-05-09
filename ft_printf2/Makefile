@@ -1,19 +1,19 @@
 NAME=libftprintf.a
 SRCS=src/*.c
 OBJS=*.o
-LIBFT=../libft
+LIBFT= lib/libft
 CFLAGS=-Wall -Wextra -Werror
 
-all: fclean $(NAME)
+all: $(NAME)
 
 $(NAME):
 	@make -C $(LIBFT)
 	@mv $(LIBFT)/libft.a $(NAME)
 	@gcc $(CFLAGS) -c $(SRCS) -I includes -I $(LIBFT)
 	@ar rc $(NAME) $(OBJS)
-	@make -C $(LIBFT) clean
 
 clean:
+	@make -C $(LIBFT) clean
 	@rm -f $(OBJS)
 
 fclean: clean
@@ -21,4 +21,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY=all clean fclean 
+.PHONY: all clean fclean re

@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "ft_printf.h"
 
 int		ft_display_elem(int fd, t_printf_elem *el)
@@ -25,15 +26,39 @@ int		ft_display_elem(int fd, t_printf_elem *el)
 	return (0);
 }
 
-int		ft_display(int fd, t_printf_elem *els)
+void	ft_memfree(t_printf_elem *els, t_printf_arg *args)
 {
-	int length;
+	t_printf_elem	*el;
+	t_printf_arg	*arg;
 
+	while (els)
+	{
+		el = els->next;
+		if (els->raw_str != 0)
+			free(els->raw_str);
+		free(els);
+		els = el;
+	}
+	while (args)
+	{
+		arg = args->next;
+		free(args);
+		args = arg;
+	}
+}
+
+int		ft_display(int fd, t_printf_elem *els, t_printf_arg *args)
+{
+	t_printf_elem	*start;
+	int				length;
+
+	start = els;
 	length = 0;
 	while (els)
 	{
 		length += ft_display_elem(fd, els);
 		els = els->next;
 	}
+	ft_memfree(start, args);
 	return (length);
 }
