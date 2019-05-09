@@ -34,7 +34,8 @@ void			ft_arg_add(t_printf_arg **args, t_printf_arg *arg)
 void			ft_get_arg(char conv, char length, va_list *ap,
 					t_printf_arg* arg)
 {
-	if (conv == 'x' || conv == 'X' || conv == 'U' || conv == 'o')
+	if (conv == 'x' || conv == 'X' || conv == 'U' || conv == 'o' ||
+		conv == 'u')
 	{
 		if (length == 'H')
 			arg->val_ui = (unsigned char)va_arg(*ap, unsigned int);
