@@ -16,6 +16,8 @@ int		ft_display_elem(int fd, t_printf_elem *el)
 		return (ft_display_c(fd, el));
 	if (el->conv_type == 'o')
 		return (ft_display_o(fd, el));
+	if (el->conv_type == 'd' || el->conv_type == 'i')
+		return (ft_display_di(fd, el));
 	return (0);
 }
 

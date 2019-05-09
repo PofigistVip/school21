@@ -58,4 +58,5 @@ int				ft_display_X(int fd, t_printf_elem *el);
 int				ft_display_s(int fd, t_printf_elem *el);
 int				ft_display_c(int fd, t_printf_elem *el);
 int				ft_display_o(int fd, t_printf_elem *el);
+int				ft_display_di(int fd, t_printf_elem *el);
 #endif

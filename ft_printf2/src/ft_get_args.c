@@ -55,6 +55,23 @@ void			ft_get_arg(char conv, char length, va_list *ap,
 		arg->ptr = va_arg(*ap, void*);
 	else if (conv == 'c' && length != 'l')
 		arg->val_i = va_arg(*ap, int);
+	else if (conv == 'd' || conv == 'i')
+	{
+		if (length == 'H')
+			arg->val_i = (signed char)va_arg(*ap, signed int);
+		else if (length == 'h')
+			arg->val_i = (signed short int)va_arg(*ap, signed int);
+		else if (length == 'l')
+			arg->val_i = va_arg(*ap, signed long int);
+		else if (length == 'M')
+			arg->val_i = va_arg(*ap, signed long long int);
+		else if (length == 'j')
+			arg->val_i = va_arg(*ap, intmax_t);
+		else if (length == 'z')
+			arg->val_i = va_arg(*ap, ssize_t);
+		else
+			arg->val_i = va_arg(*ap, signed int);
+	}
 }
 
 t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos)
