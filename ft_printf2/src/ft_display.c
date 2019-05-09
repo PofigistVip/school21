@@ -6,8 +6,16 @@ int		ft_display_elem(int fd, t_printf_elem *el)
 		return (ft_display_raw(fd, el));
 	if (el->conv_type == '%')
 		return (ft_display_perc(fd, el));
+	if (el->conv_type == 'x')
+		return (ft_display_x(fd, el));
+	if (el->conv_type == 'X')
+		return (ft_display_X(fd, el));
+	if (el->conv_type == 's')
+		return (ft_display_s(fd, el));
 	if (el->conv_type == 'c')
 		return (ft_display_c(fd, el));
+	if (el->conv_type == 'o')
+		return (ft_display_o(fd, el));
 	return (0);
 }
 

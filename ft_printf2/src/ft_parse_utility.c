@@ -3,7 +3,11 @@
 int		ft_parse_is_conv_spec(char c)
 {
 	return (c == '%' ||
-			c == 'c');
+			c == 'x' ||
+			c == 'X' ||
+			c == 's' ||
+			c == 'c' ||
+			c == 'o');
 }
 
 char	ft_parse_len_mod(char **fmt)
@@ -39,8 +43,16 @@ char	ft_parse_flag(char **fmt)
 	char	c;
 
 	c = **fmt;
-	if (c == 'c')
-		return (c);
+	if (c == '#')
+		return (FT_PRINTF_SHARP);
+	if (c == '0')
+		return (FT_PRINTF_ZERO);
+	if (c == '-')
+		return (FT_PRINTF_MINUS);
+	if (c == ' ')
+		return (FT_PRINTF_SPACE);
+	if (c == '+')
+		return (FT_PRINTF_PLUS);
 	return (0);
 }
 
@@ -56,7 +68,7 @@ int		ft_parse_get_number(char **str)
 		number = number * 10 + (*ptr - '0');
 		++ptr;
 	}
-	*str = ptr;
+	*str = ptr - 1;
 	return (number);
 }
 

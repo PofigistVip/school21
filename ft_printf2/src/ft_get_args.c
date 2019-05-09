@@ -1,6 +1,7 @@
 #include <stdarg.h>
 #include <wchar.h>
 #include <stdlib.h>
+#include <inttypes.h>
 #include "libft.h"
 #include "ft_printf.h"
 
@@ -33,13 +34,27 @@ void			ft_arg_add(t_printf_arg **args, t_printf_arg *arg)
 void			ft_get_arg(char conv, char length, va_list *ap,
 					t_printf_arg* arg)
 {
-	if (conv == 'c')
+	if (conv == 'x' || conv == 'X' || conv == 'U' || conv == 'o')
 	{
-		if (length == 'l')
-			arg->val_wc = va_arg(*ap, wchar_t);
+		if (length == 'H')
+			arg->val_ui = (unsigned char)va_arg(*ap, unsigned int);
+		else if (length == 'h')
+			arg->val_ui = (unsigned short int)va_arg(*ap, unsigned int);
+		else if (length == 'l')
+			arg->val_ui = va_arg(*ap, unsigned long int);
+		else if (length == 'M')
+			arg->val_ui = va_arg(*ap, unsigned long long int);
+		else if (length == 'j')
+			arg->val_ui = va_arg(*ap, uintmax_t);
+		else if (length == 'z')
+			arg->val_ui = va_arg(*ap, size_t);
 		else
-			arg->val_i = va_arg(*ap, int);
+			arg->val_ui = va_arg(*ap, unsigned int);
 	}
+	else if (conv == 's' && length != 'l')
+		arg->ptr = va_arg(*ap, void*);
+	else if (conv == 'c' && length != 'l')
+		arg->val_i = va_arg(*ap, int);
 }
 
 t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos)
@@ -51,6 +66,7 @@ t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos)
 
 	args = 0;
 	pos = 1;
+	
 	while (pos < end_pos)
 	{
 		el = els;
@@ -69,6 +85,7 @@ t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos)
 			}
 			el = el->next;
 		}
+		
 		ft_arg_add(&args, arg);
 		++pos;
 	}

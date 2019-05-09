@@ -27,8 +27,10 @@ typedef struct	s_printf_elem
 	char				flags;
 	int					width;
 	int					width_pos;
+	char				width_seted;
 	int					precision;
 	int					precision_pos;
+	char				precision_seted;
 	char				*raw_str;
 	struct s_printf_elem	*next;
 }				t_printf_elem;
@@ -51,5 +53,9 @@ void			ft_push_args(t_printf_elem *els, t_printf_arg *args);
 int				ft_display(int fd, t_printf_elem *els);
 int				ft_display_raw(int fd, t_printf_elem *el);
 int				ft_display_perc(int fd, t_printf_elem *el);
+int				ft_display_x(int fd, t_printf_elem *el);
+int				ft_display_X(int fd, t_printf_elem *el);
+int				ft_display_s(int fd, t_printf_elem *el);
 int				ft_display_c(int fd, t_printf_elem *el);
+int				ft_display_o(int fd, t_printf_elem *el);
 #endif

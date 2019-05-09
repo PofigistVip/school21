@@ -1,6 +1,32 @@
 #include "libft.h"
 #include "ft_printf.h"
 
+void	ft_basic_params(t_printf_elem *el, char conv_type)
+{
+	if (conv_type == 'x' || conv_type == 'X' || conv_type == 'o')
+	{
+		if (el->precision_seted == 0)
+			el->precision = 1;
+	}
+}
+
+void	ft_push_arg(int pos, t_printf_elem *el, t_printf_arg *arg)
+{
+	if (el->width_pos == pos)
+	{
+		el->width = arg->val_i;
+		if (el->width < 0)
+		{
+			el->width = -el->width;
+			el->flags |= FT_PRINTF_MINUS;
+		}
+	}
+	if (el->precision_pos == pos)
+		el->precision = arg->val_i;
+	if (el->pos == pos)
+		el->arg = arg;
+}
+
 void	ft_push_args(t_printf_elem *els, t_printf_arg *args)
 {
 	t_printf_elem	*el;
@@ -14,12 +40,8 @@ void	ft_push_args(t_printf_elem *els, t_printf_arg *args)
 		{
 			if (el->conv_type)
 			{
-				if (el->width_pos == pos)
-					el->width = args->val_i;
-				if (el->precision_pos == pos)
-					el->precision = args->val_i;
-				if (el->pos == pos)
-					el->arg = args;
+				ft_basic_params(el, el->conv_type);
+				ft_push_arg(pos, el, args);
 			}
 			el = el->next;
 		}

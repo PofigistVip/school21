@@ -60,10 +60,17 @@ void			ft_parse_spec_inner(t_printf_elem *el, char **fmt, int *pos)
 		{
 			number = ft_parse_get_pos(&ptr);
 			el->width_pos = ft_parse_num_or_pos(number, pos);
+			el->width_seted = 1;
+		}
+		else if ('1' <= *ptr && *ptr <= '9')
+		{
+			el->width = ft_parse_get_number(&ptr);
+			el->width_seted = 1;
 		}
 		else if (*ptr == '.')
 		{
-			if (*(ptr + 1) == '*')
+			++ptr;
+			if (*ptr == '*')
 			{
 				++ptr;
 				number = ft_parse_get_pos(&ptr);
@@ -71,8 +78,9 @@ void			ft_parse_spec_inner(t_printf_elem *el, char **fmt, int *pos)
 			}
 			else
 			{
-				el->precision = 0;
+				el->precision = ft_parse_get_number(&ptr);
 			}
+			el->precision_seted = 1;
 		}
 		++ptr;
 	}
@@ -104,7 +112,7 @@ t_printf_elem	*ft_parse_spec(char **fmt, int *pos)
 	{
 		if (use_pos)
 		{
-			el->pos = *(pos)++;
+			el->pos = (*pos)++;
 		}
 		el->conv_type = *ptr;
 		*fmt = ptr + 1;
