@@ -27,6 +27,8 @@ int		ft_display_elem(int fd, t_printf_elem *el)
 		return (ft_display_p(fd, el));
 	if (el->conv_type == 'O')
 		return (ft_display_O(fd, el));
+	if (el->conv_type == 'D')
+		return (ft_display_D(fd, el));
 	return (0);
 }
 

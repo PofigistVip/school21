@@ -51,3 +51,17 @@ int		ft_display_di(int fd, t_printf_elem *el)
 	ft_lstr_destroy(&num);
 	return (val);
 }
+
+#if defined(__APPLE__) && defined(__MACH__)
+int		ft_display_D(int fd, t_printf_elem *el)
+{
+	return (ft_display_di(fd, el));
+}
+#else
+int		ft_display_D(int fd, t_printf_elem *el)
+{
+	write(fd, "%D", 2);
+	(void)el;
+	return (2);
+}
+#endif
