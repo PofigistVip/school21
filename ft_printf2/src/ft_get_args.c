@@ -76,6 +76,8 @@ void			ft_get_arg(char conv, char length, va_list *ap,
 		arg->val_ui = va_arg(*ap, unsigned long int);
 	else if (conv == 'p')
 		arg->val_ui = (unsigned long int)va_arg(*ap, void*);
+	else if (conv == 'O')
+		arg->val_ui = va_arg(*ap, unsigned long int);
 }
 
 t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos)

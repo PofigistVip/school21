@@ -89,3 +89,17 @@ int		ft_display_o(int fd, t_printf_elem *el)
 	ft_lstr_destroy(&num);
 	return (val);
 }
+
+#if defined(__APPLE__) && defined(__MACH__)
+int		ft_display_O(int fd, t_printf_elem *el)
+{
+	return (ft_display_o(fd, el));
+}
+#else
+int		ft_display_O(int fd, t_printf_elem *el)
+{
+	(void)el;
+	write(fd, "%O", 2);
+	return (2);
+}
+#endif
