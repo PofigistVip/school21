@@ -42,6 +42,27 @@ int		ft_display_U(int fd, t_printf_elem *el)
 }
 #endif
 
+#if defined(__APPLE__) && defined(__MACH__)
+int		ft_display_zero_ptr(int fd, t_printf_elem *el)
+{
+	int		max;
+
+	max = 3;
+	if (el->width > max)
+		max = el->width;
+	if (el->flags & FT_PRINTF_MINUS)
+	{
+		write(fd, "0x0", 3);
+		ft_putcharn_fd(fd, ' ', max - 3);
+	}
+	else
+	{
+		ft_putcharn_fd(fd, ' ', max - 3);
+		write(fd, "0x0", 3);
+	}
+	return (max);
+}
+#else
 int		ft_display_zero_ptr(int fd, t_printf_elem *el)
 {
 	int		max;
@@ -61,6 +82,7 @@ int		ft_display_zero_ptr(int fd, t_printf_elem *el)
 	}
 	return (max);
 }
+#endif
 
 int		ft_display_p(int fd, t_printf_elem *el)
 {
