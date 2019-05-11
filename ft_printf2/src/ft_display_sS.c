@@ -7,10 +7,8 @@ int		ft_display_s(int fd, t_printf_elem *el)
 	int		length;
 	int		len;
 	char	*str;
+	char	space;
 
-	//if (el-> length_mod == 'l')
-	//	return (ft_display_ws(fd, el));
-	//memory free
 	length = 0;
 	if (el->arg->ptr == 0)
 		str = "(null)";
@@ -19,15 +17,16 @@ int		ft_display_s(int fd, t_printf_elem *el)
 	len = (int)ft_strlen(str);
 	if (el->precision_seted && el->precision < len)
 		len = el->precision;
+	space = (el->flags & FT_PRINTF_ZERO) ? '0' : ' '; //Проверить работает ли флаг 0 в Линуксе
 	if (el->flags & FT_PRINTF_MINUS)
 	{
 		
 		length += ft_putstrn_fd(fd, str, len);
-		return (length + ft_putcharn_fd(fd, ' ', el->width - len));
+		return (length + ft_putcharn_fd(fd, space, el->width - len));
 	}
 	else
 	{
-		length += ft_putcharn_fd(fd, ' ', el->width - len);
+		length += ft_putcharn_fd(fd, space, el->width - len);
 		return (length + ft_putstrn_fd(fd, str, len));
 	}
 }

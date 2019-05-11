@@ -18,7 +18,7 @@ int		ft_display_c(int fd, t_printf_elem *el)
 		return (1);
 	}
 	i = 1;
-	space = ' ';
+	space = (el->flags & FT_PRINTF_ZERO) ? '0' : ' '; //Проверить работает ли флаг 0 в Линуксе
 	if (el->flags & FT_PRINTF_MINUS)
 	{
 		write(fd, &symb, 1);
