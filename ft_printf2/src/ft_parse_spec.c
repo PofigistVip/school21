@@ -6,7 +6,7 @@ int			ft_parse_num_or_pos(int number, int *pos)
 {
 	if (number >= 0)
 		return (number);
-	return (*(pos)++);
+	return ((*pos)++);
 }
 
 void			ft_parse_str_elem(t_printf_elem *el, char **fmt, char *ptr)

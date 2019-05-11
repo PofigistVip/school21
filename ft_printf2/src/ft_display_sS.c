@@ -38,6 +38,8 @@ int		ft_display_S(int fd, t_printf_elem *el)
 	wchar_t	*wstr;
 	int		length;
 
+	if (el->arg->ptr == 0)
+		return (ft_display_s(fd, el));
 	wstr = (wchar_t*)el->arg->ptr;
 	lstr = ft_lstr_new_empty();
 	while (*wstr && (el->precision_seted == 0 ||
