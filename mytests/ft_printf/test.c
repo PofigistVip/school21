@@ -3,14 +3,14 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-#define FMT "%d", 0
+#define FMT "%#.o", 42
 
 int		main(void)
 {
 	int		len;
 	char	char1 = 'a';
 	char	*str1 = "Larlyne";
-	int		int1 = 1;
+	int		int1 = 5;
 	int		int2 = 2;
 
 	setbuf(stdout, NULL);
