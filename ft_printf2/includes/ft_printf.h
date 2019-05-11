@@ -2,6 +2,7 @@
 # define FT_PRINTF_H
 # include <wchar.h>
 # include <stdarg.h>
+# include "libft.h"
 # define FT_PRINTF_SHARP (1)
 # define FT_PRINTF_ZERO (1 << 1)
 # define FT_PRINTF_MINUS (1 << 2)
@@ -50,6 +51,8 @@ int				ft_parse_is_reference(char *str);
 t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos);
 void			ft_push_args(t_printf_elem *els, t_printf_arg *args);
 
+void			ft_putwchar(t_lstr *lstr, wchar_t wc);
+
 int				ft_display(int fd, t_printf_elem *els, t_printf_arg *args);
 int				ft_display_raw(int fd, t_printf_elem *el);
 int				ft_display_perc(int fd, t_printf_elem *el);
@@ -64,4 +67,5 @@ int				ft_display_U(int fd, t_printf_elem *el);
 int				ft_display_p(int fd, t_printf_elem *el);
 int				ft_display_O(int fd, t_printf_elem *el);
 int				ft_display_D(int fd, t_printf_elem *el);
+int				ft_display_C(int fd, t_printf_elem *el);
 #endif
