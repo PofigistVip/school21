@@ -15,7 +15,7 @@ void	ft_basic_params(t_printf_elem *el, char conv_type)
 
 void	ft_push_arg(int pos, t_printf_elem *el, t_printf_arg *arg)
 {
-	if (el->width_pos == pos)
+	if (el->width_pos == pos && el->width_seted == 0)
 	{
 		el->width = arg->val_i;
 		if (el->width < 0)
@@ -23,9 +23,13 @@ void	ft_push_arg(int pos, t_printf_elem *el, t_printf_arg *arg)
 			el->width = -el->width;
 			el->flags |= FT_PRINTF_MINUS;
 		}
+		el->width_seted = 1;
 	}
 	if (el->precision_pos == pos)
+	{
 		el->precision = arg->val_i;
+		el->precision_seted = 1;
+	}
 	if (el->pos == pos)
 		el->arg = arg;
 }
