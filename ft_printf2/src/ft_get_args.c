@@ -51,7 +51,7 @@ void			ft_get_arg(char conv, char length, va_list *ap,
 		else
 			arg->val_ui = va_arg(*ap, unsigned int);
 	}
-	else if (conv == 's' && length != 'l')
+	else if (conv == 's' || conv == 'S')
 		arg->ptr = va_arg(*ap, void*);
 	else if (conv == 'c' && length != 'l')
 		arg->val_i = va_arg(*ap, int);

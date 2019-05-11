@@ -11,7 +11,7 @@ int		ft_display_elem(int fd, t_printf_elem *el)
 		return (ft_display_x(fd, el));
 	if (el->conv_type == 'X')
 		return (ft_display_X(fd, el));
-	if (el->conv_type == 's')
+	if (el->conv_type == 's' && el->length_mod != 'l')
 		return (ft_display_s(fd, el));
 	if (el->conv_type == 'c' && el->length_mod != 'l')
 		return (ft_display_c(fd, el));
@@ -31,6 +31,8 @@ int		ft_display_elem(int fd, t_printf_elem *el)
 		return (ft_display_D(fd, el));
 	if (el->conv_type == 'C' || el->conv_type == 'c')
 		return (ft_display_C(fd, el));
+	if (el->conv_type == 'S' || el->conv_type == 's')
+		return (ft_display_S(fd, el));
 	return (0);
 }
 
