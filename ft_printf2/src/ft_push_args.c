@@ -5,7 +5,8 @@ void	ft_basic_params(t_printf_elem *el, char conv_type)
 {
 	if (conv_type == 'x' || conv_type == 'X' || conv_type == 'o'
 		|| conv_type == 'O' || conv_type == 'd' || conv_type == 'D'
-		|| conv_type == 'i' || conv_type == 'u' || conv_type == 'U')
+		|| conv_type == 'i' || conv_type == 'u' || conv_type == 'U'
+		|| conv_type == 'p')
 	{
 		if (el->precision_seted == 0)
 			el->precision = 1;
