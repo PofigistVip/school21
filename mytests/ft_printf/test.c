@@ -3,14 +3,15 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-#define FMT "%-20p", int1
+#define FMT "%d", 0
 
 int		main(void)
 {
 	int		len;
 	char	char1 = 'a';
 	char	*str1 = "Larlyne";
-	int		*int1 = 1;
+	int		int1 = 1;
+	int		int2 = 2;
 
 	setbuf(stdout, NULL);
 	ft_putstr("\nSTD\tPRINTF: '");
