@@ -42,7 +42,7 @@ int		ft_display_U(int fd, t_printf_elem *el)
 }
 #endif
 
-#if defined(__APPLE__) && defined(__MACH__)
+#if defined(__linux__)
 int		ft_display_zero_ptr(int fd, t_printf_elem *el)
 {
 	int		max;
