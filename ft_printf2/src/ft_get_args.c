@@ -82,6 +82,8 @@ void			ft_get_arg(char conv, char length, va_list *ap,
 		arg->val_i = va_arg(*ap, signed long int);
 	else if (conv == 'C' || (conv == 'c' && length == 'l'))
 		arg->val_wc = va_arg(*ap, wchar_t);
+	else if (conv == 'f' || conv == 'F')
+		arg->val_d = va_Arg(*ap, double);
 }
 
 t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos)

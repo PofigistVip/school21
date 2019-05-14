@@ -16,7 +16,9 @@ int		ft_parse_is_conv_spec(char c)
 			c == 'O' ||
 			c == 'D' ||
 			c == 'C' ||
-			c == 'S');
+			c == 'S' ||
+			c == 'f' ||
+			c == 'F');
 }
 
 char	ft_parse_len_mod(char **fmt)
