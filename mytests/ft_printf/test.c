@@ -2,8 +2,10 @@
 #include <string.h>
 #include "libft.h"
 #include "ft_printf.h"
+#include <stdint.h>
+#include <float.h>
 
-#define FMT "%#.o", 42
+#define FMT "%f", DBL_MAX
 
 int		main(void)
 {
