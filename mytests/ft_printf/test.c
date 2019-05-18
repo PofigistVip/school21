@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <float.h>
 
-#define FMT "%f", DBL_MAX
+#define FMT "%.100f", DBL_MAX
 
 int		main(void)
 {

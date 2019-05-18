@@ -1,8 +1,9 @@
 ﻿// InfinityNumbers.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
 
-#include "pch.h"
-#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct	s_infnum
 {
@@ -265,6 +266,7 @@ t_infnum	*ft_infnum_pow(t_infnum *inum, t_infnum *power)
 
 #include <limits.h>
 
+
 void			ft_infnum_show(t_infnum *inum)
 {
 	size_t	i;
@@ -279,7 +281,7 @@ void			ft_infnum_show(t_infnum *inum)
 int main()
 {
 	t_infnum	*inum = ft_infnum_create_num(5, 1000);
-	t_infnum	*cnum = ft_infnum_create_num(1074, 20);
+	t_infnum	*cnum = ft_infnum_create_num(256, 20);
 	t_infnum	*res = ft_infnum_pow(inum, cnum);
 	ft_infnum_show(res);
 	return (0);

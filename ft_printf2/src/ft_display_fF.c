@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include "ft_printf.h"
+#include <stdint.h>
 
 void	show_binary(void *vptr, int count)
 {
@@ -21,7 +22,6 @@ void	show_binary(void *vptr, int count)
 			--count;
 			mask = mask >> 1;
 		}
-		
 		--ptr;
 	}
 }
@@ -31,12 +31,23 @@ int		ft_display_fF(int fd, t_printf_elem *el)
 	double	val;
 	char	sign;
 	long long int	mantissa;
+	int				mant;
+	uint64_t		fraction;
+	uint64_t		integer;
+	uint64_t		decimal;
 
 	val = el->arg->val_d;
 	sign = (val < 0) ? -1 : 1;
 	ft_memcpy(&mantissa, &val, 8);
 	mantissa = ((unsigned long long int)(mantissa << 1)) >> 53;
-	show_binary(&mantissa, 64);
+	//normal way
+	mant = mantissa - 1023;
+	ft_memcpy(&fraction, &val, 8);
+	fraction = ((fraction << 12) >> 12) | 4503599627370496;
+	integer = fraction >> (52 - mant);
+	decimal = (fraction << 11);
+	ft_putnbr((int)mant);
+	(void)decimal;
 	(void)fd;
 	(void)sign;
 	return (0);
