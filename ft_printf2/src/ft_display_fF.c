@@ -46,8 +46,9 @@ int		ft_display_fF(int fd, t_printf_elem *el)
 	fraction = ((fraction << 12) >> 12) | 4503599627370496;
 	integer = fraction >> (52 - mant);
 	decimal = (fraction << 11);
-	ft_putnbr((int)mant);
-	(void)decimal;
+	show_binary(&fraction, 64);
+	ft_putchar('\n');
+	show_binary(&decimal, 64);
 	(void)fd;
 	(void)sign;
 	return (0);

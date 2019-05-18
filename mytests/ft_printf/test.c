@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <float.h>
 
-#define FMT "%.100f", DBL_MAX
+#define FMT "%.20f", DBL_MIN
 
 int		main(void)
 {
@@ -16,6 +16,12 @@ int		main(void)
 	int		int2 = 2;
 
 	setbuf(stdout, NULL);
+	double a = DBL_MAX;
+	while (a >= 1)
+	{
+		len = printf("%.20f\n", a);
+		a /= 10;
+	}
 	ft_putstr("\nSTD\tPRINTF: '");
 	len = printf(FMT);
 	ft_putstr("'(");
