@@ -36,6 +36,14 @@ typedef struct	s_printf_elem
 	struct s_printf_elem	*next;
 }				t_printf_elem;
 
+typedef struct	s_infnum
+{
+	char	*digits;
+	char	sign;
+	size_t	size;
+	size_t	max_pos;
+}				t_infnum;
+
 int				ft_printf(const char *format, ...);
 int				ft_fprintf(int fd, const char *format, ...);
 
@@ -70,4 +78,12 @@ int				ft_display_D(int fd, t_printf_elem *el);
 int				ft_display_C(int fd, t_printf_elem *el);
 int				ft_display_S(int fd, t_printf_elem *el);
 int				ft_display_fF(int fd, t_printf_elem *el);
+
+t_infnum	*ft_infnum_create_num(int number, size_t size);
+t_infnum	*ft_infnum_mul(t_infnum *a, t_infnum *b);
+void		ft_infnum_destroy(t_infnum **inum);
+t_infnum	*ft_infnum_create_empty(size_t size);
+t_infnum	*ft_infnum_add(t_infnum *a, t_infnum *b, int destroy_a, int destroy_b);
+void			ft_infnum_show(t_infnum *inum);
+void		ft_infnum_calc_max_pos(t_infnum *inum);
 #endif
