@@ -76,11 +76,12 @@ t_infnum	*ft_infnum_pow5(int power)
 	return (res);
 }
 
-void	ft_get_integer(int mant, uint64_t fraction)
+t_lstr	*ft_get_integer(int mant, uint64_t fraction)
 {
 	t_infnum	*inum;
 	t_infnum	*temp;
 	size_t		pos;
+	t_lstr		*int_part;
 
 	pos = 0;
 	inum	= ft_infnum_create_empty(320);
@@ -95,8 +96,9 @@ void	ft_get_integer(int mant, uint64_t fraction)
 		--mant;
 		pos++;
 	}
-	ft_infnum_show(inum);
+	int_part = ft_infnum_get(inum);
 	ft_infnum_destroy(&inum);
+	return (int_part);
 }
 
 int		ft_count_zeroes(int mantissa)
@@ -116,14 +118,19 @@ int		ft_count_zeroes(int mantissa)
 	return (cnt);
 }
 
-void			ft_infnum_dec_show(t_infnum *inum)
+t_lstr		*ft_infnum_get(t_infnum *inum)
 {
+	t_lstr	*lstr;
 	size_t	i;
+	size_t	min;
 
-	i = 319;
-	while (i > 0)
-		putchar(inum->digits[i--]);
-	putchar(inum->digits[0]);
+	lstr = ft_lstr_new_empty();
+	min = inum->min_pos;
+	i = inum->max_pos;
+	while (i > min)	
+		ft_lstr_insert_c(lstr, inum->digits[i--], 1, lstr->length);
+	ft_lstr_insert_c(lstr, inum->digits[min], 1, lstr->length);
+	return (lstr);
 }
 
 void	ft_zeros_shift(t_infnum *inum, int shift)
@@ -138,17 +145,20 @@ void	ft_zeros_shift(t_infnum *inum, int shift)
 	free(inum->digits);
 	inum->digits = digits;
 	ft_infnum_calc_max_pos(inum);
+	inum->min_pos += 320 - len - shift;
 }
 
-void	ft_get_decimal(int mant, uint64_t fraction)
+t_lstr	*ft_get_decimal(int mant, uint64_t fraction)
 {
 	t_infnum	*inum;
 	t_infnum	*temp;
 	size_t		pos;
 	int			zeroes;
+	t_lstr		*dec_part;
 
 	pos = 0;
 	inum = ft_infnum_create_empty(320);
+	inum->min_pos = 320;
 	while (mant >= 0 && pos < 64)
 	{
 		fraction = fraction << 1;
@@ -162,15 +172,18 @@ void	ft_get_decimal(int mant, uint64_t fraction)
 			temp = ft_infnum_pow5(-mant);
 			zeroes = ft_count_zeroes(mant + 1023);
 			ft_zeros_shift(temp, (zeroes < 0) ? 0 : zeroes);
+			if (temp->min_pos < inum->min_pos)
+				inum->min_pos = temp->min_pos;
 			inum = ft_infnum_add(inum, temp, 1, 1);
 		}
 		fraction = fraction << 1;
 		--mant;
 		++pos;
 	}
-	ft_infnum_dec_show(inum);
-	
+	inum->max_pos = 319;
+	dec_part = ft_infnum_get(inum);
 	ft_infnum_destroy(&inum);
+	return (dec_part);
 }
 
 
@@ -182,7 +195,11 @@ int		ft_display_fF(int fd, t_printf_elem *el)
 	long long int	mantissa;
 	int				mant;
 	uint64_t		fraction;
+	t_lstr			*int_part;
+	t_lstr			*dec_part;
+	int				length;
 
+	length = 0;
 	val = el->arg->val_d;
 	sign = (val < 0) ? -1 : 1;
 	ft_memcpy(&mantissa, &val, 8);
@@ -191,27 +208,28 @@ int		ft_display_fF(int fd, t_printf_elem *el)
 	fraction = (fraction << 11) | (1ULL << 63);
 	//normal way
 	mant = mantissa - 1023;
-	ft_get_integer(mant, fraction);
-	ft_putchar('.');
-	ft_get_decimal(mant, fraction);
+	int_part = ft_get_integer(mant, fraction);
+	length += int_part->length;
+	ft_lstr_put_fd(int_part, fd);
+	if (el->precision > 0)
+	{
+		dec_part = ft_get_decimal(mant, fraction);
+		if (el->precision >= dec_part->length)
+			ft_lstr_insert_c(dec_part, '0', el->precision - dec_part->length, dec_part->length);
+		else
+		{
+			ft_lstr_resize(dec_part, el->precision);
+			dec_part->length = el->precision;
+		}
+		ft_lstr_insert_c(dec_part, '.', 1, 0);
+		ft_lstr_put_fd(dec_part, fd);
+		length += dec_part->length;
+	}
+	
+	
+	
 	(void)mant;
 	(void)fd;
 	(void)sign;
-	return (0);
+	return (length);
 }
-
-
-
-
-// 1000000000, offset = 5
-// 11000000000
-// integer: 110000
-// decimal: 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 

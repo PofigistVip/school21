@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <float.h>
 
-#define FMT "%f", 3.0625
+#define FMT "%.2f", 3.3
 
 int		main(void)
 {

@@ -42,6 +42,7 @@ typedef struct	s_infnum
 	char	sign;
 	size_t	size;
 	size_t	max_pos;
+	size_t	min_pos;
 }				t_infnum;
 
 int				ft_printf(const char *format, ...);
@@ -84,6 +85,6 @@ t_infnum	*ft_infnum_mul(t_infnum *a, t_infnum *b);
 void		ft_infnum_destroy(t_infnum **inum);
 t_infnum	*ft_infnum_create_empty(size_t size);
 t_infnum	*ft_infnum_add(t_infnum *a, t_infnum *b, int destroy_a, int destroy_b);
-void			ft_infnum_show(t_infnum *inum);
+t_lstr		*ft_infnum_get(t_infnum *inum);
 void		ft_infnum_calc_max_pos(t_infnum *inum);
 #endif

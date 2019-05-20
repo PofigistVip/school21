@@ -20,6 +20,7 @@ t_infnum	*ft_infnum_create_empty(size_t size)
 	inum->size = size;
 	inum->sign = 0;
 	inum->max_pos = 0;
+	inum->min_pos = 0;
 	return (inum);
 }
 
@@ -188,12 +189,13 @@ t_infnum	*ft_infnum_add(t_infnum *a, t_infnum *b, int destroy_a, int destroy_b)
 	if ((res = ft_infnum_create_copy(a)) == NULL)
 		return (NULL);
 	pos = 0;
-	while (pos <= b->max_pos)
+	while (pos <= b->size - 1)
 	{
 		if (b->digits[pos] != '0')
 			ft_infnum_pos_add(res, b->digits[pos], pos);
 		++pos;
 	}
+	res->min_pos = a->min_pos;
 	if (destroy_a)
 		ft_infnum_destroy(&a);
 	if (destroy_b)
@@ -268,11 +270,13 @@ t_infnum	*ft_infnum_pow(t_infnum *inum, t_infnum *power)
 void			ft_infnum_show(t_infnum *inum)
 {
 	size_t	i;
+	size_t	min;
 
+	min = inum->min_pos;
 	i = inum->max_pos;
-	while (i > 0)
+	while (i > min)
 		putchar(inum->digits[i--]);
-	putchar(inum->digits[0]);
+	putchar(inum->digits[min]);
 }
 
 // int main()
