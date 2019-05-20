@@ -75,7 +75,7 @@ void			ft_get_arg(char conv, char length, va_list *ap,
 	else if (conv == 'U')
 		arg->val_ui = va_arg(*ap, unsigned long int);
 	else if (conv == 'p')
-		arg->val_ui = (unsigned long int)va_arg(*ap, void*);
+		arg->val_ui = (unsigned long long int)va_arg(*ap, void*);
 	else if (conv == 'O')
 		arg->val_ui = va_arg(*ap, unsigned long int);
 	else if (conv == 'D')

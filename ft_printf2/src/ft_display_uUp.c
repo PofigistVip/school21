@@ -42,7 +42,7 @@ int		ft_display_U(int fd, t_printf_elem *el)
 }
 #endif
 
-#if defined(__linux__)
+#if defined(__linux__) || defined(_WIN32)
 int		ft_display_zero_ptr(int fd, t_printf_elem *el)
 {
 	int		max;
