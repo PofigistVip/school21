@@ -88,4 +88,5 @@ t_infnum	*ft_infnum_create_empty(size_t size);
 t_infnum	*ft_infnum_add(t_infnum *a, t_infnum *b, int destroy_a, int destroy_b);
 t_lstr		*ft_infnum_get(t_infnum *inum);
 void		ft_infnum_calc_max_pos(t_infnum *inum);
+int			ft_infnum_pos_add(t_infnum *inum, char digit, size_t pos);
 #endif
