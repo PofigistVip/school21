@@ -119,6 +119,23 @@ int		ft_count_zeroes(int mantissa)
 	return (cnt);
 }
 
+int		ft_subnormal_count_zeroes(int one_pos)
+{
+	double		dbl;
+	int			cnt;
+	uint64_t	fraction;
+
+	fraction = (1ULL << one_pos);
+	ft_memcpy(&dbl, &fraction, 8);
+	cnt = -1;
+	while (dbl < 1)
+	{
+		dbl *= 10;
+		++cnt;
+	}
+	return (cnt);
+}
+
 t_lstr		*ft_infnum_get(t_infnum *inum)
 {
 	t_lstr	*lstr;
@@ -196,7 +213,40 @@ t_lstr	*ft_get_decimal(int mant, uint64_t fraction)
 	return (dec_part);
 }
 
+int		ft_display_subnormal(int fd, uint64_t fraction)
+{
+	t_infnum	*inum;
+	t_infnum	*temp;
+	size_t		pos;
+	int			zeroes;
+	t_lstr		*dec_part;
 
+	pos = 0;
+	inum = ft_infnum_create_empty(FT_INFNUM_SIZE);
+	inum->min_pos = FT_INFNUM_SIZE;
+	int mant = -1022;
+	while (pos < 53)
+	{
+		if (fraction & (1ULL << 63))
+		{
+			temp = ft_infnum_pow5(1022 + pos);
+			zeroes = ft_subnormal_count_zeroes(53 - pos - 1);
+			ft_zeros_shift(temp, (zeroes < 0) ? 0 : zeroes);
+			if (temp->min_pos < inum->min_pos)
+				inum->min_pos = temp->min_pos;
+			inum = ft_infnum_add(inum, temp, 1, 1);
+		}
+		fraction = fraction << 1;
+		--mant;
+		++pos;
+	}
+	inum->max_pos = FT_INFNUM_SIZE - 1;
+	dec_part = ft_infnum_get(inum);
+	ft_infnum_destroy(&inum);
+	ft_putstrn_fd(fd, "0.", 2);
+	ft_lstr_put_fd(dec_part, fd);
+	return (0);
+}
 
 int		ft_display_fF(int fd, t_printf_elem *el)
 {
@@ -233,7 +283,9 @@ int		ft_display_fF(int fd, t_printf_elem *el)
 		return (length);
 	}
 	ft_memcpy(&fraction, &val, 8);
-	fraction = (fraction << 11) | (1ULL << 63);
+	fraction = (fraction << 11) | ((mantissa != 0) ? (1ULL << 63) : 0);
+	if (mantissa == 0)
+		return (length + ft_display_subnormal(fd, fraction));
 	//normal way
 	int_part = ft_get_integer(mant, fraction);
 	length += int_part->length;
