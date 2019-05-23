@@ -8,6 +8,7 @@
 # define FT_PRINTF_MINUS (1 << 2)
 # define FT_PRINTF_SPACE (1 << 3)
 # define FT_PRINTF_PLUS (1 << 4)
+# define FT_INFNUM_SIZE 1250
 
 typedef struct	s_printf_arg
 {
