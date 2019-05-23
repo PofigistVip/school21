@@ -2,6 +2,7 @@
 # define FT_PRINTF_H
 # include <wchar.h>
 # include <stdarg.h>
+# include <stdint.h>
 # include "libft.h"
 # define FT_PRINTF_SHARP (1)
 # define FT_PRINTF_ZERO (1 << 1)
@@ -46,6 +47,16 @@ typedef struct	s_infnum
 	size_t	min_pos;
 }				t_infnum;
 
+typedef struct	s_double_keeper
+{
+	uint64_t		sign;
+	long long int	mantissa;
+	uint64_t		fraction;
+	t_lstr			*int_part;
+	t_lstr			*dec_part;
+}				t_double_keeper;
+
+
 int				ft_printf(const char *format, ...);
 int				ft_fprintf(int fd, const char *format, ...);
 
@@ -88,5 +99,4 @@ t_infnum	*ft_infnum_create_empty(size_t size);
 t_infnum	*ft_infnum_add(t_infnum *a, t_infnum *b, int destroy_a, int destroy_b);
 t_lstr		*ft_infnum_get(t_infnum *inum);
 void		ft_infnum_calc_max_pos(t_infnum *inum);
-int			ft_infnum_pos_add(t_infnum *inum, char digit, size_t pos);
 #endif

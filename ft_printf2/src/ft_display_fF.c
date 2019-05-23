@@ -281,55 +281,21 @@ void	ft_f_round(t_lstr *int_p, t_lstr *dec_p, int precision)
 		dec_p->length = precision;
 }
 
-int		ft_display_fF(int fd, t_printf_elem *el)
+void	ft_prepare_nums(t_printf_elem *el, t_double_keeper *keeper)
 {
-	double	val;
-	uint64_t		sign;
-	long long int	mantissa;
-	int				mant;
-	uint64_t		fraction;
-	t_lstr			*int_part;
-	t_lstr			*dec_part;
-	int				length;
+	int		length;
+	t_lstr	*int_part;
+	t_lstr	*dec_part;
 
-
-	length = 0;
-	val = el->arg->val_d;
-	if (val != val)
-	{
-		ft_putstrn_fd(fd, "nan", 3);
-		return (3);
-	}
-	ft_memcpy(&sign, &val, 8);
-	sign = sign & (1ULL << 63);
-	ft_memcpy(&mantissa, &val, 8);
-	mantissa = ((unsigned long long int)(mantissa << 1)) >> 53;
-	mant = mantissa - 1023;
-	if (mant == 1024)
-	{
-		ft_putstrn_fd(fd, "inf", 3);
-		length += 3;
-		return (length);
-	}
-	ft_memcpy(&fraction, &val, 8);
-	fraction = (fraction << 11) | ((mantissa != 0) ? (1ULL << 63) : 0);
-	int_part = 0;
-	dec_part = 0;
-	if (mantissa == 0)
-		ft_f_get_subnormal(fraction, &int_part, &dec_part);
-	else
-		ft_f_get_normal(mant, fraction, &int_part, &dec_part);
-	
-	if (sign)
+	int_part = keeper->int_part;
+	dec_part = keeper->dec_part;
+	if (keeper->sign)
 		ft_lstr_insert_c(int_part, '-', 1, 0);
 	length = int_part->length + el->precision + ((el->precision) ? 1 : 0);
 	if (el->width > length && !(el->flags & FT_PRINTF_MINUS))
-	{
-		if (el->flags & FT_PRINTF_ZERO)
-			ft_lstr_insert_c(int_part, '0', el->width - length, (sign) ? 1 : 0);
-		else
-			ft_lstr_insert_c(int_part, ' ', el->width - length, 0);
-	}
+			ft_lstr_insert_c(int_part,(el->flags & FT_PRINTF_ZERO) ? '0' : ' ',
+			el->width - length, ((el->flags & FT_PRINTF_ZERO) && keeper->sign)
+			? 1 : 0);
 	if (el->precision != 0)
 	{
 		if (el->precision >= dec_part->length)
@@ -340,10 +306,79 @@ int		ft_display_fF(int fd, t_printf_elem *el)
 	}
 	if (el->width > length && (el->flags & FT_PRINTF_MINUS))
 		ft_lstr_insert_c(dec_part, ' ', el->width - length, dec_part->length);
+}
+
+int		ft_show_double(int fd, t_double_keeper *keeper)
+{
+	int		length;
+	t_lstr	*int_part;
+	t_lstr	*dec_part;
+
+	int_part = keeper->int_part;
+	dec_part = keeper->dec_part;
 	ft_lstr_put_fd(int_part, fd);
 	ft_lstr_put_fd(dec_part, fd);
 	length = int_part->length + dec_part->length;
 	ft_lstr_destroy(&int_part);
 	ft_lstr_destroy(&dec_part);
+	free(keeper);
 	return (length);
+}
+
+void	ft_get_number(double val, t_printf_elem *el, t_double_keeper *keeper)
+{
+	int				mant;
+
+	mant = keeper->mantissa - 1023;
+	if (val != val)
+	{
+		keeper->int_part = ft_lstr_new_copy("nan");
+		keeper->dec_part = ft_lstr_new_empty();
+		el->precision = 0;
+		el->flags = el->flags & (!FT_PRINTF_ZERO);
+		return ;
+	}
+	if (mant == 1024)
+	{
+		keeper->int_part = ft_lstr_new_copy("inf");
+		keeper->dec_part = ft_lstr_new_empty();
+		el->precision = 0;
+		el->flags = el->flags & (!FT_PRINTF_ZERO);
+		return ;
+	}
+	if (keeper->mantissa == 0)
+		ft_f_get_subnormal(keeper->fraction, &(keeper->int_part), &(keeper->dec_part));
+	else
+		ft_f_get_normal(mant, keeper->fraction, &(keeper->int_part), &(keeper->dec_part));
+}
+
+void	ft_get_sign_mantissa_fraction(double val, t_double_keeper *keeper)
+{
+	uint64_t	sig;
+	int64_t		manti;
+	uint64_t	fract;
+
+	ft_memcpy(&sig, &val, 8);
+	sig = sig & (1ULL << 63);
+	ft_memcpy(&manti, &val, 8);
+	manti = ((unsigned long long int)(manti << 1)) >> 53;
+	ft_memcpy(&fract, &val, 8);
+	fract = (fract << 11) | ((manti != 0) ? (1ULL << 63) : 0);
+	keeper->sign = sig;
+	keeper->mantissa = manti;
+	keeper->fraction = fract;
+}
+
+
+int		ft_display_fF(int fd, t_printf_elem *el)
+{
+	t_double_keeper	*keeper;
+
+	keeper = (t_double_keeper*)malloc(sizeof(t_double_keeper));
+	ft_get_sign_mantissa_fraction(el->arg->val_d, keeper);
+	keeper->int_part = 0;
+	keeper->dec_part = 0;
+	ft_get_number(el->arg->val_d, el, keeper);
+	ft_prepare_nums(el, keeper);
+	return (ft_show_double(fd, keeper));
 }
