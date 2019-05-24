@@ -6,7 +6,7 @@
 #include <float.h>
 #include <math.h>
 
-#define FMT "%+7p", 42
+#define FMT "{%05.S}", L"42 c est cool"
 
 int		main(void)
 {

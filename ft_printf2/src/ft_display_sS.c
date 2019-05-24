@@ -47,7 +47,7 @@ int		ft_display_S(int fd, t_printf_elem *el)
 	if (el->flags & FT_PRINTF_MINUS)
 		ft_lstr_insert_c(lstr, ' ', el->width - lstr->length, lstr->length);
 	else
-		ft_lstr_insert_c(lstr, ' ', el->width - lstr->length, 0);
+		ft_lstr_insert_c(lstr, (el->flags & FT_PRINTF_ZERO) ? '0' : ' ', el->width - lstr->length, 0);
 	ft_lstr_put_fd(lstr, fd);
 	length = lstr->length;
 	ft_lstr_destroy(&lstr);

@@ -66,14 +66,14 @@ int		ft_display_o(int fd, t_printf_elem *el)
 	t_lstr					*num;
 
 	val = el->arg->val_ui;
-	if (val != 0 && el->precision > 0)
+	if (val != 0 || el->precision > 0)
 		num = ft_lstr_new_raw(ft_uitoa_base(val, 8, 0));
 	else
 		num = ft_lstr_new_empty();
+	if (el->flags & FT_PRINTF_SHARP)
+		ft_lstr_insert_c(num, '0', 1, 0);
 	if (el->precision > num->length)
 		ft_lstr_insert_c(num, '0', el->precision - num->length, 0);
-	if (el->flags & FT_PRINTF_SHARP)
-		ft_lstr_insert_s(num, "0", 0);
 	if (el->flags & FT_PRINTF_MINUS)
 		ft_lstr_insert_c(num, ' ', el->width - num->length, num->length);
 	else
