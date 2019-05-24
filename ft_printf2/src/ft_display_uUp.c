@@ -105,6 +105,11 @@ int		ft_display_p(int fd, t_printf_elem *el)
 	if (el->precision > num->length)
 		ft_lstr_insert_c(num, '0', el->precision - num->length, 0);
 	ft_lstr_insert_s(num, "0x", 0);
+	//Обработка FT_PRINTF_SPACE и FT_PINRF_PLUS - возможно только linux
+	if (el->flags & FT_PRINTF_PLUS)
+		ft_lstr_insert_c(num, '+', 1, 0);
+	else if (el->flags & FT_PRINTF_SPACE)
+		ft_lstr_insert_c(num, ' ', 1, 0);
 	if (el->flags & FT_PRINTF_MINUS)
 		ft_lstr_insert_c(num, ' ', el->width - num->length, num->length);
 	else
@@ -114,6 +119,8 @@ int		ft_display_p(int fd, t_printf_elem *el)
 		else
 			ft_lstr_insert_c(num, ' ', el->width - num->length, 0);
 	}
+	
+
 	ft_lstr_put_fd(num, fd);
 	val = (unsigned long long int)num->length;
 	ft_lstr_destroy(&num);
