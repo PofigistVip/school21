@@ -233,6 +233,7 @@ int		ft_f_get_subnormal(uint64_t fraction, t_lstr **int_p, t_lstr **dec_p)
 	int mant = -1022;
 	while (pos < 53)
 	{
+		
 		if (fraction & (1ULL << 63))
 		{
 			temp = ft_infnum_pow5(1022 + pos);
@@ -259,7 +260,8 @@ void	ft_f_round(t_lstr *int_p, t_lstr *dec_p, int precision)
 	int i;
 	char curr;
 
-	if (dec_p->str[precision] > '5' || (dec_p->str[precision] == '5' && (dec_p->str[precision - 1] - '0') % 2 == 1))
+	//if (dec_p->str[precision] > '5' || (dec_p->str[precision] == '5' && (dec_p->str[precision - 1] - '0') % 2 == 1))
+	if (dec_p->str[precision] >= '5' && dec_p->length - 1 != precision)
 	{
 		curr = 10;
 		i = precision - 1;
@@ -278,7 +280,7 @@ void	ft_f_round(t_lstr *int_p, t_lstr *dec_p, int precision)
 		}
 	}
 	ft_lstr_resize(dec_p, precision);
-		dec_p->length = precision;
+	dec_p->length = precision;
 }
 
 void	ft_prepare_nums(t_printf_elem *el, t_double_keeper *keeper)
@@ -332,7 +334,7 @@ void	ft_get_number(double val, t_printf_elem *el, t_double_keeper *keeper)
 	mant = keeper->mantissa - 1023;
 	if (val != val)
 	{
-		keeper->int_part = ft_lstr_new_copy("nan");
+		keeper->int_part = ft_lstr_new_copy((el->conv_type == 'F') ? "NAN" : "nan");
 		keeper->dec_part = ft_lstr_new_empty();
 		el->precision = 0;
 		el->flags = el->flags & (!FT_PRINTF_ZERO);
@@ -340,7 +342,7 @@ void	ft_get_number(double val, t_printf_elem *el, t_double_keeper *keeper)
 	}
 	if (mant == 1024)
 	{
-		keeper->int_part = ft_lstr_new_copy("inf");
+		keeper->int_part = ft_lstr_new_copy((el->conv_type == 'F') ? "INF" : "inf");
 		keeper->dec_part = ft_lstr_new_empty();
 		el->precision = 0;
 		el->flags = el->flags & (!FT_PRINTF_ZERO);
