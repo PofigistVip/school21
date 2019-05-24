@@ -17,7 +17,7 @@ int		ft_display_perc(int fd, t_printf_elem *el)
 		return (1);
 	}
 	i = 1;
-	space = ' ';
+	space = ((el->flags & FT_PRINTF_ZERO) && !(el->flags & FT_PRINTF_MINUS)) ? '0' : ' ';
 	if (el->flags & FT_PRINTF_MINUS)
 	{
 		write(fd, &symb, 1);

@@ -39,6 +39,31 @@ int				ft_parse_get_pos(char **fmt)
 	return (-1);
 }
 
+
+
+int				ft_len_cost(char len)
+{
+	if (len == 0)
+		return (0);
+	if (len == 'j')
+		return (sizeof(intmax_t));
+	if (len == 'z')
+		return (sizeof(size_t));
+	if (len == 't')
+		return (sizeof(void*));
+	if (len == 'H')
+		return (sizeof(char));
+	if (len == 'h')
+		return (sizeof(short int));
+	if (len == 'M' || len == 'q')
+		return (sizeof(long long int));
+	if (len == 'L')
+		return (sizeof(long double));
+	if (len == 'l')
+		return (sizeof(long int));
+	return (0);
+}
+
 void			ft_parse_spec_inner(t_printf_elem *el, char **fmt, int *pos)
 {
 	char	*ptr;
@@ -48,7 +73,7 @@ void			ft_parse_spec_inner(t_printf_elem *el, char **fmt, int *pos)
 	ptr = *fmt;
 	while (*ptr && !ft_parse_is_conv_spec(*ptr))
 	{
-		if ((support = ft_parse_len_mod(&ptr)) != 0)
+		if ((support = ft_parse_len_mod(&ptr)) != 0 && ft_len_cost(el->length_mod) < ft_len_cost(support))
 		{
 			el->length_mod = support;
 		}
@@ -86,7 +111,7 @@ void			ft_parse_spec_inner(t_printf_elem *el, char **fmt, int *pos)
 	*fmt = ptr;
 }
 
-t_printf_elem	*ft_parse_spec(char **fmt, int *pos)
+t_printf_elem	*ft_parse_spec(char **fmt, int *pos, char *add)
 {
 	char			*ptr;
 	t_printf_elem	*el;
@@ -115,10 +140,15 @@ t_printf_elem	*ft_parse_spec(char **fmt, int *pos)
 		}
 		el->conv_type = *ptr;
 		*fmt = ptr + 1;
+		*add = 1;
 	}
 	else //формат не закончен в конце fmt
 	{
-		ft_parse_str_elem(el, fmt, ptr);
+		//ft_parse_str_elem(el, fmt, ptr);
+		el->conv_type = 0;
+		el->raw_str = ft_strnew(0);
+		*fmt = ptr;
+		*add = 0;
 	}
 	return (el);
 }

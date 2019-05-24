@@ -17,7 +17,7 @@ int		ft_display_s(int fd, t_printf_elem *el)
 	len = (int)ft_strlen(str);
 	if (el->precision_seted && el->precision >= 0 &&  el->precision < len)
 		len = el->precision;
-	space = (el->flags & FT_PRINTF_ZERO) ? '0' : ' '; //Проверить работает ли флаг 0 в Линуксе
+	space = ((el->flags & FT_PRINTF_ZERO) && !(el->flags & FT_PRINTF_MINUS)) ? '0' : ' '; //Проверить работает ли флаг 0 в Линуксе
 	if (el->flags & FT_PRINTF_MINUS)
 	{
 		

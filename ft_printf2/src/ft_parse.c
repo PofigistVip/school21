@@ -53,16 +53,23 @@ t_printf_elem	*ft_parse(char *fmt, int *pos)
 {
 	t_printf_elem	*els;
 	t_printf_elem	*curr;
+	char			add;
 
+	
 	els = 0;
 	*pos = 1;
 	while (*fmt)
 	{
+		add = 0;
 		if (*fmt == '%')
-			curr = ft_parse_spec(&fmt, pos);
+			curr = ft_parse_spec(&fmt, pos, &add);
 		else
+		{
 			curr = ft_parse_rawstr(&fmt);
-		ft_printf_elem_add(&els, curr);
+			add = 1;
+		}
+		if (add)
+			ft_printf_elem_add(&els, curr);
 	}
 	return (els);
 }

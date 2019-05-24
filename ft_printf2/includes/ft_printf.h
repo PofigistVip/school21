@@ -61,12 +61,13 @@ int				ft_printf(const char *format, ...);
 int				ft_fprintf(int fd, const char *format, ...);
 
 t_printf_elem	*ft_parse(char *fmt, int *pos);
-t_printf_elem	*ft_parse_spec(char **fmt, int *pos);
+t_printf_elem	*ft_parse_spec(char **fmt, int *pos, char *add);
 int				ft_parse_is_conv_spec(char c);
 t_printf_elem	*ft_printf_elem_new(void);
 char			ft_parse_len_mod(char **fmt);
 char			ft_parse_flag(char **fmt);
 int				ft_parse_get_number(char **str);
+t_printf_elem	*ft_parse_rawstr(char **fmt);
 int				ft_parse_is_reference(char *str);
 
 t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos);

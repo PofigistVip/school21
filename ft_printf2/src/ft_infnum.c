@@ -16,7 +16,7 @@ t_infnum	*ft_infnum_create_empty(size_t size)
 		return (NULL);
 	inum = (t_infnum*)malloc(sizeof(t_infnum));
 	inum->digits = (char*)malloc(size * sizeof(char));
-	memset(inum->digits, '0', size);
+	ft_memset(inum->digits, '0', size);
 	inum->size = size;
 	inum->sign = 0;
 	inum->max_pos = 0;
@@ -52,7 +52,7 @@ void		*ft_memalloc(size_t n)
 	void	*ptr;
 	
 	ptr = malloc(n);
-	memset(ptr, 0, n);
+	ft_memset(ptr, 0, n);
 	return (ptr);
 }
 
@@ -116,7 +116,7 @@ t_infnum	*ft_infnum_create_copy(t_infnum *inum)
 		return (NULL);
 	res->sign = inum->sign;
 	res->max_pos = inum->max_pos;
-	memcpy(res->digits, inum->digits, inum->size);
+	ft_memcpy(res->digits, inum->digits, inum->size);
 	return (res);
 }
 
@@ -275,8 +275,8 @@ void			ft_infnum_show(t_infnum *inum)
 	min = inum->min_pos;
 	i = inum->max_pos;
 	while (i > min)
-		putchar(inum->digits[i--]);
-	putchar(inum->digits[min]);
+		ft_putchar(inum->digits[i--]);
+	ft_putchar(inum->digits[min]);
 }
 
 // int main()
