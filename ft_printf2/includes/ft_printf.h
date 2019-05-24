@@ -92,6 +92,7 @@ int				ft_display_D(int fd, t_printf_elem *el);
 int				ft_display_C(int fd, t_printf_elem *el);
 int				ft_display_S(int fd, t_printf_elem *el);
 int				ft_display_fF(int fd, t_printf_elem *el);
+int				ft_display_Z(int fd, t_printf_elem *el);
 
 t_infnum	*ft_infnum_create_num(int number, size_t size);
 t_infnum	*ft_infnum_mul(t_infnum *a, t_infnum *b);

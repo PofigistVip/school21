@@ -69,7 +69,9 @@ void			ft_parse_spec_inner(t_printf_elem *el, char **fmt, int *pos)
 	char	*ptr;
 	char	support;
 	int		number;
+	int		trash;
 
+	trash = 0;
 	ptr = *fmt;
 	while (*ptr && !ft_parse_is_conv_spec(*ptr))
 	{

@@ -53,3 +53,22 @@ int		ft_display_S(int fd, t_printf_elem *el)
 	ft_lstr_destroy(&lstr);
 	return (length);
 }
+
+int		ft_display_Z(int fd, t_printf_elem *el)
+{
+	int		length;
+	t_lstr	*lstr;
+
+	lstr = ft_lstr_new_copy("Z");
+	if (el->width > lstr->length)
+	{
+		if (el->flags & FT_PRINTF_MINUS)
+			ft_lstr_insert_c(lstr, ' ', el->width - lstr->length, lstr->length);
+		else
+			ft_lstr_insert_c(lstr, (el->flags & FT_PRINTF_ZERO) ? '0' : ' ', el->width - lstr->length, 0);
+	}
+	length = lstr->length;
+	ft_lstr_put_fd(lstr, fd);
+	ft_lstr_destroy(&lstr);
+	return (length);
+}

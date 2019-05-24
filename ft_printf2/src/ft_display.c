@@ -35,6 +35,8 @@ int		ft_display_elem(int fd, t_printf_elem *el)
 		return (ft_display_S(fd, el));
 	if (el->conv_type == 'f' || el->conv_type == 'F')
 		return (ft_display_fF(fd, el));
+	if (el->conv_type == 'Z')
+		return (ft_display_Z(fd, el));
 	return (0);
 }
 
