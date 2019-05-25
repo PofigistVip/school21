@@ -295,7 +295,8 @@ void	ft_prepare_nums(t_printf_elem *el, t_double_keeper *keeper)
 		ft_lstr_insert_c(int_part, '-', 1, 0);
 	else if (el->flags & (FT_PRINTF_PLUS | FT_PRINTF_SPACE))
 		ft_lstr_insert_c(int_part, (el->flags & FT_PRINTF_PLUS) ? '+' : ' ', 1, 0);
-	length = int_part->length + el->precision + ((el->precision) ? 1 : 0);
+	length = int_part->length + el->precision + ((el->precision ||
+		el->flags & FT_PRINTF_SHARP) ? 1 : 0);
 	if (el->width > length && !(el->flags & FT_PRINTF_MINUS))
 			ft_lstr_insert_c(int_part,(el->flags & FT_PRINTF_ZERO) ? '0' : ' ',
 			el->width - length, ((el->flags & FT_PRINTF_ZERO) && (keeper->sign ||
