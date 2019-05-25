@@ -293,16 +293,20 @@ void	ft_prepare_nums(t_printf_elem *el, t_double_keeper *keeper)
 	dec_part = keeper->dec_part;
 	if (keeper->sign)
 		ft_lstr_insert_c(int_part, '-', 1, 0);
+	else if (el->flags & (FT_PRINTF_PLUS | FT_PRINTF_SPACE))
+		ft_lstr_insert_c(int_part, (el->flags & FT_PRINTF_PLUS) ? '+' : ' ', 1, 0);
 	length = int_part->length + el->precision + ((el->precision) ? 1 : 0);
 	if (el->width > length && !(el->flags & FT_PRINTF_MINUS))
 			ft_lstr_insert_c(int_part,(el->flags & FT_PRINTF_ZERO) ? '0' : ' ',
-			el->width - length, ((el->flags & FT_PRINTF_ZERO) && keeper->sign)
-			? 1 : 0);
+			el->width - length, ((el->flags & FT_PRINTF_ZERO) && (keeper->sign ||
+			(el->flags & (FT_PRINTF_PLUS | FT_PRINTF_SPACE)) ? 1 : 0)));
 	if (el->precision == 0)
 	{
 		ft_lstr_resize(dec_part, 0);
 		dec_part->length = 0;
 		ft_f_round(int_part, dec_part, 0);
+		if (el->flags & FT_PRINTF_SHARP)
+			ft_lstr_insert_c(dec_part, '.', 1, 0);
 	}
 	else
 	{
