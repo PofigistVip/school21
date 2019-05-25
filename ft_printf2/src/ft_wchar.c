@@ -31,6 +31,20 @@ int		ft_activebits(int num)
 	return (last + 1);
 }
 
+int		ft_byte_size(int num)
+{
+	int nbits;
+
+	nbits = ft_activebits(num);
+	if (nbits <= 7)
+		return (1);
+	if (nbits <= 11)
+		return (2);
+	if (nbits <= 16)
+		return (3);
+	return (4);
+}
+
 void	ft_putwchar_inner(t_lstr *lstr, unsigned int v)
 {
 	unsigned char octet;

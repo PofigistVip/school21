@@ -42,7 +42,7 @@ int		ft_display_S(int fd, t_printf_elem *el)
 	wstr = (wchar_t*)el->arg->ptr;
 	lstr = ft_lstr_new_empty();
 	while (*wstr && (el->precision_seted == 0 ||
-			lstr->length + 4 <= el->precision))
+			lstr->length + ft_byte_size(*wstr) <= el->precision))
 		ft_putwchar(lstr, *wstr++);
 	if (el->flags & FT_PRINTF_MINUS)
 		ft_lstr_insert_c(lstr, ' ', el->width - lstr->length, lstr->length);
