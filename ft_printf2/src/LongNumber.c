@@ -215,7 +215,8 @@ void			ft_lnum_make_decimal(t_longnumber **lnum, int shift)
 	min_offset = offset % FT_LONGNUMBER_DIG_ON_INT;
 	//printf("Shift: %d, Length: %d, B: %d, L: %d\n", shift, length, big_offset, min_offset);
 	(*lnum)->dec_end_on = big_offset;
-	memmove((*lnum)->digits + big_offset, (*lnum)->digits, sizeof(int) * (FT_LONGNUMBER_SIZE - big_offset));
+	ft_memmove((*lnum)->digits + big_offset, (*lnum)->digits, sizeof(int) * (FT_LONGNUMBER_SIZE - big_offset));
+	memset((*lnum)->digits, 0, big_offset * sizeof(int));
 	while (min_offset--)
 		*lnum = ft_lnum_mul(*lnum, supp, 1, 0);
 	ft_lnum_destroy(&supp);

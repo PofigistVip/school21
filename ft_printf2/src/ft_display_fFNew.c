@@ -196,8 +196,6 @@ t_lstr	*ft_get_decimal(int mant, uint64_t fraction)
 			temp = ft_lnum_pow5(-mant);
 			zeroes = ft_count_zeroes(mant + 1023);//
 			ft_lnum_make_decimal(&temp, zeroes);
-			
-			//ft_putstr(ft_lnum_get_dec(temp));
 			lnum = ft_lnum_add(lnum, temp, 1, 1);
 		}
 		fraction = fraction << 1;
