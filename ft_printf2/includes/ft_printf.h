@@ -10,6 +10,9 @@
 # define FT_PRINTF_SPACE (1 << 3)
 # define FT_PRINTF_PLUS (1 << 4)
 # define FT_INFNUM_SIZE 1250
+# define FT_LONGNUMBER_SIZE 300
+# define FT_LONGNUMBER_DIG_ON_INT 4
+# define FT_LONGNUMBER_BASE 10000
 
 typedef struct	s_printf_arg
 {
@@ -56,6 +59,12 @@ typedef struct	s_double_keeper
 	t_lstr			*dec_part;
 }				t_double_keeper;
 
+typedef struct	s_longnumber
+{
+	char	is_decimal;
+	int		dec_end_on;
+	int		digits[FT_LONGNUMBER_SIZE];
+}				t_longnumber;
 
 int				ft_printf(const char *format, ...);
 int				ft_fprintf(int fd, const char *format, ...);
@@ -102,4 +111,18 @@ t_infnum	*ft_infnum_create_empty(size_t size);
 t_infnum	*ft_infnum_add(t_infnum *a, t_infnum *b, int destroy_a, int destroy_b);
 t_lstr		*ft_infnum_get(t_infnum *inum);
 void		ft_infnum_calc_max_pos(t_infnum *inum);
+
+//test
+char			*ft_lnum_get_dec(t_longnumber *lnum);
+char			*ft_lnum_get(t_longnumber *lnum);
+void			ft_lnum_make_decimal(t_longnumber **lnum, int shift);
+t_longnumber	*ft_lnum_pow(t_longnumber *a, t_longnumber *b, int dst_a, int dst_b);
+t_longnumber	*ft_lnum_mul(t_longnumber *a, t_longnumber *b, int dst_a, int dst_b);
+t_longnumber	*ft_lnum_sub(t_longnumber *a, t_longnumber *b, int dst_a, int dst_b);
+t_longnumber	*ft_lnum_add(t_longnumber *a, t_longnumber *b, int dst_a, int dst_b);
+int				ft_lnum_length(t_longnumber *lnum);
+t_longnumber	*ft_lnum_new_int(int number);
+t_longnumber	*ft_lnum_new_copy(t_longnumber *src);
+t_longnumber	*ft_lnum_new_zero();
+void			ft_lnum_destroy(t_longnumber **lnum);
 #endif
