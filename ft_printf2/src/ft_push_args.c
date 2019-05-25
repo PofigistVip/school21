@@ -30,7 +30,7 @@ void	ft_push_arg(int pos, t_printf_elem *el, t_printf_arg *arg)
 	if (el->precision_pos == pos)
 	{
 		el->precision = arg->val_i;
-		el->precision_seted = 1;
+		el->precision_seted = el->precision >= 0;
 	}
 	if (el->pos == pos)
 		el->arg = arg;
