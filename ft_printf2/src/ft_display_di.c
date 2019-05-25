@@ -34,9 +34,10 @@ int		ft_display_di(int fd, t_printf_elem *el)
 	t_lstr					*num;
 
 	val = el->arg->val_i;
-	if (val == 0 && el->precision == 0)
-		return (ft_putcharn_fd(fd, ' ', el->width));
-	num = ft_lstr_new_raw(ft_llitoa(val));
+	if (val != 0)
+		num = ft_lstr_new_raw(ft_llitoa(val));
+	else
+		num = ft_lstr_new_empty();
 	if (val >= 0)
 	{
 		if (el->flags & FT_PRINTF_PLUS)

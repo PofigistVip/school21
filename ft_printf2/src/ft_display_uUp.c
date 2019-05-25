@@ -36,9 +36,7 @@ int		ft_display_U(int fd, t_printf_elem *el)
 #else
 int		ft_display_U(int fd, t_printf_elem *el)
 {
-	(void)el;
-	write(fd, "%U", 2);
-	return (2);
+	return (ft_dispaly_Unknown(fd, el));
 }
 #endif
 
