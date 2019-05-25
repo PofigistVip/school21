@@ -73,14 +73,16 @@ void			ft_parse_spec_inner(t_printf_elem *el, char **fmt, int *pos)
 
 	trash = 0;
 	ptr = *fmt;
-	while (*ptr && !ft_parse_is_conv_spec(*ptr))
+	while (*ptr)
 	{
-		if ((support = ft_parse_len_mod(&ptr)) != 0 && ft_len_cost(el->length_mod) < ft_len_cost(support))
+		if ((support = ft_parse_len_mod(&ptr)) != 0)
 		{
-			el->length_mod = support;
+			if (ft_len_cost(el->length_mod) < ft_len_cost(support))
+				el->length_mod = support;
 		}
 		else if ((support = ft_parse_flag(&ptr)) != 0)
 		{
+			
 			el->flags |= support;
 		}
 		else if (*ptr == '*')
@@ -108,6 +110,8 @@ void			ft_parse_spec_inner(t_printf_elem *el, char **fmt, int *pos)
 				el->precision_seted = 1;
 			}
 		}
+		else
+			break ;
 		++ptr;
 	}
 	*fmt = ptr;
@@ -136,7 +140,7 @@ t_printf_elem	*ft_parse_spec(char **fmt, int *pos, char *add)
 	ft_parse_spec_inner(el, &ptr, pos);
 	if (*ptr)
 	{
-		if (use_pos)
+		if (use_pos && ft_parse_is_conv_spec(*ptr))
 		{
 			el->pos = (*pos)++;
 		}
@@ -147,10 +151,10 @@ t_printf_elem	*ft_parse_spec(char **fmt, int *pos, char *add)
 	else //формат не закончен в конце fmt
 	{
 		//ft_parse_str_elem(el, fmt, ptr);
-		el->conv_type = 0;
-		el->raw_str = ft_strnew(0);
+		//destroy el;
 		*fmt = ptr;
 		*add = 0;
+		return (NULL);
 	}
 	return (el);
 }

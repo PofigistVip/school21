@@ -54,12 +54,13 @@ int		ft_display_S(int fd, t_printf_elem *el)
 	return (length);
 }
 
-int		ft_display_Z(int fd, t_printf_elem *el)
+int		ft_display_Unknown(int fd, t_printf_elem *el)
 {
 	int		length;
 	t_lstr	*lstr;
 
-	lstr = ft_lstr_new_copy("Z");
+	lstr = ft_lstr_new_empty();
+	ft_lstr_insert_c(lstr, el->conv_type, 1, 0);
 	if (el->width > lstr->length)
 	{
 		if (el->flags & FT_PRINTF_MINUS)
