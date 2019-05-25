@@ -17,25 +17,18 @@
 int		ft_activebits(int num)
 {
 	int i;
-	int	first;
 	int last;
 
-	first = -1;
 	last = -2;
 	i = 0;
 	while (i < 32)
 	{
 		if ((num & 1) == 1)
-		{
-			if (first == -1)
-				first = i;
-			else
-				last = i;
-		}
+			last = i;
 		++i;
 		num = num >> 1;
 	}
-	return (last - first + 1);
+	return (last + 1);
 }
 
 void	ft_putwchar_inner(t_lstr *lstr, unsigned int v)
