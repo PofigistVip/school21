@@ -17,7 +17,7 @@ int		ft_display_u(int fd, t_printf_elem *el)
 		ft_lstr_insert_c(num, ' ', el->width - num->length, num->length);
 	else
 	{
-		if (el->flags & FT_PRINTF_ZERO)
+		if (el->flags & FT_PRINTF_ZERO && !el->precision_seted)
 			ft_lstr_insert_c(num, '0', el->width - num->length, 0);
 		else
 			ft_lstr_insert_c(num, ' ', el->width - num->length, 0);
@@ -36,7 +36,7 @@ int		ft_display_U(int fd, t_printf_elem *el)
 #else
 int		ft_display_U(int fd, t_printf_elem *el)
 {
-	return (ft_dispaly_Unknown(fd, el));
+	return (ft_display_Unknown(fd, el));
 }
 #endif
 

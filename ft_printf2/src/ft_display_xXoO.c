@@ -19,7 +19,7 @@ int		ft_display_x(int fd, t_printf_elem *el)
 		ft_lstr_insert_c(num, ' ', el->width - num->length, num->length);
 	else
 	{
-		if (el->flags & FT_PRINTF_ZERO)
+		if (el->flags & FT_PRINTF_ZERO && !el->precision_seted)
 			ft_lstr_insert_c(num, '0', el->width - num->length,
 				(el->flags & FT_PRINTF_SHARP) ? 2 : 0);
 		else
@@ -48,7 +48,7 @@ int		ft_display_X(int fd, t_printf_elem *el)
 		ft_lstr_insert_c(num, ' ', el->width - num->length, num->length);
 	else
 	{
-		if (el->flags & FT_PRINTF_ZERO)
+		if (el->flags & FT_PRINTF_ZERO && !el->precision_seted)
 			ft_lstr_insert_c(num, '0', el->width - num->length,
 				(el->flags & FT_PRINTF_SHARP) ? 2 : 0);
 		else
@@ -78,7 +78,7 @@ int		ft_display_o(int fd, t_printf_elem *el)
 		ft_lstr_insert_c(num, ' ', el->width - num->length, num->length);
 	else
 	{
-		if (el->flags & FT_PRINTF_ZERO)
+		if (el->flags & FT_PRINTF_ZERO && !el->precision_seted)
 			ft_lstr_insert_c(num, '0', el->width - num->length,
 				(el->flags & FT_PRINTF_SHARP) ? 1 : 0);
 		else
@@ -98,6 +98,6 @@ int		ft_display_O(int fd, t_printf_elem *el)
 #else
 int		ft_display_O(int fd, t_printf_elem *el)
 {
-	return (ft_dispay_Unknown(fd, el));
+	return (ft_display_Unknown(fd, el));
 }
 #endif
