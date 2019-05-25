@@ -5,8 +5,9 @@
 #include <stdint.h>
 #include <float.h>
 #include <math.h>
+#include <locale.h>
 
-#define FMT "{%05.S}", L"42 c est cool"
+#define FMT "%Lf", -56.2012685l
 
 int		main(void)
 {
@@ -20,7 +21,8 @@ int		main(void)
 	
 	ft_memcpy(&dbl, &bigint, 8);
 	setbuf(stdout, NULL);
-	
+	setlocale(LC_ALL, "en_US.UTF-8");
+
 	ft_putstr("\nSTD\tPRINTF: '");
 	len = printf(FMT);
 	ft_putstr("'(");
