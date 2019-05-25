@@ -66,7 +66,7 @@ int		ft_display_o(int fd, t_printf_elem *el)
 	t_lstr					*num;
 
 	val = el->arg->val_ui;
-	if (val != 0 || el->precision > 0)
+	if (val != 0)
 		num = ft_lstr_new_raw(ft_uitoa_base(val, 8, 0));
 	else
 		num = ft_lstr_new_empty();
@@ -98,8 +98,6 @@ int		ft_display_O(int fd, t_printf_elem *el)
 #else
 int		ft_display_O(int fd, t_printf_elem *el)
 {
-	(void)el;
-	write(fd, "%O", 2);
-	return (2);
+	return (ft_dispay_Unknown(fd, el));
 }
 #endif

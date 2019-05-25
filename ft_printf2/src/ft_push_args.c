@@ -10,6 +10,8 @@ void	ft_basic_params(t_printf_elem *el, char conv_type)
 		|| conv_type == 'i' || conv_type == 'u' || conv_type == 'U'
 		|| conv_type == 'p')
 			el->precision = 1;
+		else if (conv_type == 'o' || conv_type == 'O')
+			el->precision = 0;
 		else if (conv_type == 'f' || conv_type == 'F')
 			el->precision = 6;
 	}
