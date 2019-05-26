@@ -1,5 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_display.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/26 13:23:10 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/26 13:23:12 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include "ft_printf.h"
+
+int		ft_display_elem_inner(int fd, t_printf_elem *el)
+{
+	if (el->conv_type == 'O')
+		return (ft_display_big_o(fd, el));
+	if (el->conv_type == 'D')
+		return (ft_display_big_d(fd, el));
+	if (el->conv_type == 'C' || el->conv_type == 'c')
+		return (ft_display_big_c(fd, el));
+	if (el->conv_type == 'S' || el->conv_type == 's')
+		return (ft_display_big_s(fd, el));
+	if (el->conv_type == 'f' || el->conv_type == 'F')
+		return (ft_display_fF(fd, el));
+	return (ft_display_unknown(fd, el));
+}
 
 int		ft_display_elem(int fd, t_printf_elem *el)
 {
@@ -25,17 +52,7 @@ int		ft_display_elem(int fd, t_printf_elem *el)
 		return (ft_display_big_u(fd, el));
 	if (el->conv_type == 'p')
 		return (ft_display_p(fd, el));
-	if (el->conv_type == 'O')
-		return (ft_display_big_o(fd, el));
-	if (el->conv_type == 'D')
-		return (ft_display_big_d(fd, el));
-	if (el->conv_type == 'C' || el->conv_type == 'c')
-		return (ft_display_big_c(fd, el));
-	if (el->conv_type == 'S' || el->conv_type == 's')
-		return (ft_display_big_s(fd, el));
-	if (el->conv_type == 'f' || el->conv_type == 'F')
-		return (ft_display_fF(fd, el));
-	return (ft_display_unknown(fd, el));
+	return (ft_display_elem_inner(fd, el));
 }
 
 void	ft_memfree(t_printf_elem *els, t_printf_arg *args)
