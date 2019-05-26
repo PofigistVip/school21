@@ -1,12 +1,12 @@
-﻿/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lnum.c                                          :+:      :+:    :+:   */
+/*   ft_lnum_new.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/26 13:34:21 by larlyne           #+#    #+#             */
-/*   Updated: 2019/05/26 13:34:24 by larlyne          ###   ########.fr       */
+/*   Created: 2019/05/26 15:02:11 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/26 15:02:14 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int				ft_lnum_calc(t_longnumber *lnum, int pos)
 			return (0);
 		value = -value;
 		lnum->digits[pos + 1] -= (value / FT_LONGNUMBER_BASE) + 1;
-		lnum->digits[pos] = ((value / FT_LONGNUMBER_BASE) + 1) * FT_LONGNUMBER_BASE - value;
+		lnum->digits[pos] = ((value / FT_LONGNUMBER_BASE) + 1) *
+			FT_LONGNUMBER_BASE - value;
 		return (ft_lnum_calc(lnum, pos + 1));
 	}
 	value = lnum->digits[pos] / FT_LONGNUMBER_BASE;
@@ -79,7 +80,8 @@ void			ft_lnum_make_decimal(t_longnumber **lnum, int shift)
 	big_offset = offset / FT_LONGNUMBER_DIG_ON_INT;
 	min_offset = offset % FT_LONGNUMBER_DIG_ON_INT;
 	(*lnum)->dec_end_on = big_offset;
-	ft_memmove((*lnum)->digits + big_offset, (*lnum)->digits, sizeof(int) * (FT_LONGNUMBER_SIZE - big_offset));
+	ft_memmove((*lnum)->digits + big_offset, (*lnum)->digits, sizeof(int) *
+		(FT_LONGNUMBER_SIZE - big_offset));
 	ft_memset((*lnum)->digits, 0, big_offset * sizeof(int));
 	while (min_offset--)
 		*lnum = ft_lnum_mul(*lnum, supp, 1, 0);
