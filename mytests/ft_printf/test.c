@@ -7,7 +7,7 @@
 #include <math.h>
 #include <locale.h>
 
-#define FMT "%Lf", -56.2012685l
+#define FMT "%Lf", (long double)DBL_MAX
 
 int		main(void)
 {
@@ -32,5 +32,6 @@ int		main(void)
 	ft_putstr("'(");
 	ft_putnbr(len);
 	ft_putstr(")\n");
+	//ft_printf(FMT);
 	return (0);
 }
