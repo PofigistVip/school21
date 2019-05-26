@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_display_di.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/26 12:33:27 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/26 12:33:29 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include "libft.h"
 #include "ft_printf.h"
@@ -53,16 +65,7 @@ int		ft_display_di(int fd, t_printf_elem *el)
 	return (val);
 }
 
-#if defined(__APPLE__) && defined(__MACH__)
-int		ft_display_D(int fd, t_printf_elem *el)
+int		ft_display_big_d(int fd, t_printf_elem *el)
 {
 	return (ft_display_di(fd, el));
 }
-#else
-int		ft_display_D(int fd, t_printf_elem *el)
-{
-	write(fd, "%D", 2);
-	(void)el;
-	return (2);
-}
-#endif

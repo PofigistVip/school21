@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parse.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/26 12:28:43 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/26 12:28:48 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include "libft.h"
 #include "ft_printf.h"
@@ -5,7 +17,7 @@
 t_printf_elem	*ft_printf_elem_new(void)
 {
 	t_printf_elem	*el;
-	
+
 	el = (t_printf_elem*)malloc(sizeof(t_printf_elem));
 	ft_bzero(el, sizeof(t_printf_elem));
 	return (el);
@@ -55,7 +67,6 @@ t_printf_elem	*ft_parse(char *fmt, int *pos)
 	t_printf_elem	*curr;
 	char			add;
 
-	
 	els = 0;
 	*pos = 1;
 	while (*fmt)

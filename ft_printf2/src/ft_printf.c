@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/26 12:27:04 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/26 12:27:16 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdarg.h>
 #include "libft.h"
 #include "ft_printf.h"
@@ -8,7 +20,7 @@ int		ft_fprintf(int fd, const char *format, ...)
 	va_list			ap;
 	t_printf_arg	*args;
 	int				pos;
-	
+
 	if (fd < 0)
 		return (0);
 	elems = ft_parse((char*)format, &pos);
@@ -28,10 +40,8 @@ int		ft_printf(const char *format, ...)
 
 	elems = ft_parse((char*)format, &pos);
 	va_start(ap, format);
-	
 	args = ft_get_args(elems, &ap, pos);
 	va_end(ap);
-
 	ft_push_args(elems, args);
 	return (ft_display(1, elems, args));
 }

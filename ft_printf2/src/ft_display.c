@@ -10,7 +10,7 @@ int		ft_display_elem(int fd, t_printf_elem *el)
 	if (el->conv_type == 'x')
 		return (ft_display_x(fd, el));
 	if (el->conv_type == 'X')
-		return (ft_display_X(fd, el));
+		return (ft_display_big_x(fd, el));
 	if (el->conv_type == 's' && el->length_mod != 'l')
 		return (ft_display_s(fd, el));
 	if (el->conv_type == 'c' && el->length_mod != 'l')
@@ -22,20 +22,20 @@ int		ft_display_elem(int fd, t_printf_elem *el)
 	if (el->conv_type == 'u')
 		return (ft_display_u(fd, el));
 	if (el->conv_type == 'U')
-		return (ft_display_U(fd, el));
+		return (ft_display_big_u(fd, el));
 	if (el->conv_type == 'p')
 		return (ft_display_p(fd, el));
 	if (el->conv_type == 'O')
-		return (ft_display_O(fd, el));
+		return (ft_display_big_o(fd, el));
 	if (el->conv_type == 'D')
-		return (ft_display_D(fd, el));
+		return (ft_display_big_d(fd, el));
 	if (el->conv_type == 'C' || el->conv_type == 'c')
-		return (ft_display_C(fd, el));
+		return (ft_display_big_c(fd, el));
 	if (el->conv_type == 'S' || el->conv_type == 's')
-		return (ft_display_S(fd, el));
+		return (ft_display_big_s(fd, el));
 	if (el->conv_type == 'f' || el->conv_type == 'F')
 		return (ft_display_fF(fd, el));
-	return (ft_display_Unknown(fd, el));
+	return (ft_display_unknown(fd, el));
 }
 
 void	ft_memfree(t_printf_elem *els, t_printf_arg *args)

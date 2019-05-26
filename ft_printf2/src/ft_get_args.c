@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_get_args.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/26 13:07:02 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/26 13:07:04 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdarg.h>
 #include <wchar.h>
 #include <stdlib.h>
@@ -32,7 +44,7 @@ void			ft_arg_add(t_printf_arg **args, t_printf_arg *arg)
 }
 
 void			ft_get_arg(char conv, char length, va_list *ap,
-					t_printf_arg* arg)
+					t_printf_arg *arg)
 {
 	if (conv == 'x' || conv == 'X' || conv == 'o' || conv == 'u')
 	{
@@ -93,33 +105,26 @@ void			ft_get_arg(char conv, char length, va_list *ap,
 
 t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos)
 {
-	t_printf_elem	*el;
 	int				pos;
 	t_printf_arg	*args;
 	t_printf_arg	*arg;
 
 	args = 0;
 	pos = 1;
-	
 	while (pos < end_pos)
 	{
-		el = els;
 		arg = ft_arg_new();
-		while (el)
+		while (els)
 		{
-			if (el->precision_pos == pos || el->width_pos == pos)
-			{
+			if (els->precision_pos == pos || els->width_pos == pos)
 				arg->val_i = va_arg(*ap, int);
+			else if (els->pos == pos)
+				ft_get_arg(els->conv_type, els->length_mod, ap, arg);
+			if (els->precision_pos == pos || els->width_pos == pos ||
+				els->pos == pos)
 				break ;
-			}
-			else if (el->pos == pos)
-			{
-				ft_get_arg(el->conv_type, el->length_mod, ap, arg);
-				break ;
-			}
-			el = el->next;
+			els = els->next;
 		}
-		
 		ft_arg_add(&args, arg);
 		++pos;
 	}

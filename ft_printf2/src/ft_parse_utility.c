@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parse_utility.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/26 13:04:36 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/26 13:04:38 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int		ft_parse_is_conv_spec(char c)
@@ -25,7 +37,7 @@ char	ft_parse_len_mod(char **fmt)
 {
 	char	c1;
 	char	c2;
-	
+
 	c1 = **fmt;
 	c2 = *((*fmt) + 1);
 	if (c1 == 'h' && c2 == 'h')
@@ -86,8 +98,6 @@ int		ft_parse_get_number(char **str)
 int		ft_parse_is_reference(char *str)
 {
 	while ('0' <= *str && *str <= '9')
-	{
 		++str;
-	}
 	return (*str == '$');
 }
