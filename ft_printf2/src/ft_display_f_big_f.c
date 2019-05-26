@@ -170,21 +170,6 @@ t_lstr			*ft_infnum_get(t_infnum *inum)
 	return (lstr);
 }
 
-void			ft_zeros_shift(t_infnum *inum, int shift)
-{
-	int		len;
-	char	*digits;
-
-	digits = (char*)malloc(FT_INFNUM_SIZE);
-	ft_memset(digits, '0', FT_INFNUM_SIZE);
-	len = inum->max_pos + 1;
-	ft_memmove(digits + (FT_INFNUM_SIZE - len - shift), inum->digits, len);
-	free(inum->digits);
-	inum->digits = digits;
-	ft_infnum_calc_max_pos(inum);
-	inum->min_pos += FT_INFNUM_SIZE - len - shift;
-}
-
 t_lstr			*ft_get_decimal(int mant, __uint128_t fraction)
 {
 	t_longnumber	*lnum;

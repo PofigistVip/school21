@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parse_spec.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/26 15:07:27 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/26 15:07:29 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include "libft.h"
 #include "ft_printf.h"
@@ -34,12 +46,10 @@ int				ft_parse_get_pos(char **fmt)
 		++ptr;
 		number = ft_parse_get_number(&ptr);
 		*fmt = ptr;
-		return(number);
+		return (number);
 	}
 	return (-1);
 }
-
-
 
 int				ft_len_cost(char len)
 {
@@ -64,6 +74,39 @@ int				ft_len_cost(char len)
 	return (0);
 }
 
+int				ft_parse_spec_inner_end(t_printf_elem *el, char **pptr, int *pos)
+{
+	char	*ptr;
+	char	ok;
+	int		number;
+
+	ptr = *pptr;
+	ok = 0;
+	if ('1' <= *ptr && *ptr <= '9')
+	{
+		el->width = ft_parse_get_number(&ptr);
+		el->width_seted = 1;
+		ok = 1;
+	}
+	else if (*ptr == '.')
+	{
+		++ptr;
+		if (*ptr == '*')
+		{
+			number = ft_parse_get_pos(&ptr);
+			el->precision_pos = ft_parse_num_or_pos(number, pos);
+		}
+		else
+		{
+			el->precision = ft_parse_get_number(&ptr);
+			el->precision_seted = 1;
+		}
+		ok = 1;
+	}
+	*pptr = ptr;
+	return (ok);
+}
+
 void			ft_parse_spec_inner(t_printf_elem *el, char **fmt, int *pos)
 {
 	char	*ptr;
@@ -80,7 +123,6 @@ void			ft_parse_spec_inner(t_printf_elem *el, char **fmt, int *pos)
 		}
 		else if ((support = ft_parse_flag(&ptr)) != 0)
 		{
-			
 			el->flags |= support;
 		}
 		else if (*ptr == '*')
@@ -89,26 +131,7 @@ void			ft_parse_spec_inner(t_printf_elem *el, char **fmt, int *pos)
 			el->width_pos = ft_parse_num_or_pos(number, pos);
 			el->width_seted = 0;
 		}
-		else if ('1' <= *ptr && *ptr <= '9')
-		{
-			el->width = ft_parse_get_number(&ptr);
-			el->width_seted = 1;
-		}
-		else if (*ptr == '.')
-		{
-			++ptr;
-			if (*ptr == '*')
-			{
-				number = ft_parse_get_pos(&ptr);
-				el->precision_pos = ft_parse_num_or_pos(number, pos);
-			}
-			else
-			{
-				el->precision = ft_parse_get_number(&ptr);
-				el->precision_seted = 1;
-			}
-		}
-		else
+		else if (!ft_parse_spec_inner_end(el, &ptr, pos))
 			break ;
 		++ptr;
 	}
@@ -132,24 +155,18 @@ t_printf_elem	*ft_parse_spec(char **fmt, int *pos, char *add)
 		++ptr;
 	}
 	else
-	{
 		use_pos = 1;
-	}
 	ft_parse_spec_inner(el, &ptr, pos);
 	if (*ptr)
 	{
 		if (use_pos && ft_parse_is_conv_spec(*ptr))
-		{
 			el->pos = (*pos)++;
-		}
 		el->conv_type = *ptr;
 		*fmt = ptr + 1;
 		*add = 1;
 	}
-	else //формат не закончен в конце fmt
+	else
 	{
-		//ft_parse_str_elem(el, fmt, ptr);
-		//destroy el;
 		*fmt = ptr;
 		*add = 0;
 		return (NULL);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/26 14:29:18 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/26 14:29:20 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 # include <wchar.h>
@@ -26,18 +38,18 @@ typedef struct	s_printf_arg
 
 typedef struct	s_printf_elem
 {
-	int					pos;
-	t_printf_arg		*arg;
-	char				conv_type;
-	char				length_mod;
-	char				flags;
-	int					width;
-	int					width_pos;
-	char				width_seted;
-	int					precision;
-	int					precision_pos;
-	char				precision_seted;
-	char				*raw_str;
+	int						pos;
+	t_printf_arg			*arg;
+	char					conv_type;
+	char					length_mod;
+	char					flags;
+	int						width;
+	int						width_pos;
+	char					width_seted;
+	int						precision;
+	int						precision_pos;
+	char					precision_seted;
+	char					*raw_str;
 	struct s_printf_elem	*next;
 }				t_printf_elem;
 
@@ -103,23 +115,28 @@ int				ft_display_big_c(int fd, t_printf_elem *el);
 int				ft_display_big_s(int fd, t_printf_elem *el);
 int				ft_display_f_big_f(int fd, t_printf_elem *el);
 int				ft_display_unknown(int fd, t_printf_elem *el);
+/*
+** t_infnum	*ft_infnum_create_num(int number, size_t size);
+** t_infnum	*ft_infnum_mul(t_infnum *a, t_infnum *b);
+** void		ft_infnum_destroy(t_infnum **inum);
+** t_infnum	*ft_infnum_create_empty(size_t size);
+** t_infnum	*ft_infnum_add(t_infnum *a, t_infnum *b,
+** 				int destroy_a, int destroy_b);
+** t_lstr		*ft_infnum_get(t_infnum *inum);
+** void		ft_infnum_calc_max_pos(t_infnum *inum);
+*/
 
-t_infnum	*ft_infnum_create_num(int number, size_t size);
-t_infnum	*ft_infnum_mul(t_infnum *a, t_infnum *b);
-void		ft_infnum_destroy(t_infnum **inum);
-t_infnum	*ft_infnum_create_empty(size_t size);
-t_infnum	*ft_infnum_add(t_infnum *a, t_infnum *b, int destroy_a, int destroy_b);
-t_lstr		*ft_infnum_get(t_infnum *inum);
-void		ft_infnum_calc_max_pos(t_infnum *inum);
-
-//test
 char			*ft_lnum_get_dec(t_longnumber *lnum);
 char			*ft_lnum_get(t_longnumber *lnum);
 void			ft_lnum_make_decimal(t_longnumber **lnum, int shift);
-t_longnumber	*ft_lnum_pow(t_longnumber *a, t_longnumber *b, int dst_a, int dst_b);
-t_longnumber	*ft_lnum_mul(t_longnumber *a, t_longnumber *b, int dst_a, int dst_b);
-t_longnumber	*ft_lnum_sub(t_longnumber *a, t_longnumber *b, int dst_a, int dst_b);
-t_longnumber	*ft_lnum_add(t_longnumber *a, t_longnumber *b, int dst_a, int dst_b);
+t_longnumber	*ft_lnum_pow(t_longnumber *a, t_longnumber *b,
+					int dst_a, int dst_b);
+t_longnumber	*ft_lnum_mul(t_longnumber *a, t_longnumber *b,
+					int dst_a, int dst_b);
+t_longnumber	*ft_lnum_sub(t_longnumber *a, t_longnumber *b,
+					int dst_a, int dst_b);
+t_longnumber	*ft_lnum_add(t_longnumber *a, t_longnumber *b,
+					int dst_a, int dst_b);
 int				ft_lnum_length(t_longnumber *lnum);
 t_longnumber	*ft_lnum_new_int(int number);
 t_longnumber	*ft_lnum_new_copy(t_longnumber *src);
