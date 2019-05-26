@@ -133,11 +133,13 @@ int				ft_count_zeroes(int mantissa)
 	return (cnt);
 }
 
+#include <stdio.h>
+
 int				ft_subnormal_count_zeroes(int one_pos)
 {
-	double		dbl;
-	int			cnt;
-	uint64_t	fraction;
+	long double		dbl;
+	int				cnt;
+	__uint128_t		fraction;
 
 	fraction = ((__uint128_t)1 << one_pos);
 	ft_memcpy(&dbl, &fraction, 10);
@@ -211,30 +213,40 @@ int				ft_f_get_subnormal(__uint128_t fraction,
 {
 	t_longnumber	*lnum;
 	t_longnumber	*temp;
-	size_t			pos;
+	t_longnumber	*temp_temp;
+	t_longnumber	*tmp;
+	int				pos;
 	int				zeroes;
 	int				mant;
 
-	pos = 0;
 	lnum = ft_lnum_new_zero();
 	ft_lnum_make_decimal(&lnum, 0);
+	temp_temp = ft_lnum_new_int(5);
+	temp = 0;
 	mant = -16382;
-	while (pos < 64)
+	pos = 63;
+	fraction = fraction >> 64;
+	while (pos >= 0)
 	{
-		if (fraction & ((__uint128_t)1 << 127))
+		if (!temp)
+			temp = ft_lnum_pow5(-mant);
+		else
+			temp = ft_lnum_mul(temp, temp_temp, 1, 0);
+		if (fraction & ((__uint128_t)1 << pos))
 		{
-			temp = ft_lnum_pow5(16382 + pos);
-			zeroes = ft_subnormal_count_zeroes(64 - pos - 1);
-			ft_lnum_make_decimal(&temp, zeroes);
-			lnum = ft_lnum_add(lnum, temp, 1, 1);
+			tmp = ft_lnum_new_copy(temp);
+			zeroes = ft_subnormal_count_zeroes(pos);
+			ft_lnum_make_decimal(&tmp, zeroes);
+			lnum = ft_lnum_add(lnum, tmp, 1, 1);
 		}
-		fraction = fraction << 1;
 		--mant;
-		++pos;
+		--pos;
 	}
 	*int_p = ft_lstr_new('0', 1);
 	*dec_p = ft_lstr_new_raw(ft_lnum_get_dec(lnum));
 	ft_lnum_destroy(&lnum);
+	ft_lnum_destroy(&temp);
+	ft_lnum_destroy(&temp_temp);
 	return (0);
 }
 
