@@ -3,6 +3,7 @@
 
 #include "ft_printf.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 /*
 ** FT_LONGNUMBER_SIZE - количество int'ов на число

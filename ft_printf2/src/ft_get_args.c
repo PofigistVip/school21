@@ -85,9 +85,9 @@ void			ft_get_arg(char conv, char length, va_list *ap,
 	else if (conv == 'f' || conv == 'F')
 	{
 		if (length == 'L')
-			arg->val_d = (double)va_arg(*ap, long double);
+			arg->val_d = va_arg(*ap, long double);
 		else
-			arg->val_d = va_arg(*ap, double);
+			arg->val_d = (long double)va_arg(*ap, double);
 	}
 }
 

@@ -10,7 +10,7 @@
 # define FT_PRINTF_SPACE (1 << 3)
 # define FT_PRINTF_PLUS (1 << 4)
 # define FT_INFNUM_SIZE 1250
-# define FT_LONGNUMBER_SIZE 300
+# define FT_LONGNUMBER_SIZE 4125
 # define FT_LONGNUMBER_DIG_ON_INT 4
 # define FT_LONGNUMBER_BASE 10000
 
@@ -18,7 +18,7 @@ typedef struct	s_printf_arg
 {
 	long long int			val_i;
 	unsigned long long int	val_ui;
-	double					val_d;
+	long double				val_d;
 	void					*ptr;
 	wchar_t					val_wc;
 	struct s_printf_arg		*next;
@@ -52,9 +52,9 @@ typedef struct	s_infnum
 
 typedef struct	s_double_keeper
 {
-	uint64_t		sign;
-	long long int	mantissa;
-	uint64_t		fraction;
+	__uint128_t		sign;
+	__int128_t		mantissa;
+	__uint128_t		fraction;
 	t_lstr			*int_part;
 	t_lstr			*dec_part;
 }				t_double_keeper;
