@@ -21,7 +21,6 @@
 # define FT_PRINTF_MINUS (1 << 2)
 # define FT_PRINTF_SPACE (1 << 3)
 # define FT_PRINTF_PLUS (1 << 4)
-# define FT_INFNUM_SIZE 1250
 # define FT_LONGNUMBER_SIZE 4125
 # define FT_LONGNUMBER_DIG_ON_INT 4
 # define FT_LONGNUMBER_BASE 10000
@@ -53,15 +52,6 @@ typedef struct	s_printf_elem
 	struct s_printf_elem	*next;
 }				t_printf_elem;
 
-typedef struct	s_infnum
-{
-	char	*digits;
-	char	sign;
-	size_t	size;
-	size_t	max_pos;
-	size_t	min_pos;
-}				t_infnum;
-
 typedef struct	s_double_keeper
 {
 	__uint128_t		sign;
@@ -83,6 +73,10 @@ int				ft_fprintf(int fd, const char *format, ...);
 
 t_printf_elem	*ft_parse(char *fmt, int *pos);
 t_printf_elem	*ft_parse_spec(char **fmt, int *pos, char *add);
+int				ft_parse_num_or_pos(int number, int *pos);
+void			ft_parse_str_elem(t_printf_elem *el, char **fmt, char *ptr);
+int				ft_parse_get_pos(char **fmt);
+int				ft_len_cost(char len);
 int				ft_parse_is_conv_spec(char c);
 t_printf_elem	*ft_printf_elem_new(void);
 char			ft_parse_len_mod(char **fmt);
@@ -115,16 +109,6 @@ int				ft_display_big_c(int fd, t_printf_elem *el);
 int				ft_display_big_s(int fd, t_printf_elem *el);
 int				ft_display_f_big_f(int fd, t_printf_elem *el);
 int				ft_display_unknown(int fd, t_printf_elem *el);
-/*
-** t_infnum	*ft_infnum_create_num(int number, size_t size);
-** t_infnum	*ft_infnum_mul(t_infnum *a, t_infnum *b);
-** void		ft_infnum_destroy(t_infnum **inum);
-** t_infnum	*ft_infnum_create_empty(size_t size);
-** t_infnum	*ft_infnum_add(t_infnum *a, t_infnum *b,
-** 				int destroy_a, int destroy_b);
-** t_lstr		*ft_infnum_get(t_infnum *inum);
-** void		ft_infnum_calc_max_pos(t_infnum *inum);
-*/
 
 char			*ft_lnum_get_dec(t_longnumber *lnum);
 char			*ft_lnum_get(t_longnumber *lnum);

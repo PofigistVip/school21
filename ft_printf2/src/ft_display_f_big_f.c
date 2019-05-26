@@ -150,26 +150,6 @@ int				ft_subnormal_count_zeroes(int one_pos)
 	return (cnt);
 }
 
-t_lstr			*ft_infnum_get(t_infnum *inum)
-{
-	t_lstr	*lstr;
-	size_t	i;
-	size_t	min;
-
-	lstr = ft_lstr_new_empty();
-	min = inum->min_pos;
-	if (min == FT_INFNUM_SIZE)
-		ft_lstr_insert_c(lstr, '0', 1, 0);
-	else
-	{
-		i = inum->max_pos;
-		while (i > min)
-			ft_lstr_insert_c(lstr, inum->digits[i--], 1, lstr->length);
-		ft_lstr_insert_c(lstr, inum->digits[min], 1, lstr->length);
-	}
-	return (lstr);
-}
-
 t_lstr			*ft_get_decimal(int mant, __uint128_t fraction)
 {
 	t_longnumber	*lnum;
