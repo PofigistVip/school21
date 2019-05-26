@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstr_place_sn.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/26 14:37:09 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/26 14:37:10 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <string.h>
 #include "libft.h"
@@ -16,7 +27,7 @@ void	ft_lstr_place_sn(t_lstr *lstr, char *str, int len, int index)
 		len = str_len;
 	if (index + len >= lstr->capacity)
 	{
-		if (ft_lstr_resize(lstr, lstr->length - index + len)  == 0)
+		if (ft_lstr_resize(lstr, lstr->length - index + len) == 0)
 			return ;
 		lstr->length = index + len;
 	}

@@ -16,10 +16,10 @@
 
 char		*ft_llitoa(long long int n)
 {
-	char	sign;
-	char	size;
+	char			sign;
+	char			size;
 	long long int	num;
-	char	*str;
+	char			*str;
 
 	num = n;
 	size = (num < 0) ? 2 : 1;

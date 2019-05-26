@@ -105,7 +105,8 @@ long			ft_pos_power(int nb, unsigned int power);
 void			*ft_realloc(void *src, size_t old_size, size_t new_size);
 int				ft_putstrn_fd(int fd, char *str, int n);
 int				ft_putstrn(char *str, int n);
-char			*ft_uitoa_base(unsigned long long int nbr, int base, char upper);
+char			*ft_uitoa_base(unsigned long long int nbr, int base,
+					char upper);
 char			*ft_llitoa(long long int n);
 int				ft_putcharn_fd(int fd, char c, int n);
 
@@ -158,9 +159,6 @@ void			ft_lstr_put(t_lstr *lstr);
 void			ft_lstr_destroy(t_lstr **lstr);
 void			ft_lstr_minimize(t_lstr *lstr);
 int				ft_lstr_resize(t_lstr *lstr, int new_length);
-
-
-
 
 /*
 ** larlyne's list

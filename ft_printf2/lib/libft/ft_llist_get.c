@@ -13,7 +13,10 @@
 #include <stdio.h>
 #include "libft.h"
 
-//Сдвигаться с конца если индекс ближе к концу
+/*
+** Сдвигаться с конца если индекс ближе к концу
+*/
+
 void	*ft_llist_get(t_llist *llist, size_t index)
 {
 	t_llist_elem	*elem;
