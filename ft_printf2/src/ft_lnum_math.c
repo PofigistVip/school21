@@ -86,6 +86,23 @@ t_longnumber	*ft_lnum_mul(t_longnumber *a, t_longnumber *b,
 	return (lnum);
 }
 
+t_longnumber	*ft_lnum_mul_int(t_longnumber *a, int b, int dst_a)
+{
+	t_longnumber	*lnum;
+	t_longnumber	*copy_a;
+
+	if (b <= 0)
+		return (ft_lnum_new_zero());
+	lnum = ft_lnum_new_copy(a);
+	copy_a = ft_lnum_new_copy(a);
+	while (--b)
+		lnum = ft_lnum_add(lnum, copy_a, 1, 0);
+	ft_lnum_destroy(&copy_a);
+	if (dst_a)
+		ft_lnum_destroy(&a);
+	return (lnum);
+}
+
 t_longnumber	*ft_lnum_pow(t_longnumber *a, t_longnumber *b,
 					int dst_a, int dst_b)
 {

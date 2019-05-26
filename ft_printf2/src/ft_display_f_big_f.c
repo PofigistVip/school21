@@ -213,7 +213,6 @@ int				ft_f_get_subnormal(__uint128_t fraction,
 {
 	t_longnumber	*lnum;
 	t_longnumber	*temp;
-	t_longnumber	*temp_temp;
 	t_longnumber	*tmp;
 	int				pos;
 	int				zeroes;
@@ -221,7 +220,6 @@ int				ft_f_get_subnormal(__uint128_t fraction,
 
 	lnum = ft_lnum_new_zero();
 	ft_lnum_make_decimal(&lnum, 0);
-	temp_temp = ft_lnum_new_int(5);
 	temp = 0;
 	mant = -16382;
 	pos = 63;
@@ -231,7 +229,7 @@ int				ft_f_get_subnormal(__uint128_t fraction,
 		if (!temp)
 			temp = ft_lnum_pow5(-mant);
 		else
-			temp = ft_lnum_mul(temp, temp_temp, 1, 0);
+			temp = ft_lnum_mul_int(temp, 5, 1);
 		if (fraction & ((__uint128_t)1 << pos))
 		{
 			tmp = ft_lnum_new_copy(temp);
@@ -246,7 +244,6 @@ int				ft_f_get_subnormal(__uint128_t fraction,
 	*dec_p = ft_lstr_new_raw(ft_lnum_get_dec(lnum));
 	ft_lnum_destroy(&lnum);
 	ft_lnum_destroy(&temp);
-	ft_lnum_destroy(&temp_temp);
 	return (0);
 }
 

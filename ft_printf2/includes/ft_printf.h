@@ -117,6 +117,7 @@ t_longnumber	*ft_lnum_pow(t_longnumber *a, t_longnumber *b,
 					int dst_a, int dst_b);
 t_longnumber	*ft_lnum_mul(t_longnumber *a, t_longnumber *b,
 					int dst_a, int dst_b);
+t_longnumber	*ft_lnum_mul_int(t_longnumber *a, int b, int dst_a);
 t_longnumber	*ft_lnum_sub(t_longnumber *a, t_longnumber *b,
 					int dst_a, int dst_b);
 t_longnumber	*ft_lnum_add(t_longnumber *a, t_longnumber *b,
