@@ -101,7 +101,7 @@ int				ft_display_big_o(int fd, t_printf_elem *el);
 int				ft_display_big_d(int fd, t_printf_elem *el);
 int				ft_display_big_c(int fd, t_printf_elem *el);
 int				ft_display_big_s(int fd, t_printf_elem *el);
-int				ft_display_fF(int fd, t_printf_elem *el);
+int				ft_display_f_big_f(int fd, t_printf_elem *el);
 int				ft_display_unknown(int fd, t_printf_elem *el);
 
 t_infnum	*ft_infnum_create_num(int number, size_t size);
@@ -125,4 +125,5 @@ t_longnumber	*ft_lnum_new_int(int number);
 t_longnumber	*ft_lnum_new_copy(t_longnumber *src);
 t_longnumber	*ft_lnum_new_zero();
 void			ft_lnum_destroy(t_longnumber **lnum);
+int				ft_lnum_calc(t_longnumber *lnum, int pos);
 #endif

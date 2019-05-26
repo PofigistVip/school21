@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_push_args.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/26 13:55:15 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/26 13:55:18 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "ft_printf.h"
 
@@ -15,7 +27,6 @@ void	ft_basic_params(t_printf_elem *el, char conv_type)
 		else if (conv_type == 'f' || conv_type == 'F')
 			el->precision = 6;
 	}
-	
 }
 
 void	ft_push_arg(int pos, t_printf_elem *el, t_printf_arg *arg)

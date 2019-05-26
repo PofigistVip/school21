@@ -24,7 +24,7 @@ int		ft_display_elem_inner(int fd, t_printf_elem *el)
 	if (el->conv_type == 'S' || el->conv_type == 's')
 		return (ft_display_big_s(fd, el));
 	if (el->conv_type == 'f' || el->conv_type == 'F')
-		return (ft_display_fF(fd, el));
+		return (ft_display_f_big_f(fd, el));
 	return (ft_display_unknown(fd, el));
 }
 
