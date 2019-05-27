@@ -18,7 +18,8 @@ t_printf_elem	*ft_printf_elem_new(void)
 {
 	t_printf_elem	*el;
 
-	el = (t_printf_elem*)malloc(sizeof(t_printf_elem));
+	if ((el = (t_printf_elem*)malloc(sizeof(t_printf_elem))) == NULL)
+		return (NULL);
 	ft_bzero(el, sizeof(t_printf_elem));
 	return (el);
 }
