@@ -6,7 +6,7 @@
 #    By: larlyne <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/07 13:38:08 by larlyne           #+#    #+#              #
-#    Updated: 2019/05/05 14:37:03 by larlyne          ###   ########.fr        #
+#    Updated: 2019/05/27 18:55:34 by larlyne          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,14 +84,6 @@ SRCS=ft_memset.c \
 	 ft_uitoa_base.c \
 	 ft_llitoa.c \
 	 ft_putcharn_fd.c \
-\
-	 ft_llist_create.c \
-	 ft_llist_elem_new.c \
-	 ft_llist_add.c \
-	 ft_llist_get.c \
-	 ft_llist_remove.c \
-	 ft_llist_clear.c \
-	 ft_llist_destroy.c \
 \
 	 ft_lstr_new_empty.c \
 	 ft_lstr_new.c \

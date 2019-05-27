@@ -17,15 +17,6 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-t_printf_arg	*ft_arg_new(void)
-{
-	t_printf_arg	*arg;
-
-	arg = (t_printf_arg*)malloc(sizeof(t_printf_arg));
-	ft_bzero(arg, sizeof(t_printf_arg));
-	return (arg);
-}
-
 void			ft_arg_add(t_printf_arg **args, t_printf_arg *arg)
 {
 	t_printf_arg	*curr;

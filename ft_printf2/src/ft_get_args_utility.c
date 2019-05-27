@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_llist_get.c                                     :+:      :+:    :+:   */
+/*   ft_get_args_utility.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 12:47:27 by larlyne           #+#    #+#             */
-/*   Updated: 2019/04/30 12:47:29 by larlyne          ###   ########.fr       */
+/*   Created: 2019/05/27 18:46:43 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/27 18:46:53 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include <stdlib.h>
 #include "libft.h"
+#include "ft_printf.h"
 
-/*
-** Сдвигаться с конца если индекс ближе к концу
-*/
-
-void	*ft_llist_get(t_llist *llist, size_t index)
+t_printf_arg	*ft_arg_new(void)
 {
-	t_llist_elem	*elem;
+	t_printf_arg	*arg;
 
-	if (llist->count == 0 || llist->count - 1 < index)
-		return (NULL);
-	elem = llist->start;
-	while (index-- > 0)
-		elem = elem->next;
-	return (elem->content);
+	arg = (t_printf_arg*)malloc(sizeof(t_printf_arg));
+	ft_bzero(arg, sizeof(t_printf_arg));
+	return (arg);
 }

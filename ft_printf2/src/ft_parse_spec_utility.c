@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parse_spec_utility.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/27 18:12:21 by larlyne           #+#    #+#             */
+/*   Updated: 2019/05/27 18:12:24 by larlyne          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include "libft.h"
 #include "ft_printf.h"
 
-int			ft_parse_num_or_pos(int number, int *pos)
+int		ft_parse_num_or_pos(int number, int *pos)
 {
 	if (number >= 0)
 		return (number);
 	return ((*pos)++);
 }
 
-void			ft_parse_str_elem(t_printf_elem *el, char **fmt, char *ptr)
+void	ft_parse_str_elem(t_printf_elem *el, char **fmt, char *ptr)
 {
 	int		len;
 	char	*raw;
@@ -23,7 +35,7 @@ void			ft_parse_str_elem(t_printf_elem *el, char **fmt, char *ptr)
 	*fmt = ptr;
 }
 
-int				ft_parse_get_pos(char **fmt)
+int		ft_parse_get_pos(char **fmt)
 {
 	char	*ptr;
 	int		number;
@@ -39,7 +51,7 @@ int				ft_parse_get_pos(char **fmt)
 	return (-1);
 }
 
-int				ft_len_cost(char len)
+int		ft_len_cost(char len)
 {
 	if (len == 0)
 		return (0);

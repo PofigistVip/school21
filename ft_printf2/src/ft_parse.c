@@ -75,7 +75,7 @@ t_printf_elem	*ft_parse(char *fmt, int *pos)
 		if (*fmt == '%')
 		{
 			curr = ft_parse_spec(&fmt, pos, &add);
-		}	
+		}
 		else
 		{
 			curr = ft_parse_rawstr(&fmt);

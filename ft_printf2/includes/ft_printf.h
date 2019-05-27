@@ -85,6 +85,7 @@ int				ft_parse_get_number(char **str);
 t_printf_elem	*ft_parse_rawstr(char **fmt);
 int				ft_parse_is_reference(char *str);
 
+t_printf_arg	*ft_arg_new(void);
 t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos);
 void			ft_push_args(t_printf_elem *els, t_printf_arg *args);
 
@@ -110,6 +111,25 @@ int				ft_display_big_s(int fd, t_printf_elem *el);
 int				ft_display_f_big_f(int fd, t_printf_elem *el);
 int				ft_display_unknown(int fd, t_printf_elem *el);
 
+void			ft_get_sign_mantissa_fraction(long double val,
+					t_double_keeper *keeper);
+void			ft_f_round(t_lstr *int_p, t_lstr *dec_p, int precision);
+int				ft_f_get_subnormal(__uint128_t fraction,
+					t_lstr **int_p, t_lstr **dec_p);
+int				ft_f_get_normal(int mant, __uint128_t fraction,
+					t_lstr **int_p, t_lstr **dec_p);
+t_lstr			*ft_get_decimal(int mant, __uint128_t fraction);
+t_lstr			*ft_get_dec(int mant, __uint128_t fraction, int pos,
+					int subnormal);
+void			ft_temp_set(t_longnumber **temp, int mant);
+int				ft_subnormal_count_zeroes(int one_pos);
+int				ft_count_zeroes(int mantissa);
+t_lstr			*ft_get_integer(int mant, __uint128_t fraction);
+t_lstr			*ft_get_lnum(t_longnumber **lnum, t_longnumber **temp, int dec);
+t_longnumber	*ft_lnum_pow5(int power);
+t_longnumber	*ft_lnum_pow2(int power);
+
+int				ft_lnum_dec(t_longnumber *lnum);
 char			*ft_lnum_get_dec(t_longnumber *lnum);
 char			*ft_lnum_get(t_longnumber *lnum);
 void			ft_lnum_make_decimal(t_longnumber **lnum, int shift);

@@ -26,7 +26,7 @@ t_longnumber	*ft_lnum_new_zero(void)
 	lnum = (t_longnumber*)malloc(sizeof(t_longnumber));
 	lnum->is_decimal = 0;
 	lnum->dec_end_on = 0;
-	memset(lnum->digits, 0, sizeof(lnum->digits));
+	ft_memset(lnum->digits, 0, sizeof(lnum->digits));
 	return (lnum);
 }
 
