@@ -111,6 +111,8 @@ int				ft_display_big_s(int fd, t_printf_elem *el);
 int				ft_display_f_big_f(int fd, t_printf_elem *el);
 int				ft_display_unknown(int fd, t_printf_elem *el);
 
+void			ft_memfree(t_printf_elem *els, t_printf_arg *args);
+
 void			ft_get_sign_mantissa_fraction(long double val,
 					t_double_keeper *keeper);
 void			ft_f_round(t_lstr *int_p, t_lstr *dec_p, int precision);
