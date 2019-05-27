@@ -89,6 +89,9 @@ void			ft_get_sign_mantissa_fraction(long double val,
 	__int128_t	manti;
 	__uint128_t	fract;
 
+	sig = 0;
+	manti = 0;
+	fract = 0;
 	ft_memcpy(&sig, &val, 10);
 	sig = sig & ((__uint128_t)1 << 79);
 	ft_memcpy(&manti, &val, 10);
