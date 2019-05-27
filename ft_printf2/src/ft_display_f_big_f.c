@@ -152,23 +152,59 @@ int				ft_subnormal_count_zeroes(int one_pos)
 	return (cnt);
 }
 
-t_lstr			*ft_get_decimal(int mant, __uint128_t fraction)
+void	ft_temp_set(t_longnumber **temp, int mant)
+{
+	if (!(*temp))
+		*temp = ft_lnum_pow5(-mant);
+	else
+		*temp = ft_lnum_mul_int(*temp, 5, 1);
+}
+
+t_lstr			*ft_get_dec_finish(t_longnumber **lnum, t_longnumber **temp)
+{
+	t_lstr	*dec_part;
+
+	dec_part = ft_lstr_new_raw(ft_lnum_get_dec(*lnum));
+	ft_lnum_destroy(lnum);
+	ft_lnum_destroy(temp);
+	return (dec_part);
+}
+
+t_lstr			*ft_get_dec(int mant, __uint128_t fraction, int pos, int subnormal)
 {
 	t_longnumber	*lnum;
 	t_longnumber	*temp;
-	t_longnumber	*temp_temp;
 	t_longnumber	*tmp;
-	int				pos;
 	int				zeroes;
+
+	lnum = ft_lnum_new_zero();
+	ft_lnum_make_decimal(&lnum, 0);
+	temp = 0;
+	while (pos >= 0)
+	{
+		ft_temp_set(&temp, mant);
+		if (fraction & ((__uint128_t)1 << pos))
+		{
+			tmp = ft_lnum_new_copy(temp);
+			zeroes = (subnormal) ? ft_subnormal_count_zeroes(pos) :
+				ft_count_zeroes(mant + 16383);
+			ft_lnum_make_decimal(&tmp, zeroes);
+			lnum = ft_lnum_add(lnum, tmp, 1, 1);
+		}
+		--mant;
+		--pos;
+	}
+	return (ft_get_dec_finish(&lnum, &temp));
+}
+
+t_lstr			*ft_get_decimal(int mant, __uint128_t fraction)
+{
+	int				pos;
 	t_lstr			*dec_part;
 
 	pos = 0;
 	if (mant >= 64)
 		return (ft_lstr_new('0', 1));
-	lnum = ft_lnum_new_zero();
-	ft_lnum_make_decimal(&lnum, 0);
-	temp_temp = ft_lnum_new_int(5);
-	temp = 0;
 	if (mant >= 0)
 	{
 		pos = 62 - mant;
@@ -177,26 +213,7 @@ t_lstr			*ft_get_decimal(int mant, __uint128_t fraction)
 	else
 		pos = 63;
 	fraction = fraction >> 64;
-	while (pos >= 0)
-	{
-		if (!temp)
-			temp = ft_lnum_pow5(-mant);
-		else
-			temp = ft_lnum_mul(temp, temp_temp, 1, 0);
-		if (fraction & ((__uint128_t)1 << pos))
-		{
-			tmp = ft_lnum_new_copy(temp);
-			zeroes = ft_count_zeroes(mant + 16383);
-			ft_lnum_make_decimal(&tmp, zeroes);
-			lnum = ft_lnum_add(lnum, tmp, 1, 1);
-		}
-		--mant;
-		--pos;
-	}
-	dec_part = ft_lstr_new_raw(ft_lnum_get_dec(lnum));
-	ft_lnum_destroy(&lnum);
-	ft_lnum_destroy(&temp);
-	ft_lnum_destroy(&temp_temp);
+	dec_part = ft_get_dec(mant, fraction, pos, 0);
 	return (dec_part);
 }
 
@@ -211,39 +228,14 @@ int				ft_f_get_normal(int mant, __uint128_t fraction,
 int				ft_f_get_subnormal(__uint128_t fraction,
 					t_lstr **int_p, t_lstr **dec_p)
 {
-	t_longnumber	*lnum;
-	t_longnumber	*temp;
-	t_longnumber	*tmp;
 	int				pos;
-	int				zeroes;
 	int				mant;
 
-	lnum = ft_lnum_new_zero();
-	ft_lnum_make_decimal(&lnum, 0);
-	temp = 0;
 	mant = -16382;
 	pos = 63;
-	fraction = fraction >> 64;
-	while (pos >= 0)
-	{
-		if (!temp)
-			temp = ft_lnum_pow5(-mant);
-		else
-			temp = ft_lnum_mul_int(temp, 5, 1);
-		if (fraction & ((__uint128_t)1 << pos))
-		{
-			tmp = ft_lnum_new_copy(temp);
-			zeroes = ft_subnormal_count_zeroes(pos);
-			ft_lnum_make_decimal(&tmp, zeroes);
-			lnum = ft_lnum_add(lnum, tmp, 1, 1);
-		}
-		--mant;
-		--pos;
-	}
 	*int_p = ft_lstr_new('0', 1);
-	*dec_p = ft_lstr_new_raw(ft_lnum_get_dec(lnum));
-	ft_lnum_destroy(&lnum);
-	ft_lnum_destroy(&temp);
+	fraction = fraction >> 64;
+	*dec_p = ft_get_dec(mant, fraction, pos, 1);
 	return (0);
 }
 
