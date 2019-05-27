@@ -20,10 +20,17 @@ int		ft_fprintf(int fd, const char *format, ...)
 	va_list			ap;
 	t_printf_arg	*args;
 	int				pos;
+	int				ok;
 
 	if (fd < 0)
 		return (0);
-	elems = ft_parse((char*)format, &pos);
+	ok = 1;
+	elems = ft_parse((char*)format, &pos, &ok);
+	if (!ok)
+	{
+		ft_memfree(elems, 0);
+		return (-1);
+	}
 	va_start(ap, format);
 	args = ft_get_args(elems, &ap, pos);
 	ft_push_args(elems, args);
@@ -37,8 +44,15 @@ int		ft_printf(const char *format, ...)
 	va_list			ap;
 	t_printf_arg	*args;
 	int				pos;
+	int				ok;
 
-	elems = ft_parse((char*)format, &pos);
+	ok = 1;
+	elems = ft_parse((char*)format, &pos, &ok);
+	if (!ok)
+	{
+		ft_memfree(elems, 0);
+		return (-1);
+	}
 	va_start(ap, format);
 	args = ft_get_args(elems, &ap, pos);
 	va_end(ap);

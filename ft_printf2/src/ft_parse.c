@@ -41,7 +41,7 @@ void			ft_printf_elem_add(t_printf_elem **els, t_printf_elem *el)
 	}
 }
 
-t_printf_elem	*ft_parse_rawstr(char **fmt)
+t_printf_elem	*ft_parse_rawstr(char **fmt, int *ok)
 {
 	char			*ptr;
 	t_printf_elem	*el;
@@ -52,11 +52,17 @@ t_printf_elem	*ft_parse_rawstr(char **fmt)
 	while (*ptr && *ptr != '%')
 		++ptr;
 	if ((el = ft_printf_elem_new()) == NULL)
+	{
+		*ok = 0;
 		return (NULL);
+	}
 	el->conv_type = 0;
 	len = ptr - *fmt;
 	if ((raw = (char*)malloc(len + 1)) == NULL)
+	{
+		*ok = 0;
 		return (NULL);
+	}
 	ft_memcpy(raw, *fmt, len);
 	*(raw + len) = '\0';
 	el->raw_str = raw;
@@ -64,39 +70,28 @@ t_printf_elem	*ft_parse_rawstr(char **fmt)
 	return (el);
 }
 
-t_printf_elem	*ft_parse(char *fmt, int *pos)
+t_printf_elem	*ft_parse(char *fmt, int *pos, int *ok)
 {
 	t_printf_elem	*els;
 	t_printf_elem	*curr;
 	char			add;
-	int				ok;
 
-	ok = 1;
 	els = 0;
 	*pos = 1;
 	while (*fmt)
 	{
 		add = 0;
 		if (*fmt == '%')
-		{
-			curr = ft_parse_spec(&fmt, pos, &add);
-		}
+			curr = ft_parse_spec(&fmt, pos, &add, ok);
 		else
 		{
-			if ((curr = ft_parse_rawstr(&fmt)) == NULL)
-			{
-				ok = 0;
-				break ;
-			}
+			curr = ft_parse_rawstr(&fmt, ok);
 			add = 1;
 		}
+		if (!(*ok))
+			break ;
 		if (add)
 			ft_printf_elem_add(&els, curr);
-	}
-	if (!ok)
-	{
-		ft_memfree(els, 0);
-		exit(-1);
 	}
 	return (els);
 }

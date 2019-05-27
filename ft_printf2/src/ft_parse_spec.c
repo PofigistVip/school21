@@ -109,7 +109,7 @@ char			ft_check_reference(t_printf_elem *el, char **pptr, int *pos)
 	return (use_pos);
 }
 
-t_printf_elem	*ft_parse_spec(char **fmt, int *pos, char *add)
+t_printf_elem	*ft_parse_spec(char **fmt, int *pos, char *add, int *ok)
 {
 	char			*ptr;
 	t_printf_elem	*el;
@@ -117,7 +117,8 @@ t_printf_elem	*ft_parse_spec(char **fmt, int *pos, char *add)
 
 	ptr = *fmt;
 	++ptr;
-	el = ft_printf_elem_new();
+	if ((el = ft_printf_elem_new()) == NULL)
+		return (ft_set_null_ok(ok));
 	use_pos = ft_check_reference(el, &ptr, pos);
 	ft_parse_spec_inner(el, &ptr, pos);
 	if (*ptr)

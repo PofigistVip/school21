@@ -14,6 +14,12 @@
 #include "libft.h"
 #include "ft_printf.h"
 
+void	*ft_set_null_ok(int *ok)
+{
+	*ok = 0;
+	return (NULL);
+}
+
 int		ft_parse_num_or_pos(int number, int *pos)
 {
 	if (number >= 0)
