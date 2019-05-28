@@ -100,9 +100,14 @@ int				ft_show_double(int fd, t_double_keeper *keeper)
 	dec_part = keeper->dec_part;
 	ft_lstr_put_fd(int_part, fd);
 	ft_lstr_put_fd(dec_part, fd);
-	length = int_part->length + dec_part->length;
-	ft_lstr_destroy(&int_part);
-	ft_lstr_destroy(&dec_part);
+	if (int_part && dec_part)
+		length = int_part->length + dec_part->length;
+	else
+		length = -1;
+	if (int_part)
+		ft_lstr_destroy(&int_part);
+	if (dec_part)
+		ft_lstr_destroy(&dec_part);
 	free(keeper);
 	return (length);
 }
@@ -111,7 +116,8 @@ int				ft_display_f_big_f(int fd, t_printf_elem *el)
 {
 	t_double_keeper	*keeper;
 
-	keeper = (t_double_keeper*)malloc(sizeof(t_double_keeper));
+	if ((keeper = (t_double_keeper*)malloc(sizeof(t_double_keeper))) == NULL)
+		return (-1);
 	ft_get_sign_mantissa_fraction(el->arg->val_d, keeper);
 	keeper->int_part = 0;
 	keeper->dec_part = 0;
