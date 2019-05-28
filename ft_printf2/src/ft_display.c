@@ -80,12 +80,20 @@ int		ft_display(int fd, t_printf_elem *els, t_printf_arg *args)
 {
 	t_printf_elem	*start;
 	int				length;
+	int				len;
 
 	start = els;
 	length = 0;
 	while (els)
 	{
-		length += ft_display_elem(fd, els);
+		len = ft_display_elem(fd, els);
+		if (len >= 0)
+			length += len;
+		else
+		{
+			length = -1;
+			break ;
+		}
 		els = els->next;
 	}
 	ft_memfree(start, args);

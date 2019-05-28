@@ -52,16 +52,13 @@ t_printf_elem	*ft_parse_rawstr(char **fmt, int *ok)
 	while (*ptr && *ptr != '%')
 		++ptr;
 	if ((el = ft_printf_elem_new()) == NULL)
-	{
-		*ok = 0;
-		return (NULL);
-	}
+		return (ft_set_null_ok(ok));
 	el->conv_type = 0;
 	len = ptr - *fmt;
 	if ((raw = (char*)malloc(len + 1)) == NULL)
 	{
-		*ok = 0;
-		return (NULL);
+		free(el);
+		return (ft_set_null_ok(ok));
 	}
 	ft_memcpy(raw, *fmt, len);
 	*(raw + len) = '\0';
