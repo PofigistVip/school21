@@ -24,7 +24,10 @@ t_longnumber	*ft_lnum_add(t_longnumber *a, t_longnumber *b,
 	t_longnumber	*lnum;
 	int				i;
 
-	lnum = ft_lnum_new_copy(a);
+	if (a == NULL || b == NULL)
+		return (NULL);
+	if ((lnum = ft_lnum_new_copy(a)) == NULL)
+		return (NULL);
 	i = FT_LONGNUMBER_SIZE;
 	while (--i >= 0)
 	{
@@ -46,7 +49,10 @@ t_longnumber	*ft_lnum_sub(t_longnumber *a, t_longnumber *b,
 	t_longnumber	*lnum;
 	int				i;
 
-	lnum = ft_lnum_new_copy(a);
+	if (a == NULL || b == NULL)
+		return (NULL);
+	if ((lnum = ft_lnum_new_copy(a)) == NULL)
+		return (NULL);
 	i = FT_LONGNUMBER_SIZE;
 	while (--i >= 0)
 	{
@@ -67,7 +73,8 @@ t_longnumber	*ft_lnum_mul(t_longnumber *a, t_longnumber *b,
 	t_longnumber	*copy_a;
 	t_longnumber	*copy_b;
 
-	copy_b = ft_lnum_new_copy(b);
+	if ((copy_b = ft_lnum_new_copy(b)) == NULL)
+		return (NULL);
 	if (!ft_lnum_dec(copy_b))
 	{
 		ft_lnum_destroy(&copy_b);
@@ -91,10 +98,17 @@ t_longnumber	*ft_lnum_mul_int(t_longnumber *a, int b, int dst_a)
 	t_longnumber	*lnum;
 	t_longnumber	*copy_a;
 
+	if (a == NULL)
+		return (NULL);
 	if (b <= 0)
 		return (ft_lnum_new_zero());
-	lnum = ft_lnum_new_copy(a);
-	copy_a = ft_lnum_new_copy(a);
+	if ((lnum = ft_lnum_new_copy(a)) == NULL)
+		return (NULL);
+	if ((copy_a = ft_lnum_new_copy(a)) == NULL)
+	{
+		ft_lnum_destroy(&lnum);
+		return (NULL);
+	}
 	while (--b)
 		lnum = ft_lnum_add(lnum, copy_a, 1, 0);
 	ft_lnum_destroy(&copy_a);

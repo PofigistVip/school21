@@ -18,6 +18,8 @@ int				ft_lnum_calc(t_longnumber *lnum, int pos)
 {
 	int value;
 
+	if (lnum == NULL)
+		return (0);
 	value = lnum->digits[pos];
 	if (value < 0)
 	{
@@ -47,6 +49,8 @@ int				ft_lnum_length(t_longnumber *lnum)
 	int	length;
 	int temp;
 
+	if (lnum == NULL)
+		return (0);
 	length = 0;
 	i = FT_LONGNUMBER_SIZE;
 	while (--i >= 0)
@@ -74,7 +78,8 @@ void			ft_lnum_make_decimal(t_longnumber **lnum, int shift)
 	int				min_offset;
 	t_longnumber	*supp;
 
-	supp = ft_lnum_new_int(10);
+	if (lnum == NULL || *lnum == NULL || (supp = ft_lnum_new_int(10)) == NULL)
+		return ;
 	length = ft_lnum_length(*lnum);
 	offset = FT_LONGNUMBER_SIZE * FT_LONGNUMBER_DIG_ON_INT - shift - length;
 	big_offset = offset / FT_LONGNUMBER_DIG_ON_INT;
@@ -92,25 +97,27 @@ char			*ft_lnum_get(t_longnumber *lnum)
 {
 	char	*str;
 	int		length;
-	int		i;
-	int		j;
+	int		i[2];
 	int		temp;
 
+	if (lnum == NULL)
+		return (NULL);
 	length = ft_lnum_length(lnum);
-	str = (char*)malloc(sizeof(char) * (length + 1));
+	if ((str = (char*)malloc(sizeof(char) * (length + 1))) == NULL)
+		return (NULL);
 	str[length--] = '\0';
-	i = 0;
+	i[0] = 0;
 	while (length >= 0)
 	{
-		j = 0;
-		temp = lnum->digits[i];
-		while (length >= 0 && j < FT_LONGNUMBER_DIG_ON_INT)
+		i[1] = 0;
+		temp = lnum->digits[i[0]];
+		while (length >= 0 && i[1] < FT_LONGNUMBER_DIG_ON_INT)
 		{
 			str[length--] = (temp % 10) + '0';
 			temp /= 10;
-			++j;
+			++i[1];
 		}
-		++i;
+		++i[0];
 	}
 	return (str);
 }
@@ -119,25 +126,27 @@ char			*ft_lnum_get_dec(t_longnumber *lnum)
 {
 	char	*str;
 	int		length;
-	int		i;
-	int		j;
+	int		i[2];
 	int		temp;
 
+	if (lnum == NULL)
+		return (NULL);
 	length = (FT_LONGNUMBER_SIZE - lnum->dec_end_on) * FT_LONGNUMBER_DIG_ON_INT;
-	str = (char*)malloc(sizeof(char) * (length + 1));
+	if ((str = (char*)malloc(sizeof(char) * (length + 1))) == NULL)
+		return (NULL);
 	str[length--] = '\0';
-	i = lnum->dec_end_on;
+	i[0] = lnum->dec_end_on;
 	while (length >= 0)
 	{
-		j = 0;
-		temp = lnum->digits[i];
-		while (length >= 0 && j < FT_LONGNUMBER_DIG_ON_INT)
+		i[1] = 0;
+		temp = lnum->digits[i[0]];
+		while (length >= 0 && i[1] < FT_LONGNUMBER_DIG_ON_INT)
 		{
 			str[length--] = (temp % 10) + '0';
 			temp /= 10;
-			++j;
+			++i[1];
 		}
-		++i;
+		++i[0];
 	}
 	return (str);
 }
