@@ -25,12 +25,14 @@ t_lstr			*ft_get_integer(int mant, __uint128_t fraction)
 	lnum = ft_lnum_new_zero();
 	temp = 0;
 	mant -= 63 - pos;
-	while (pos < 64)
+	while (lnum && pos < 64)
 	{
 		if (!temp)
 			temp = ft_lnum_pow2(mant);
 		else
 			temp = ft_lnum_mul_int(temp, 2, 1);
+		if (temp == NULL)
+			break ;
 		if (fraction & ((__uint128_t)1 << pos))
 			lnum = ft_lnum_add(lnum, temp, 1, 0);
 		++mant;
@@ -93,12 +95,13 @@ t_lstr			*ft_get_dec(int mant, __uint128_t fraction, int pos,
 	lnum = ft_lnum_new_zero();
 	ft_lnum_make_decimal(&lnum, 0);
 	temp = 0;
-	while (pos >= 0)
+	while (lnum && pos >= 0)
 	{
 		ft_temp_set(&temp, mant);
 		if (fraction & ((__uint128_t)1 << pos))
 		{
-			tmp = ft_lnum_new_copy(temp);
+			if ((tmp = ft_lnum_new_copy(temp)) == NULL)
+				break ;
 			zeroes = (subnormal) ? ft_subnormal_count_zeroes(pos) :
 				ft_count_zeroes(mant + 16383);
 			ft_lnum_make_decimal(&tmp, zeroes);
