@@ -106,7 +106,8 @@ void			ft_get_arg(char conv, char length, va_list *ap,
 		ft_get_arg_inner(conv, length, ap, arg);
 }
 
-t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos)
+t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos,
+					int *ok)
 {
 	int				pos;
 	t_printf_arg	*args;
@@ -116,7 +117,8 @@ t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos)
 	pos = 1;
 	while (pos < end_pos)
 	{
-		arg = ft_arg_new();
+		if ((arg = ft_arg_new()) == NULL)
+			return (ft_set_ok_link(args, ok));
 		while (els)
 		{
 			if (els->precision_pos == pos || els->width_pos == pos)

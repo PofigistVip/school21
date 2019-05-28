@@ -85,9 +85,11 @@ int				ft_parse_get_number(char **str);
 t_printf_elem	*ft_parse_rawstr(char **fmt, int *ok);
 int				ft_parse_is_reference(char *str);
 void			*ft_set_null_ok(int *ok);
+void			*ft_set_ok_link(void *ret, int *ok);
 
 t_printf_arg	*ft_arg_new(void);
-t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos);
+t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos,
+					int *ok);
 void			ft_push_args(t_printf_elem *els, t_printf_arg *args);
 
 void			ft_putwchar(t_lstr *lstr, wchar_t wc);

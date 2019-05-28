@@ -32,9 +32,14 @@ int		ft_fprintf(int fd, const char *format, ...)
 		return (-1);
 	}
 	va_start(ap, format);
-	args = ft_get_args(elems, &ap, pos);
-	ft_push_args(elems, args);
+	args = ft_get_args(elems, &ap, pos, &ok);
 	va_end(ap);
+	if (!ok)
+	{
+		ft_memfree(elems, args);
+		return (-1);
+	}
+	ft_push_args(elems, args);
 	return (ft_display(fd, elems, args));
 }
 
@@ -54,8 +59,13 @@ int		ft_printf(const char *format, ...)
 		return (-1);
 	}
 	va_start(ap, format);
-	args = ft_get_args(elems, &ap, pos);
+	args = ft_get_args(elems, &ap, pos, &ok);
 	va_end(ap);
+	if (!ok)
+	{
+		ft_memfree(elems, args);
+		return (-1);
+	}
 	ft_push_args(elems, args);
 	return (ft_display(1, elems, args));
 }
