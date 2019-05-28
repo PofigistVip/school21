@@ -15,10 +15,6 @@
 
 int		ft_display_elem_inner(int fd, t_printf_elem *el)
 {
-	if (el->conv_type == 'O')
-		return (ft_display_big_o(fd, el));
-	if (el->conv_type == 'D')
-		return (ft_display_big_d(fd, el));
 	if (el->conv_type == 'C' || el->conv_type == 'c')
 		return (ft_display_big_c(fd, el));
 	if (el->conv_type == 'S' || el->conv_type == 's')
@@ -42,14 +38,12 @@ int		ft_display_elem(int fd, t_printf_elem *el)
 		return (ft_display_s(fd, el));
 	if (el->conv_type == 'c' && el->length_mod != 'l')
 		return (ft_display_c(fd, el));
-	if (el->conv_type == 'o')
+	if (el->conv_type == 'o' || el->conv_type == 'O')
 		return (ft_display_o(fd, el));
-	if (el->conv_type == 'd' || el->conv_type == 'i')
+	if (el->conv_type == 'd' || el->conv_type == 'i' || el->conv_type == 'D')
 		return (ft_display_di(fd, el));
-	if (el->conv_type == 'u')
+	if (el->conv_type == 'u' || el->conv_type == 'U')
 		return (ft_display_u(fd, el));
-	if (el->conv_type == 'U')
-		return (ft_display_big_u(fd, el));
 	if (el->conv_type == 'p')
 		return (ft_display_p(fd, el));
 	return (ft_display_elem_inner(fd, el));

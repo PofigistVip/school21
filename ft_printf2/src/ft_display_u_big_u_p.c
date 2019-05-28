@@ -22,7 +22,8 @@ int		ft_display_u(int fd, t_printf_elem *el)
 	val = el->arg->val_ui;
 	if (val == 0 && el->precision == 0)
 		return (ft_putcharn_fd(fd, ' ', el->width));
-	num = ft_lstr_new_raw(ft_uitoa_base(val, 10, 0));
+	if ((num = ft_lstr_new_raw(ft_uitoa_base(val, 10, 0))) == NULL)
+		return (-1);
 	if (el->precision > num->length)
 		ft_lstr_insert_c(num, '0', el->precision - num->length, 0);
 	if (el->flags & FT_PRINTF_MINUS)
@@ -40,21 +41,16 @@ int		ft_display_u(int fd, t_printf_elem *el)
 	return (val);
 }
 
-int		ft_display_big_u(int fd, t_printf_elem *el)
-{
-	return (ft_display_u(fd, el));
-}
-
 int		ft_display_p(int fd, t_printf_elem *el)
 {
 	unsigned long long int	val;
 	t_lstr					*num;
 
 	val = el->arg->val_ui;
-	if (val != 0 || el->precision > 0)
-		num = ft_lstr_new_raw(ft_uitoa_base(val, 16, 0));
-	else
-		num = ft_lstr_new_empty();
+	num = (val != 0 || el->precision > 0) ?
+		ft_lstr_new_raw(ft_uitoa_base(val, 16, 0)) : ft_lstr_new_empty();
+	if (num == NULL)
+		return (-1);
 	if (el->precision > num->length)
 		ft_lstr_insert_c(num, '0', el->precision - num->length, 0);
 	ft_lstr_insert_s(num, "0x", 0);

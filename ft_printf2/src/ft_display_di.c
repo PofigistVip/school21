@@ -46,10 +46,9 @@ int		ft_display_di(int fd, t_printf_elem *el)
 	t_lstr					*num;
 
 	val = el->arg->val_i;
-	if (val != 0)
-		num = ft_lstr_new_raw(ft_llitoa(val));
-	else
-		num = ft_lstr_new_empty();
+	num = (val != 0) ? ft_lstr_new_raw(ft_llitoa(val)) : ft_lstr_new_empty();
+	if (num == NULL)
+		return (-1);
 	if (val >= 0)
 	{
 		if (el->flags & FT_PRINTF_PLUS)
@@ -63,9 +62,4 @@ int		ft_display_di(int fd, t_printf_elem *el)
 	val = num->length;
 	ft_lstr_destroy(&num);
 	return (val);
-}
-
-int		ft_display_big_d(int fd, t_printf_elem *el)
-{
-	return (ft_display_di(fd, el));
 }

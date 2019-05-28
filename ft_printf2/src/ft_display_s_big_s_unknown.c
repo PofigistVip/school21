@@ -49,7 +49,8 @@ int		ft_display_big_s(int fd, t_printf_elem *el)
 	if (el->arg->ptr == 0)
 		return (ft_display_s(fd, el));
 	wstr = (wchar_t*)el->arg->ptr;
-	lstr = ft_lstr_new_empty();
+	if ((lstr = ft_lstr_new_empty()) == NULL)
+		return (-1);
 	while (*wstr && (el->precision_seted == 0 ||
 			lstr->length + ft_byte_size(*wstr) <= el->precision))
 		ft_putwchar(lstr, *wstr++);
@@ -69,7 +70,8 @@ int		ft_display_unknown(int fd, t_printf_elem *el)
 	int		length;
 	t_lstr	*lstr;
 
-	lstr = ft_lstr_new_empty();
+	if ((lstr = ft_lstr_new_empty()) == NULL)
+		return (-1);
 	ft_lstr_insert_c(lstr, el->conv_type, 1, 0);
 	if (el->width > lstr->length)
 	{
