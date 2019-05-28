@@ -7,7 +7,7 @@
 // #include <math.h>
 // #include <locale.h>
 
-#define FMT "%c %C %s %S, %d, %u, %o, %x, %f %Lf", 'f', L't', "str", L"lstr", 21, 42, 69,  15.234543534, 213213.43243l
+#define FMT "%x", 256
 
 int		main(void)
 {
