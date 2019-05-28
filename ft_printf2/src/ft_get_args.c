@@ -112,23 +112,20 @@ t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos,
 	int				pos;
 	t_printf_arg	*args;
 	t_printf_arg	*arg;
+	t_printf_elem	*el;
 
 	args = 0;
 	pos = 1;
-	while (pos < end_pos)
+	while (pos <= end_pos)
 	{
 		if ((arg = ft_arg_new()) == NULL)
 			return (ft_set_ok_link(args, ok));
+		el = els;
 		while (els)
 		{
-			if (els->precision_pos == pos || els->width_pos == pos)
-				arg->val_i = va_arg(*ap, int);
-			else if (els->pos == pos)
-				ft_get_arg(els->conv_type, els->length_mod, ap, arg);
-			if (els->precision_pos == pos || els->width_pos == pos ||
-				els->pos == pos)
+			if (ft_process_pos(el, pos, ap, arg))
 				break ;
-			els = els->next;
+			el = el->next;
 		}
 		ft_arg_add(&args, arg);
 		++pos;

@@ -101,7 +101,7 @@ char			ft_check_reference(t_printf_elem *el, char **pptr, int *pos)
 	{
 		el->pos = ft_parse_get_number(&ptr);
 		*pos = el->pos + 1;
-		++ptr;
+		ptr += 2;
 	}
 	else
 		use_pos = 1;

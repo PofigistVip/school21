@@ -14,6 +14,39 @@
 #include "libft.h"
 #include "ft_printf.h"
 
+int		ft_process_pos(t_printf_elem *el, int pos, va_list *ap,
+			t_printf_arg *arg)
+{
+	if (el->precision_pos == pos || el->width_pos == pos)
+		arg->val_i = va_arg(*ap, int);
+	else if (el->pos == pos)
+		ft_get_arg(el->conv_type, el->length_mod, ap, arg);
+	else
+		return (0);
+	return (1);
+}
+
+int		ft_max_pos(t_printf_elem *els)
+{
+	int		pos;
+
+	pos = 0;
+	while (els)
+	{
+		if (els->pos > pos)
+			pos = els->pos;
+		if (els->conv_type)
+		{
+			if (els->width_pos > pos)
+				pos = els->width_pos;
+			if (els->precision_pos > pos)
+				pos = els->precision_pos;
+		}
+		els = els->next;
+	}
+	return (pos);
+}
+
 int		ft_fprintf(int fd, const char *format, ...)
 {
 	t_printf_elem	*elems;
@@ -32,7 +65,7 @@ int		ft_fprintf(int fd, const char *format, ...)
 		return (-1);
 	}
 	va_start(ap, format);
-	args = ft_get_args(elems, &ap, pos, &ok);
+	args = ft_get_args(elems, &ap, ft_max_pos(elems), &ok);
 	va_end(ap);
 	if (!ok)
 	{
@@ -59,7 +92,7 @@ int		ft_printf(const char *format, ...)
 		return (-1);
 	}
 	va_start(ap, format);
-	args = ft_get_args(elems, &ap, pos, &ok);
+	args = ft_get_args(elems, &ap, ft_max_pos(elems), &ok);
 	va_end(ap);
 	if (!ok)
 	{

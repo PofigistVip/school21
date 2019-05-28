@@ -86,6 +86,11 @@ t_printf_elem	*ft_parse_rawstr(char **fmt, int *ok);
 int				ft_parse_is_reference(char *str);
 void			*ft_set_null_ok(int *ok);
 void			*ft_set_ok_link(void *ret, int *ok);
+int				ft_max_pos(t_printf_elem *els);
+int				ft_process_pos(t_printf_elem *el, int pos, va_list *ap,
+					t_printf_arg *arg);
+void			ft_get_arg(char conv, char length, va_list *ap,
+					t_printf_arg *arg);
 
 t_printf_arg	*ft_arg_new(void);
 t_printf_arg	*ft_get_args(t_printf_elem *els, va_list *ap, int end_pos,
