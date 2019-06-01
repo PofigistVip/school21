@@ -1,0 +1,6 @@
+#!/bin/bash
+texts=('Be smart' 'Be strong' 'Have a nice day' 'Good luck')
+randomed=$RANDOM
+let "randomed %= 4"
+el=${texts[$randomed]}
+echo "$el"
