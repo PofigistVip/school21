@@ -8,16 +8,15 @@ void		ft_comm_swap(t_stack *stk, t_stack *stk2)
 	int		buff;
 
 	top = stk->top;
-	if (top <= 1)
-		return ;
-	buff = stk->stack[top];
-	stk->stack[top] = stk->stack[top - 1];
-	stk->stack[top - 1] = buff;
-	if (stk2)
+	if (top > 2)
+	{
+		buff = stk->stack[top];
+		stk->stack[top] = stk->stack[top - 1];
+		stk->stack[top - 1] = buff;
+	}
+	if (stk2 && stk2->top > 2)
 	{
 		top = stk2->top;
-		if (top <= 1)
-			return ;
 		buff = stk2->stack[top];
 		stk2->stack[top] = stk2->stack[top - 1];
 		stk2->stack[top - 1] = buff;
@@ -34,13 +33,16 @@ void		ft_comm_rotate(t_stack *stk, t_stack *stk2)
 {
 	int		temp;
 
-	temp = stk->stack[stk->top];
-	ft_memmove(stk->stack + 1, stk->stack, sizeof(int) * (stk->top - 1));
-	stk->stack[0] = temp;
-	if (stk2)
+	if (stk->top >= 1)
+	{
+		temp = stk->stack[stk->top];
+		ft_memmove(stk->stack + 1, stk->stack, sizeof(int) * (stk->top));
+		stk->stack[0] = temp;
+	}
+	if (stk2 && stk2->top >= 1)
 	{
 		temp = stk2->stack[stk2->top];
-		ft_memmove(stk2->stack + 1, stk2->stack, sizeof(int) * (stk2->top - 1));
+		ft_memmove(stk2->stack + 1, stk2->stack, sizeof(int) * (stk2->top));
 		stk2->stack[0] = temp;
 	}
 }
@@ -49,15 +51,31 @@ void		ft_comm_reverse_rotate(t_stack *stk, t_stack *stk2)
 {
 	int		temp;
 
-	temp = stk->stack[0];
-	ft_memmove(stk->stack, stk->stack + 1, sizeof(int) * (stk->top - 1));
-	stk->stack[stk->top] = temp;
-	if (stk2)
+	if (stk->top >= 1)
+	{
+		temp = stk->stack[0];
+		ft_memmove(stk->stack, stk->stack + 1, sizeof(int) * (stk->top));
+		stk->stack[stk->top] = temp;
+	}
+	if (stk2 && stk2->top >= 1)
 	{
 		temp = stk2->stack[0];
-		ft_memmove(stk2->stack, stk2->stack + 1, sizeof(int) * (stk2->top - 1));
+		ft_memmove(stk2->stack, stk2->stack + 1, sizeof(int) * (stk2->top));
 		stk2->stack[stk2->top] = temp;
 	}
+}
+
+void	show_stack(t_stack *stk)
+{
+	int i;
+
+	i = -1;
+	while (++i <= stk->top)
+	{
+		ft_putnbr(stk->stack[i]);
+		ft_putchar(' ');
+	}
+	ft_putchar('\n');
 }
 
 int		ft_do_commands(t_stack *a, t_stack *b)
@@ -91,6 +109,7 @@ int		ft_do_commands(t_stack *a, t_stack *b)
 			ft_comm_reverse_rotate(a, b);
 		else
 			return (0);
+		show_stack(a);	
 	}
 	return (1);
 }

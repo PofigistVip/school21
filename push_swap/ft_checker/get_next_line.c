@@ -22,7 +22,7 @@ static int		get_next_line_get(t_fd_buffer *info, char *new_line_pos,
 	char	*temp;
 	size_t	pos;
 
-	pos = (new_line_pos == NULL) ? info->length : new_line_pos - info->buff;
+	pos = (new_line_pos == NULL) ? info->length : (size_t)(new_line_pos - info->buff);
 	if ((*line = ft_strnew(pos)) == NULL)
 		return (-1);
 	ft_memcpy(*line, info->buff, pos);
