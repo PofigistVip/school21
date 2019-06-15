@@ -26,7 +26,6 @@ int		ft_isint(const char *str)
 		sign = -1;
 	if (*str == '-' || *str == '+')
 		++str;
-	counter = 0;
 	while ('0' <= *str && *str <= '9')
 	{
 		num = num * 10 + (*str - '0');
