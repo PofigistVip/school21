@@ -1,44 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_llitoa.c                                        :+:      :+:    :+:   */
+/*   ft_llist_elem_new.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/09 10:56:03 by larlyne           #+#    #+#             */
-/*   Updated: 2019/04/14 09:31:22 by larlyne          ###   ########.fr       */
+/*   Created: 2019/04/30 12:36:27 by larlyne           #+#    #+#             */
+/*   Updated: 2019/04/30 12:36:28 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #include "libft.h"
 
-char		*ft_llitoa(long long int n)
+t_llist_elem	*ft_llist_elem_new(void *content, size_t content_size)
 {
-	char	sign;
-	char	size;
-	long long int	num;
-	char	*str;
+	t_llist_elem	*elem;
 
-	num = n;
-	size = (num < 0) ? 2 : 1;
-	while (num >= 10 || num <= -10)
-	{
-		size++;
-		num /= 10;
-	}
-	if ((str = (char*)ft_memalloc(size + 1)) == NULL)
+	if ((elem = (t_llist_elem*)malloc(sizeof(t_llist_elem))) == NULL)
 		return (NULL);
-	sign = (n < 0) ? -1 : 1;
-	if (n < 0)
-		*str = '-';
-	while (n >= 10 || n <= -10)
+	if ((elem->content = malloc(content_size)) == NULL)
 	{
-		str[size - 1] = (n % 10) * sign + '0';
-		--size;
-		n /= 10;
+		free(elem);
+		return (NULL);
 	}
-	str[size - 1] = (n % 10) * sign + '0';
-	return (str);
+	ft_memcpy(elem->content, content, content_size);
+	elem->prev = NULL;
+	elem->next = NULL;
+	return (elem);
 }

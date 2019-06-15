@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_llist_destroy.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/10 10:02:06 by larlyne           #+#    #+#             */
-/*   Updated: 2019/04/10 10:02:59 by larlyne          ###   ########.fr       */
+/*   Created: 2019/04/30 12:53:53 by larlyne           #+#    #+#             */
+/*   Updated: 2019/04/30 12:53:56 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "libft.h"
 
-//Пересмотреть
-t_list	*ft_lstnew(void const *content, size_t content_size)
+void	ft_llist_destroy(t_llist **llist, void (*cont_destroy)(void*))
 {
-	t_list	*lst;
+	t_llist_elem	*elem;
+	t_llist_elem	*temp;
 
-	if ((lst = (t_list*)malloc(sizeof(t_list))) == NULL)
-		return (NULL);
-	if (content == NULL)
+	if (llist == NULL || *llist == NULL || cont_destroy == NULL)
+		return ;
+	elem = (*llist)->start;
+	while (elem)
 	{
-		lst->content = NULL;
-		lst->content_size = 0;
+		temp = elem->next;
+		cont_destroy(elem->content);
+		free(elem);
+		elem = temp;
 	}
-	else
-	{
-		if ((lst->content = malloc(content_size)) == NULL)
-			return (NULL);
-		ft_memcpy(lst->content, content, content_size);
-		lst->content_size = content_size;
-	}
-	lst->next = NULL;
-	return (lst);
+	free(*llist);
+	*llist = NULL;
 }

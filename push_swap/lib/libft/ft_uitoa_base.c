@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_uitoa_base.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/26 14:34:45 by larlyne           #+#    #+#             */
-/*   Updated: 2019/05/26 14:34:46 by larlyne          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include <stdlib.h>
 #include <string.h>
@@ -21,8 +11,11 @@ char	*ft_uitoa_base(unsigned long long int nbr, int base, char upper)
 	char					*str;
 	char					*base_str;
 
-	base_str = (upper) ? "0123456789ABCDEF" : "0123456789abcdef";
-	len = 1;
+	if (upper)
+		base_str = "0123456789ABCDEF";
+	else
+		base_str = "0123456789abcdef";
+	len  = 1;
 	n = nbr;
 	while ((n /= base) != 0)
 		++len;

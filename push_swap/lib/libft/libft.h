@@ -105,10 +105,10 @@ long			ft_pos_power(int nb, unsigned int power);
 void			*ft_realloc(void *src, size_t old_size, size_t new_size);
 int				ft_putstrn_fd(int fd, char *str, int n);
 int				ft_putstrn(char *str, int n);
-char			*ft_uitoa_base(unsigned long long int nbr, int base,
-					char upper);
+char			*ft_uitoa_base(unsigned long long int nbr, int base, char upper);
 char			*ft_llitoa(long long int n);
 int				ft_putcharn_fd(int fd, char c, int n);
+int				ft_isint(const char *str);
 
 /*
 ** Larlyne's String
@@ -159,5 +159,40 @@ void			ft_lstr_put(t_lstr *lstr);
 void			ft_lstr_destroy(t_lstr **lstr);
 void			ft_lstr_minimize(t_lstr *lstr);
 int				ft_lstr_resize(t_lstr *lstr, int new_length);
+
+
+
+
+/*
+** larlyne's list
+*/
+
+typedef struct s_llist			t_llist;
+
+typedef struct s_llist_elem		t_llist_elem;
+
+struct			s_llist
+{
+	size_t			content_size;
+	size_t			count;
+	t_llist_elem	*start;
+	t_llist_elem	*end;
+};
+
+struct			s_llist_elem
+{
+	void			*content;
+	t_llist_elem	*prev;
+	t_llist_elem	*next;
+};
+
+t_llist			*ft_llist_create(size_t content_size);
+t_llist_elem	*ft_llist_elem_new(void *content, size_t content_size);
+int				ft_llist_add(t_llist *llist, void *content);
+void			*ft_llist_get(t_llist *llist, size_t index);
+void			ft_llist_remove(t_llist *llist, size_t index,
+					void (*cont_destroy)(void*));
+void			ft_llist_clear(t_llist *llist, void (*cont_destroy)(void*));
+void			ft_llist_destroy(t_llist **llist, void (*cont_destroy)(void*));
 
 #endif

@@ -1,44 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_llitoa.c                                        :+:      :+:    :+:   */
+/*   ft_llist_create.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: larlyne <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/09 10:56:03 by larlyne           #+#    #+#             */
-/*   Updated: 2019/04/14 09:31:22 by larlyne          ###   ########.fr       */
+/*   Created: 2019/04/30 11:39:11 by larlyne           #+#    #+#             */
+/*   Updated: 2019/04/30 11:39:13 by larlyne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #include "libft.h"
 
-char		*ft_llitoa(long long int n)
+t_llist		*ft_llist_create(size_t content_size)
 {
-	char	sign;
-	char	size;
-	long long int	num;
-	char	*str;
+	t_llist	*llist;
 
-	num = n;
-	size = (num < 0) ? 2 : 1;
-	while (num >= 10 || num <= -10)
-	{
-		size++;
-		num /= 10;
-	}
-	if ((str = (char*)ft_memalloc(size + 1)) == NULL)
+	if (content_size == 0)
 		return (NULL);
-	sign = (n < 0) ? -1 : 1;
-	if (n < 0)
-		*str = '-';
-	while (n >= 10 || n <= -10)
-	{
-		str[size - 1] = (n % 10) * sign + '0';
-		--size;
-		n /= 10;
-	}
-	str[size - 1] = (n % 10) * sign + '0';
-	return (str);
+	if ((llist = (t_llist*)malloc(sizeof(t_llist))) == NULL)
+		return (NULL);
+	llist->content_size = content_size;
+	llist->count = 0;
+	llist->start = NULL;
+	llist->end = NULL;
+	return (llist);
 }
