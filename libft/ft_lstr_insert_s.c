@@ -27,4 +27,5 @@ void	ft_lstr_insert_s(t_lstr *lstr, char *str, int index)
 			lstr->length - index);
 	ft_memcpy(lstr->str + index, str, len);
 	lstr->length += len;
+	lstr->str[lstr->length] = 0;
 }

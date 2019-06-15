@@ -25,4 +25,5 @@ void	ft_lstr_insert_c(t_lstr *lstr, char c, int count, int index)
 			lstr->length - index + 1);
 	ft_memset(lstr->str + index, c, count);
 	lstr->length += count;
+	lstr->str[lstr->length] = 0;
 }

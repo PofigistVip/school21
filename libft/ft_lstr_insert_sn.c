@@ -29,4 +29,5 @@ void	ft_lstr_insert_sn(t_lstr *lstr, char *str, int len, int index)
 			lstr->length - index);
 	ft_memcpy(lstr->str + index, str, len);
 	lstr->length += len;
+	lstr->str[lstr->length] = 0;
 }
