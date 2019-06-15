@@ -108,6 +108,7 @@ int				ft_putstrn(char *str, int n);
 char			*ft_uitoa_base(unsigned long long int nbr, int base, char upper);
 char			*ft_llitoa(long long int n);
 int				ft_putcharn_fd(int fd, char c, int n);
+int				ft_isint(const char *str);
 
 /*
 ** Larlyne's String
