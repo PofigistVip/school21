@@ -19,7 +19,7 @@ int		ft_isint(const char *str)
 	int				sign;
 
 	num = 0;
-	while (*str && ('\t' <= *str && *str <= '\r'))
+	while (('\t' <= *str && *str <= '\r') || *str == ' ')
 		++str;
 	sign = 1;
 	if (*str == '-')
