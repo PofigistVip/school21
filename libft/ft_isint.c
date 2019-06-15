@@ -11,11 +11,12 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <limits.h>
 
 int		ft_isint(const char *str)
 {
-	int		num;
-	int		sign;
+	long long int	num;
+	int				sign;
 
 	num = 0;
 	while (*str && ('\t' <= *str && *str <= '\r'))
@@ -25,9 +26,13 @@ int		ft_isint(const char *str)
 		sign = -1;
 	if (*str == '-' || *str == '+')
 		++str;
+	counter = 0;
 	while ('0' <= *str && *str <= '9')
 	{
-		
+		num = num * 10 + (*str - '0');
+		if ((sign == -1 && -num < INT_MIN) || (sign == 1 && num > INT_MAX))
+			return (0);
+		++str;
 	}
 	if (*str != '\0')
 		return (0);
