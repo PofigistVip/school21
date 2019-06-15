@@ -7,7 +7,7 @@
 #include <math.h>
 #include <locale.h>
 
-#define FMT "%2$d %1$d", 42, 21
+#define FMT "%#x", 256
 
 int		main(void)
 {
@@ -32,5 +32,6 @@ int		main(void)
 	ft_putstr("'(");
 	ft_putnbr(len);
 	ft_putstr(")\n");
+	//ft_printf(FMT);
 	return (0);
 }
