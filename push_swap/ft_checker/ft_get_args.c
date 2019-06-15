@@ -6,30 +6,6 @@
 ** Необходима проверка на переполнение
 */
 
-int		ft_is_number(char *str)
-{
-	int		cnt;
-
-	if (*str == '-')
-		++str;
-	if (!*str)
-		return (0);
-	cnt = 0;
-	while (*str)
-	{
-		if ('0' <= *str && *str <= '9')
-		{
-			++cnt;
-			if (cnt > 10)
-				return (0);
-		}
-		else
-			return (0);
-		++str;
-	}
-	return (1);
-}
-
 int		ft_create_stacks(t_stack **a, t_stack **b, int size)
 {
 	if ((*a = ft_stack_new(size)) == NULL)
@@ -56,10 +32,10 @@ int		ft_get_args(int argc, char **argv, t_stack **a, t_stack **b)
 
 	if (!ft_create_stacks(a, b, argc - 1))
 		return (0);
-	i = 0;
-	while (++i < argc)
+	i = argc - 1;
+	while (i > 0)
 	{
-		if (ft_is_number(argv[i]))
+		if (ft_isint(argv[i]))
 		{
 			numb = ft_atoi(argv[i]);
 			if (ft_stack_contains(*a, numb))
