@@ -21,6 +21,7 @@ int		validation(char *str)
 	int		number_counter;
 	int		op_counter;
 
+
 	number_counter = 0;
 	op_counter = 0;
 	while (*str)
@@ -76,12 +77,10 @@ void	push(t_stack **stack, int num)
 	elem->num = num;
 	elem->next = *stack;
 	*stack = elem;
-	printf("%d get\n", num);
 }
 
 int		do_op(int num1, int num2, char op)
 {
-	printf("%d %c %d\n", num1, num2, op);
 	if (op == '+')
 		return (num1 + num2);
 	if (op == '-')
@@ -102,7 +101,6 @@ int		calc(char *str)
 	int		num2;
 
 	stack = (void*)0;
-	printf("a");
 	while (*str)
 	{
 		if (!is_space(*str))
@@ -115,7 +113,6 @@ int		calc(char *str)
 			}
 			else if (is_op(*str))
 			{
-				printf("a");
 				if ((*str == '+' || *str == '-') && is_digit(*(str + 1)))
 				{
 					push(&stack, atoi(str));
@@ -145,7 +142,7 @@ int		calc(char *str)
 int		main(int argc, char **argv)
 {
 	setbuf(stdout, NULL);
-	if (argc != 2 || validation(argv[1]))
+	if (argc != 2 || validation(argv[1]) == 0)
 	{
 		printf("Error\n");
 		return (-1);
